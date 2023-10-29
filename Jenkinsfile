@@ -20,8 +20,11 @@ DEPLOYMENTDESCRIPTION = null
     stage("Build Package") {
       steps {
         script {
+		  def properties = readProperties file: "devops\\deploymentmanagement.test.properties"
+		  REPOUSERNAME = properties['repoUsername']
+		  REPOPASSWORD = properties['repoPassword']
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.buildPackage("version-manager.properties")
+          jenkinsUtils.buildPackage("version-manager.properties", REPOUSERNAME, REPOPASSWORD)
         }
       }
     }
