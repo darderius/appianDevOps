@@ -36,11 +36,11 @@ void retrieveLogs(propertyFile) {
   return "f4a/FitNesseForAppian/FitNesseRoot/files/testResults/${zipName}"
 }
 
-void buildPackage(versionPropertyFile, repoUserName, repoPassword) {
+void buildPackage(versionPropertyFile) {
   sh "cp devops/adm/" + versionPropertyFile + " adm/appian-version-client/version-manager.properties"
   dir("adm/appian-version-client") {
-    setProperty("version-manager.properties", "vcUsername", repoUsername)
-    setProperty("version-manager.properties", "vcPassword", repoPassword)
+    //setProperty("version-manager.properties", "vcUsername", repoUsername)
+    //setProperty("version-manager.properties", "vcPassword", repoPassword)
     setProperty("version-manager.properties", "appianObjectsRepoPath", "appian/applications/${APPLICATIONNAME}")
     sh "./version-application.sh -package_path ./app-package.zip -local_repo_path ./local-repo"
     sh "unzip ./app-package.zip"
