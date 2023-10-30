@@ -42,8 +42,6 @@ void buildPackage(versionPropertyFile) {
     setProperty("version-manager.properties", "vcUsername", "${REPOUSERNAME}")
     setProperty("version-manager.properties", "vcPassword", "${REPOPASSWORD}")
     setProperty("version-manager.properties", "appianObjectsRepoPath", "appian/applications/${APPLICATIONNAME}")
-	sh "chmod 777 version-application.sh"
-	sh "git config --global http.sslVerify false"
     sh "./version-application.sh -package_path ./app-package.zip -local_repo_path ./local-repo"
     sh "unzip ./app-package.zip"
     sh "mv application* ../deploy-package.zip"
@@ -59,9 +57,9 @@ void inspectPackage(customProperties) {
   String response = null
   if (fileExists("appian/properties/${APPLICATIONNAME}/" + customProperties)) {
   	println "Properties Exist"
-	response=sh( script:"curl --location --insecure --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\"", returnStdout: true).trim()
+	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\"", returnStdout: true).trim()
   } else{
-  	response=sh( script:"curl --location  --insecure --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\"}\"", returnStdout: true).trim()
+  	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\"}\"", returnStdout: true).trim()
   }
   println response
   //.readLines().drop(1).join(" ")
