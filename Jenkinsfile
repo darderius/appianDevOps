@@ -17,15 +17,15 @@ DEPLOYMENTDESCRIPTION = null
     
     
    
-    stage("Build Package") {
-      steps {
-        script {
+    //stage("Build Package") {
+    //  steps {
+    //    script {
 		  
-          def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.buildPackage("version-manager.properties")
-        }
-      }
-    }
+    //      def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+    //      jenkinsUtils.buildPackage("version-manager.properties")
+    //    }
+    //  }
+    //}
 
     stage("Inspect Package - Test") {
       steps {
