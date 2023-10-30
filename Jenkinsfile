@@ -14,6 +14,18 @@ DEPLOYMENTNAME = null
 DEPLOYMENTDESCRIPTION = null
 }
   stages {
+    
+    
+   
+    stage("Build Package") {
+      steps {
+        script {
+		  
+          def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+          jenkinsUtils.buildPackage("version-manager.properties")
+        }
+      }
+    }
 
     stage("Inspect Package - Test") {
       steps {
