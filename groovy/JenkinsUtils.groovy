@@ -42,6 +42,8 @@ void buildPackage(versionPropertyFile) {
     setProperty("version-manager.properties", "vcUsername", "${REPOUSERNAME}")
     setProperty("version-manager.properties", "vcPassword", "${REPOPASSWORD}")
     setProperty("version-manager.properties", "appianObjectsRepoPath", "appian/applications/${APPLICATIONNAME}")
+	sh "chmod 777 version-application.sh"
+	sh "git config --global http.sslVerify false"
     sh "./version-application.sh -package_path ./app-package.zip -local_repo_path ./local-repo"
     sh "unzip ./app-package.zip"
     sh "mv application* ../deploy-package.zip"
