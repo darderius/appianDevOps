@@ -19,7 +19,7 @@ DEPLOYMENTDESCRIPTION = null
     stage("Install AVM and FitNesse for Appian") {
       steps {
         script {
-          def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+          def jenkinsUtils = load "groovy/JenkinsUtils.groovy" 
 
           // Retrieve and setup ADM
           sh "rm -rf adm f4a"
