@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>a2032b03-8b89-4e03-b4e6-3c28b970145a</versionUuid>
+  <recordType a:uuid="65e78895-f0fc-44a2-964b-70dbe29409b7" name="P_IMV_DATOS_ESTADOS">
+    <a:pluralName>P_IMV_DATOS_ESTADOS</a:pluralName>
+    <a:urlStub>aBfDZw</a:urlStub>
+    <a:source
+      a:uuid="32ffe507-ba34-452b-8fd0-cbc8f991cf2a@_a-0000e85d-70a7-8000-343c-01ef9001ef90_577780" xsi:type="a:DataStoreEntity"/>
+    <a:listViewTemplateExpr>#"SYSTEM_SYSRULES_recordGridField"(
+  columns: {
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Nombre",
+      sortField: #"urn:appian:record-field:v1:65e78895-f0fc-44a2-964b-70dbe29409b7/nombre",
+      value:fv!row[#"urn:appian:record-field:v1:65e78895-f0fc-44a2-964b-70dbe29409b7/nombre"]
+    ),
+    #"SYSTEM_SYSRULES_gridColumn"(
+      label: "Conteo",
+      sortField: #"urn:appian:record-field:v1:65e78895-f0fc-44a2-964b-70dbe29409b7/conteo",
+      value: fv!row[#"urn:appian:record-field:v1:65e78895-f0fc-44a2-964b-70dbe29409b7/conteo"],
+      align: "END"
+    )
+  },
+  pageSize: 50,
+  shadeAlternateRows: true
+)</a:listViewTemplateExpr>
+    <a:detailViewCfg>
+      <a:nameExpr>#"SYSTEM_SYSRULES_rtd_getDefaultSummaryViewName"()</a:nameExpr>
+      <a:uiExpr>#"_a-0000e85d-70a7-8000-343c-01ef9001ef90_575928"()</a:uiExpr>
+      <a:visibilityExpr>=true()</a:visibilityExpr>
+      <a:urlStub>summary</a:urlStub>
+      <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+    </a:detailViewCfg>
+    <a:isSystem>false</a:isSystem>
+    <a:titleExpr>rv!record[#"urn:appian:record-field:v1:65e78895-f0fc-44a2-964b-70dbe29409b7/nombre"]</a:titleExpr>
+    <a:layoutType>GRID</a:layoutType>
+    <a:security>16383</a:security>
+    <a:hideLatestNews>false</a:hideLatestNews>
+    <a:hideNewsView>false</a:hideNewsView>
+    <a:hideRelatedActionsView>false</a:hideRelatedActionsView>
+    <a:isExportable>true</a:isExportable>
+    <a:recordTypeSearchCfg>
+      <searchFieldsSrc>DEFAULT</searchFieldsSrc>
+      <placeholderSrc>DEFAULT</placeholderSrc>
+    </a:recordTypeSearchCfg>
+    <a:iconId>f2f0</a:iconId>
+    <a:listAutoRefreshInterval>0.0</a:listAutoRefreshInterval>
+    <a:enabledFeatures>63</a:enabledFeatures>
+    <a:isVisibleInRecordTypeList>false</a:isVisibleInRecordTypeList>
+    <a:recordActionLaunchType>DIALOG</a:recordActionLaunchType>
+    <a:showSearchBox>true</a:showSearchBox>
+  </recordType>
+  <roleMap>
+    <role name="record_type_administrator">
+      <users/>
+      <groups>
+        <groupUuid>_e-0000e570-a52b-8000-9af2-01075c01075c_83</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="054e33c5-bc74-4748-aa88-cdca84907bfa"/>
+    <historyInfo versionUuid="7cbb7eee-4f9b-4a9e-9a1e-13c5fe894549"/>
+    <historyInfo versionUuid="a2032b03-8b89-4e03-b4e6-3c28b970145a"/>
+  </history>
+  <migrationVersion>1</migrationVersion>
+</recordTypeHaul>

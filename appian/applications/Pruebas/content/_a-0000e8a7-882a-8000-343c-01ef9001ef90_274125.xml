@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e8a7-882a-8000-343c-01ef9001ef90_274129</versionUuid>
+    <constant>
+        <name>P_Estados_Coger_Numero</name>
+        <uuid>_a-0000e8a7-882a-8000-343c-01ef9001ef90_274125</uuid>
+        <description>Estados para coger el numero de expediente</description>
+        <parentUuid>_a-0000e668-b124-8000-9bb9-011c48011c48_190019</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Afiliación integrada OK</el>
+                <el>Expediente admitido</el>
+                <el>Expediente creado</el>
+                <el>Inadmisión bloqueada</el>
+                <el>Integración INE OK</el>
+                <el>Integración SGDA OK</el>
+                <el>Integración AEAT OK</el>
+                <el>Solicitud recibida</el>
+                <el>Petición INE enviada</el>
+                <el>Petición AEAT enviada</el>
+                <el>Distribución dirección provincial</el>
+                <el>Comprobar incompatibilidades</el>
+                <el>Derecho de opción</el>
+                <el>Solicitud de subsanación formal</el>
+                <el>Desestimiento derecho de opción</el>
+                <el>Afiliación error alta</el>
+                <el>Fiscalización error datos</el>
+                <el>Integración INE error sistemas</el>
+                <el>Integración SGDA error datos</el>
+                <el>AEAT error Integración hacienda error datos</el>
+                <el>Integración PF error sistemas</el>
+                <el>Proceso inadmisión error</el>
+                <el>AEAT error sistemas</el>
+                <el>Afiliacion error datos</el>
+                <el>Afiliacion error sistemas</el>
+                <el>Derecho opcion error envio</el>
+                <el>Distribucion DP error</el>
+                <el>Error integridad</el>
+                <el>Fiscalizacion error generacion pdf</el>
+                <el>Fiscalizacion error sistemas</el>
+                <el>INE error datos</el>
+                <el>PF error datos</el>
+                <el>Registro error datos</el>
+                <el>Registro error sistemas</el>
+                <el>SGDA error sistemas</el>
+                <el>Sartido error datos</el>
+                <el>Sartido error sistemas</el>
+            </value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e8a7-882a-8000-343c-01ef9001ef90_274129"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_625636</versionUuid>
+    <dataStore>
+        <uuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_577780</uuid>
+        <name>P_almacen_exportar_excel</name>
+        <description></description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>32ffe507-ba34-452b-8fd0-cbc8f991cf2a</uuid>
+                <name>exportar</name>
+                <type>{urn:com:appian:types:P}P_datosExportar</type>
+            </entity>
+            <entity>
+                <uuid>f1eaec89-cc05-44c5-8138-1ea8db2dd2d4</uuid>
+                <name>usuarios</name>
+                <type>{urn:com:appian:types:PUsuarios}P_Usuarios</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e5cd-0f79-8000-9af8-01075c01075c_115</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_577791"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_625482"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_625636"/>
+    </history>
+</dataStoreHaul>

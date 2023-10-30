@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e75e-fc03-8000-33fa-01ef9001ef90_12636</versionUuid>
+    <rule>
+        <name>P_obtenerUsuariosDesarrollo</name>
+        <uuid>_a-0000e75e-fc03-8000-33fa-01ef9001ef90_12631</uuid>
+        <description></description>
+        <parentUuid>_a-0000e75e-fc03-8000-33fa-01ef9001ef90_6838</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!usuarios: #"SYSTEM_SYSRULES_queryEntity_v1"(
+    entity: #"_a-0000e668-b124-8000-9bb9-011c48011c48_241715",
+    query: #"SYSTEM_SYSRULES_query"(paginginfo: #"SYSTEM_SYSRULES_pagingInfo"(1, - 1))
+  ).data,
+  #"SYSTEM_SYSRULES_forEach"(
+    items: local!usuarios,
+    expression: 'type!{urn:com:appian:types:arc}INSS_ARC_DatosUsuarioCompletos'(
+      usuario: fv!item,
+      perfiles: #"SYSTEM_SYSRULES_queryEntity_v1"(
+        entity: #"_a-0000e668-b124-8000-9bb9-011c48011c48_247775",
+        query: #"SYSTEM_SYSRULES_query"(
+          filter: #"SYSTEM_SYSRULES_queryFilter"(
+            field: "idUsuario",
+            operator: "=",
+            value: fv!item.idUsuario
+          ),
+          paginginfo: #"SYSTEM_SYSRULES_pagingInfo"(1, - 1)
+        )
+      ).data
+    )
+  )
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e75e-fc03-8000-33fa-01ef9001ef90_12636"/>
+    </history>
+</contentHaul>

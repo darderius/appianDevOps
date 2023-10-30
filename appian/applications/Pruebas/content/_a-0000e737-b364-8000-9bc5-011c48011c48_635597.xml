@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e8a7-882a-8000-343c-01ef9001ef90_231502</versionUuid>
+    <rule>
+        <name>TEST_FM_visualizarDocSubsanacionPrueba</name>
+        <uuid>_a-0000e737-b364-8000-9bc5-011c48011c48_635597</uuid>
+        <description>Interfaz que permite al tramitador visualizar el documento de subsanación que se envía al ciudadano.</description>
+        <parentUuid>_a-0000e75e-fc03-8000-33fa-01ef9001ef90_6838</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_formLayout_v1"(
+  label: "Revisión del documento a enviar al ciudadano",
+  contents: {
+    /*a!richTextDisplayField(*/
+    /*value: */
+    /*a!richTextHeader(*/
+    /*text: local!name,*/
+    /*size: "LARGE",*/
+    /*showWhen: and(*/
+    /*ri!showWhen,*/
+    /*not(isnull(*/
+    /*index(*/
+    /*getdocumentsfromfolder(cons!P_constantepreuba, false),*/
+    /*ri!index,1,*/
+    /*null*/
+    /*)*/
+    /*))*/
+    /*)*/
+    /*)),*/
+
+
+    /*a!documentViewerField(*/
+    /*document: cons!INSS_IMV_DOC_LOGO,*/
+    /*showWhen: not(isnull(*/
+    /*index(*/
+    /*getdocumentsfromfolder(cons!INSS_IMV_FD_TEMPORAL, false),*/
+    /*ri!index,*/
+    /*null*/
+    /*)*/
+    /*))*/
+    /*        */
+    /*)*/
+    #"SYSTEM_SYSRULES_documentViewerField"(
+      label: "Documento a revisar",
+      labelPosition: "COLLAPSED",
+      document: ri!pdf
+    )
+  },
+  buttons: #"SYSTEM_SYSRULES_ButtonLayout"(
+    primaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+      /*label: cons!INSS_ARC_LAB_BOTONES_POPUPS[4],*/
+      saveInto: a!save(
+        ri!continuar,
+        true
+      ),
+      confirmMessage: "¿Confirmar la validez del documento?",
+      submit: true,
+      validate: true,
+      style: "PRIMARY"
+    ),
+    secondaryButtons: #"SYSTEM_SYSRULES_ButtonWidget"(
+      label: "Volver",
+      saveInto: a!save(
+        ri!continuar,
+        false
+      ),
+      submit: true,
+      validate: false,
+      style: "NORMAL"
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>continuar</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pdf</name>
+            <type>
+                <name>CollaborationDocument</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e737-b364-8000-9bc5-011c48011c48_635602"/>
+        <historyInfo versionUuid="_a-0000e737-b364-8000-9bc5-011c48011c48_635748"/>
+        <historyInfo versionUuid="_a-0000e741-f17f-8000-33ec-01ef9001ef90_6960"/>
+        <historyInfo versionUuid="_a-0000e8a7-882a-8000-343c-01ef9001ef90_231502"/>
+    </history>
+</contentHaul>

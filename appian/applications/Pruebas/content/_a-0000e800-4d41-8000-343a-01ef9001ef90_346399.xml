@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e9ab-f650-8000-343e-01ef9001ef90_293729</versionUuid>
+    <rule>
+        <name>P_IMV_UT_reconocimientoDerechoProcesoInadmision_v2</name>
+        <uuid>_a-0000e800-4d41-8000-343a-01ef9001ef90_346399</uuid>
+        <description>Regla de expresión que comprueba el reconocimiento del derecho(V2) de un expediente antes de lanzar el proceso de inadmisión</description>
+        <parentUuid>_a-0000e75e-fc03-8000-33fa-01ef9001ef90_6838</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!expediente:
+  #"_a-0000e668-b124-8000-9bb9-011c48011c48_213542"(idExpediente: ri!idExpediente),
+  local!formularioSolicitado: #"_a-0000e6ca-6390-8000-9bbf-011c48011c48_474230"(codigoFormulario: "PF"),
+  local!preguntas: #"_a-0000e5cd-0f79-8000-9bab-011c48011c48_73124"(
+    idFormulario: touniformstring(
+      property(
+        local!formularioSolicitado,
+        "idFormulario",
+        null
+      )
+    )
+  ),
+  local!valoresAPI: #"_a-0000e776-2161-8000-9bc9-011c48011c48_779435"(
+    idConcepto: #"_a-0000e7a6-7eb4-8000-3420-01ef9001ef90_158580",
+    anyo: year(now())
+  ),
+  local!miembrosAPI: #"_a-0000e7a6-7eb4-8000-3420-01ef9001ef90_162000"(
+    miembros: property(local!expediente, "miembros", {})
+  ),
+  local!miembrosAPIEdad: #"SYSTEM_SYSRULES_forEach"(
+    items: property(local!valoresAPI, "valor", 0),
+    expression: length(
+      cast(
+        101,
+        wherecontains(
+          tointeger(fv!item),
+          cast(
+            101,
+            property(local!miembrosAPI, "importe", 0)
+          )
+        )
+      )
+    )
+  ),
+  local!totalAPI: todecimal(
+    sum(
+      cast(
+        101,
+        property(local!miembrosAPI, "importe", 0)
+      )
+    )
+  ),
+  local!anyo: year(now()),
+  local!esNavarra: if(
+    mid(ri!idExpediente, 2, 2) = #"_a-0000e6f8-78f4-8000-9bc2-011c48011c48_581197",
+    1,
+    0
+  ),
+  local!getCorteRentas: if(
+    local!esNavarra,
+    /*Si es navarra buscamos otra fecha para el corte de haciendas forales*/
+    todate(
+      #"_a-0000e85d-70a7-8000-343c-01ef9001ef90_367030"(anyoCurso: local!anyo).fechaIniImputForales[1]
+    ),
+    todate(
+      #"_a-0000e85d-70a7-8000-343c-01ef9001ef90_367030"(anyoCurso: local!anyo).fechaIniRentas[1]
+    )
+  ),
+  local!getCorteImputaciones: if(
+    local!esNavarra,
+    /*Si es navarra buscamos otra fecha para el corte de haciendas forales*/
+    todate(
+      #"_a-0000e776-2161-8000-9bc9-011c48011c48_779435"(
+        idConcepto: #"_a-0000e737-b364-8000-9bc5-011c48011c48_769802",
+        anyo: local!anyo
+      ).valor
+    ),
+    /*Fecha de corte para las haciendas no forales*/
+    todate(
+      #"_a-0000e776-2161-8000-9bc9-011c48011c48_779435"(
+        idConcepto: #"_a-0000e737-b364-8000-9bc5-011c48011c48_768015",
+        anyo: local!anyo
+      ).valor
+    )
+  ),
+  /*Periodo del expediente*/
+  local!obtenerPeriodoRenta: if(
+    todate(now()) &lt;= local!getCorteImputaciones,
+    1,
+    if(
+      todate(now()) &gt; todate(local!getCorteRentas),
+      3,
+      2
+    )
+  ),
+  /*Valido si es Transitoria 3ra*/
+  local!esDT3: not(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+      index(
+        index(
+          index(local!expediente, "solicitante", null),
+          "formulario",
+          null
+        ),
+        "ingresosActuales",
+        null
+      )
+    )
+  ),
+  /*Obtengo el iDConcepto a utilizar para obtener los baremos*/
+  local!adultos: #"_a-0000e668-b124-8000-9bb9-011c48011c48_183228"(expediente: local!expediente),
+  local!menores: #"_a-0000e668-b124-8000-9bb9-011c48011c48_183240"(expediente: local!expediente),
+  local!situacionUC: #"_a-0000e593-6af6-8000-9ba8-011c48011c48_19153"(
+    numAdultos: local!adultos,
+    numMenores: local!menores
+  ),
+  local!sinAdultos: local!adultos &lt;= 0,
+  if(
+    local!sinAdultos,
+    /*Tratar Sin Adultos*/
+    a!localVariables(
+      local!datosSolicitanteOrdinaria: 'type!{urn:com:giss:types:imv}INSS_IMV_datosPHA60'(
+        indSituacionSolicitante: null,
+        unidadMercantil: false,
+        patrimonioUC: 0,
+        ingresosUC: 0,
+        numAdultos: local!adultos,
+        numMenores: local!menores,
+        monoparental: false,
+        limitePatrimonio: 99999,
+        limiteIngresos: 99999,
+        superaAPi: false,
+        limiteAPi: 99999,
+        superaActivos: false,
+        limiteActivos: 99999,
+        activosUC: 0,
+        limitePatrimonioApi: 99999
+      ),
+      {
+        expediente: local!expediente,
+        datosSolicitanteVencido: local!datosSolicitanteOrdinaria,
+        reconocimientoDerecho: #"_a-0000e776-bade-8000-340e-01ef9001ef90_44354"(
+          datosSolicitanteOrdinaria: local!datosSolicitanteOrdinaria,
+          limiteIngresos: 99999,
+          limitePatrimonio: 999999,
+          indDT3: false,
+          datosSolicitanteDT3: local!datosSolicitanteOrdinaria
+        ),
+        periodoRenta: local!obtenerPeriodoRenta,
+        indDT3: local!esDT3,
+        noPresentaIRPF: false,
+        miembrosAPIEdad: local!miembrosAPIEdad,
+        miembros: local!miembrosAPI,
+        totalAPI: local!totalAPI * 12,
+        indMonoparentalidad: false,
+        indDiscapacidad: false,
+        hayAutonomos: false
+      }
+    ),
+    /*Tratar Con Adultos*/
+    a!localVariables(
+      /*Calcular indicadores de monoparentalidad y discapacidad*/
+      local!indMonoparentalidad: index(
+        #"3378e6dc-eaf6-4513-aeaa-6497805201f1"(
+          respuestas: property(local!expediente, "respuestas", null),
+          preguntas: local!preguntas,
+          tipoNegocio: 2,
+          idFormulario: property(
+            local!formularioSolicitado,
+            "idOriginal",
+            0
+          ),
+          numeroAdultos: local!adultos
+        ),
+        1,
+        "resultado",
+        toboolean(null)
+      ),
+      local!indDiscapacidad: index(
+        #"3378e6dc-eaf6-4513-aeaa-6497805201f1"(
+          respuestas: property(local!expediente, "respuestas", null),
+          preguntas: local!preguntas,
+          tipoNegocio: 5,
+          idFormulario: property(
+            local!formularioSolicitado,
+            "idOriginal",
+            0
+          )
+        ),
+        1,
+        "resultado",
+        toboolean(null)
+      ),
+      /*Obtenemos limites de Ingresos y Patrimonio por Situacion del Solicitante*/
+      local!datosLimitePatrimonio: #"_a-0000e776-bade-8000-340e-01ef9001ef90_44004"(
+        indSituacionSolicitante: local!situacionUC,
+        anyo: local!anyo
+      ),
+      local!limiteIngresos: fixed(
+        roundup(
+          #"_a-0000e7c8-6101-8000-3425-01ef9001ef90_163146"(
+            expediente: updatedictionary(
+              local!expediente,
+              {
+                indMonoparentalidad: local!indMonoparentalidad,
+                indDiscapacidad: local!indDiscapacidad
+              }
+            ),
+            anyo: year(now()),
+            situacion: local!situacionUC
+          ),
+          2
+        )
+      ),
+      local!limitePatrimonio: index(
+        local!datosLimitePatrimonio,
+        "patrimonio",
+        ""
+      ),
+      /*Obtenemos los datos de Hacienda a utilizar*/
+      local!datosHacienda: #"_a-0000e79e-2a1f-8000-341a-01ef9001ef90_73884"(
+        idExpediente: ri!idExpediente,
+        provAperturaEsNavarra: local!esNavarra
+      ),
+      /*Presenta IRPF*/
+      local!noPresentaIRPF: or(
+        #"SYSTEM_SYSRULES_forEach"(
+          items: if(
+            local!esNavarra,
+            index(
+              local!datosHacienda,
+              "indDatosOrigen",
+              null
+            ),
+            index(local!datosHacienda, "datosOrigen", null)
+          ),
+          expression: tointeger(fv!item) = 4
+        )
+      ),
+      /*Indexo campos de Actividades economicas*/
+      local!actividadesEconomicas: if(
+        local!esNavarra,
+        0,
+        cast(
+          102,
+          #"SYSTEM_SYSRULES_forEach"(
+            cast(
+              103,
+              {
+                "valorBBDD11",
+                "valorBBDD12",
+                "valorBBDD13",
+                "valorBBDD14",
+                "valorBBDD16",
+                "valorBBDD17"
+              }
+            ),
+            index(local!datosHacienda, fv!item, null)
+          )
+        )
+      ),
+      /*Integrantes con activiadaes economicas - Autónomos*/
+      local!hayAutonomos: or(
+        #"SYSTEM_SYSRULES_forEach"(
+          items: local!actividadesEconomicas,
+          expression: todecimal(fv!item) &gt; 0
+        )
+      ),
+      local!ingresosUC: fixed(
+        roundup(
+          #"_a-0000e776-bade-8000-340e-01ef9001ef90_41700"(
+            idExpediente: ri!idExpediente,
+            periodoRenta: local!obtenerPeriodoRenta,
+            anyo: local!anyo - if(local!obtenerPeriodoRenta = 1, 2, 1),
+            esNavarra: local!esNavarra
+          ),
+          2
+        )
+      ),
+      local!patrimonioUC: fixed(
+        roundup(
+          #"_a-0000e776-bade-8000-340e-01ef9001ef90_44212"(
+            datosHacienda: local!datosHacienda,
+            limitePatrimonio: local!limitePatrimonio,
+            esNavarra: local!esNavarra,
+            periodoRenta: local!obtenerPeriodoRenta
+          ),
+          2
+        )
+      ),
+      local!ingresosAPI: #"_a-0000e7c8-6101-8000-3425-01ef9001ef90_170904"(
+        datosHacienda: local!datosHacienda,
+        ingresosUC: local!ingresosUC,
+        limiteIngresosUC: local!limiteIngresos,
+        limitePatrimonioUC: local!limitePatrimonio,
+        esNavarra: local!esNavarra,
+        periodoRenta: local!obtenerPeriodoRenta,
+        menores: local!menores
+      ),
+      local!ingresosTestActivos: fixed(
+        roundup(
+          #"_a-0000e7d4-8b0c-8000-3427-01ef9001ef90_180936"(
+            datosHacienda: local!datosHacienda,
+            periodoRenta: local!obtenerPeriodoRenta
+          ),
+          2
+        )
+      ),
+      local!limiteTestActivos: fixed(
+        roundup(
+          #"_a-0000e800-4d41-8000-343a-01ef9001ef90_336179"(
+            anyo: year(now()),
+            situacion: local!situacionUC
+          ),
+          2
+        )
+      ),
+      local!unidadMercantil: #"_a-0000e776-bade-8000-340e-01ef9001ef90_44184"(
+        datosHacienda: local!datosHacienda,
+        esNavarra: local!esNavarra,
+        periodoRenta: local!obtenerPeriodoRenta
+      ),
+      /*Datos de solicitud Ordinaria*/
+      local!datosSolicitanteOrdinaria: 'type!{urn:com:giss:types:imv}INSS_IMV_datosPHA60'(
+        indSituacionSolicitante: local!situacionUC,
+        unidadMercantil: local!unidadMercantil,
+        patrimonioUC: local!patrimonioUC,
+        ingresosUC: local!ingresosUC,
+        numAdultos: local!adultos,
+        numMenores: local!menores,
+        monoparental: local!indMonoparentalidad,
+        limitePatrimonio: local!limitePatrimonio,
+        limiteIngresos: local!limiteIngresos,
+        superaAPi: property(local!ingresosAPI, "superaAPi", false),
+        limiteAPi: if(
+          #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(local!ingresosAPI.limiteIngresosAPI),
+          null,
+          property(
+            local!ingresosAPI,
+            "limiteIngresosAPI",
+            99999
+          )
+        ),
+        superaActivos: todecimal(local!ingresosTestActivos) &gt; todecimal(local!limiteTestActivos),
+        limiteActivos: local!limiteTestActivos,
+        activosUC: local!ingresosTestActivos,
+        limitePatrimonioApi: if(
+          #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(local!ingresosAPI.limitePatrimonioAPI),
+          null,
+          property(
+            local!ingresosAPI,
+            "limitePatrimonioAPI",
+            99999
+          )
+        )
+      ),
+      /*Salida del Expediente*/
+      {
+        expediente: local!expediente,
+        datosSolicitanteVencido: local!datosSolicitanteOrdinaria,
+        reconocimientoDerecho: #"_a-0000e776-bade-8000-340e-01ef9001ef90_44354"(
+          datosSolicitanteOrdinaria: local!datosSolicitanteOrdinaria,
+          limiteIngresos: local!limiteIngresos,
+          limitePatrimonio: local!limitePatrimonio,
+          indDT3: false,
+          datosSolicitanteDT3: local!datosSolicitanteOrdinaria
+        ),
+        periodoRenta: local!obtenerPeriodoRenta,
+        indDT3: local!esDT3,
+        noPresentaIRPF: local!noPresentaIRPF,
+        miembrosAPIEdad: local!miembrosAPIEdad,
+        miembros: local!miembrosAPI,
+        totalAPI: local!totalAPI * 12,
+        indMonoparentalidad: local!indMonoparentalidad,
+        indDiscapacidad: local!indDiscapacidad,
+        hayAutonomos: local!hayAutonomos
+      }
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>idExpediente</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name>Caso genera reconocimiento del derecho al expediente</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">/*index(rule!INSS_IMV_UT_manejoBusquedaExpediente(
+  estado: null,
+  fechaEntrada: null,
+  pagingInfo: a!pagingInfo(1,1),
+  idTramitador: null,
+  idExpediente: null,
+  cdProvincia: null,
+  fechaHasta: null,
+  fechaEstado: null 
+).data, "idExpedienteFuncional",null)*/</a:value>
+                    <a:nameRef>idExpediente</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+            <el>
+                <a:name>Caso valor nulo</a:name>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">null</a:value>
+                    <a:nameRef>idExpediente</a:nameRef>
+                    <a:id>1</a:id>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e800-4d41-8000-343a-01ef9001ef90_346413"/>
+        <historyInfo versionUuid="_a-0000e808-f725-8000-3435-01ef9001ef90_221756"/>
+        <historyInfo versionUuid="_a-0000e808-f725-8000-3435-01ef9001ef90_222029"/>
+        <historyInfo versionUuid="_a-0000e808-f725-8000-3435-01ef9001ef90_223932"/>
+        <historyInfo versionUuid="_a-0000e87f-f1e1-8000-3439-01ef9001ef90_228430"/>
+        <historyInfo versionUuid="_a-0000e9ab-f650-8000-343e-01ef9001ef90_293729"/>
+    </history>
+</contentHaul>

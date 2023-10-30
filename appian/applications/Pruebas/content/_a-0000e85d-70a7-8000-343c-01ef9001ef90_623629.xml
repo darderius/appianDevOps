@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_623634</versionUuid>
+    <constant>
+        <name>P_BATCH_cambioEstado</name>
+        <uuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_623629</uuid>
+        <description></description>
+        <parentUuid>_a-0000e668-b124-8000-9bb9-011c48011c48_190019</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>ProcessModel</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>0009e969-10ec-8000-4672-014d98014d98</value>
+        </typedValue>
+        <isEnvironmentSpecific>false</isEnvironmentSpecific>
+    </constant>
+    <roleMap public="true">
+        <role inherit="false" allowForAll="true" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e570-a52b-8000-9af2-01075c01075c_87</groupUuid>
+                <groupUuid>_e-0000e668-b124-8000-9b06-01075c01075c_158</groupUuid>
+                <groupUuid>_e-0000e800-4d41-8000-3435-011e94011e94_251</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="true" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e570-a52b-8000-9af2-01075c01075c_83</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_623634"/>
+    </history>
+</contentHaul>

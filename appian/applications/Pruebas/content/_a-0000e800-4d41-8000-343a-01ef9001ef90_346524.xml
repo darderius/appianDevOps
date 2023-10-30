@@ -1,0 +1,1257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_468856</versionUuid>
+    <rule>
+        <name>P_IMV_UT_crearVerificaciones</name>
+        <uuid>_a-0000e800-4d41-8000-343a-01ef9001ef90_346524</uuid>
+        <description>Regla para crear las verificaciones para poder pasarselas al micro, solo verificaciones de vulnerabilidad economica</description>
+        <parentUuid>_a-0000e668-b124-8000-9bb9-011c48011c48_190019</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  /*Los TRUE son los buenos y los FALSE los malos*/
+  local!verificacionesAutomaticas: #"_a-0000e617-fc07-8000-9bae-011c48011c48_124129"(tipo: 3),
+  /*local!datosINE: rule!INSS_IMV_UT_manejoDatosINE(*/
+    /*idExpediente: index(*/
+      /*ri!expediente,*/
+      /*"idExpedienteFuncional",*/
+      /*"-1"*/
+    /*),*/
+    /*usuarioToken: ri!token*/
+  /*),*/
+  local!pensiones: a!refreshVariable(
+    value: #"SYSTEM_SYSRULES_forEach"(
+      items: index(ri!expediente, "pensiones", ""),
+      expression: 'type!{urn:com:giss:types:admin}INSS_ADMF_Pensiones'(
+        cuantia: index(fv!item, "cuantia", ""),
+        idCiudadano: index(fv!item, "idCiudadano", ""),
+        concepto: index(fv!item, "concepto", ""),
+        anyoVigencia: index(fv!item, "anyoVigencia", "")
+      )
+    ),
+    refreshOnReferencedVarChange: false
+  ),
+  local!miembrosUC: #"_a-0000e668-b124-8000-9bb9-011c48011c48_282214"(expediente: ri!expediente),
+  local!domiciliosINE: index(ri!datosINE, "domicilios", {}),
+  local!resultConvivientesIneVsMiembros: #"_a-0000e85d-70a7-8000-343c-01ef9001ef90_435946"(
+    domicilios: local!domiciliosINE,
+    miembrosUC: local!miembrosUC
+  ),
+  local!resultMiembrosVsConvivientesIne: #"_a-0000e85d-70a7-8000-343c-01ef9001ef90_435953"(
+    domicilios: local!domiciliosINE,
+    miembrosUC: local!miembrosUC
+  ),
+  local!verificacionConvivientesINE: #"_a-0000e85d-70a7-8000-343c-01ef9001ef90_435960"(
+    miembrosUC: local!resultMiembrosVsConvivientesIne,
+    convivienteINE: local!resultConvivientesIneVsMiembros
+  ),
+  local!precargaNumNIEmiembrosUC: touniformstring(
+    index(
+      local!miembrosUC,
+      "ciudadano",
+      "numeroDocumento",
+      null
+    )
+  ),
+  local!numNIEmiembrosUC: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+      wherecontains(null, local!precargaNumNIEmiembrosUC)
+    ),
+    local!precargaNumNIEmiembrosUC,
+    null
+  ),
+  local!precargaNumNIEdatosINE: touniformstring(
+    {
+      concat(
+        index(
+          ri!datosINE,
+          "domicilios",
+          "num_ipf",
+          null
+        ),
+        index(
+          ri!datosINE,
+          "domicilios",
+          "ind_letra_control",
+          null
+        )
+      ),
+      #"SYSTEM_SYSRULES_forEach"(
+        items: index(
+          ri!datosINE,
+          "domicilios",
+          "relacion_convivientes",
+          1,
+          null
+        ),
+        expression: {
+          concat(
+            index(fv!item, "num_ipf", null),
+            index(fv!item, "ind_letra_control", null)
+          )
+        }
+      )
+    }
+  ),
+  local!numNIEdatosINE: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+      wherecontains(null, local!precargaNumNIEdatosINE)
+    ),
+    local!precargaNumNIEdatosINE,
+    null
+  ),
+  /*local!resultadoNIE: a!forEach(*/
+  /*items: local!numNIEmiembrosUC,*/
+  /*expression: contains(local!numNIEdatosINE, fv!item)*/
+  /*),*/
+  local!obtenerRelacionSolicitante: #"SYSTEM_SYSRULES_forEach"(
+    items: local!numNIEmiembrosUC,
+    expression: if(
+      contains(local!numNIEdatosINE, fv!item),
+      {
+        relacion: index(
+          local!miembrosUC,
+          fv!index,
+          "relacionSolicitante"
+        ),
+        numNIE: fv!item
+      },
+      {}
+    )
+  ),
+  local!resultadoConvivenciaSeisMeses: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+      index(
+        ri!datosINE,
+        "domicilios",
+        "relacion_convivientes",
+        null
+      )
+    ),
+    false,
+    #"SYSTEM_SYSRULES_forEach"(
+      items: index(
+        ri!datosINE,
+        "domicilios",
+        "relacion_convivientes",
+        null
+      ),
+      expression: and(
+        not(
+          #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+            index(fv!item, "fec_desde_reside_uc", null)
+          )
+        ),
+        todate(
+          index(fv!item, "fec_desde_reside_uc", null)
+        ) &lt;= edate(today(), - 6)
+      )
+    )
+  ),
+  local!viveSolo2Anyos: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(local!numNIEdatosINE),
+    false,
+    if(
+      and(
+        if(
+          length(
+            if(
+              #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+                index(ri!datosINE, "domicilios", null)
+              ),
+              0,
+              index(ri!datosINE, "domicilios", 0)
+            )
+          ) = 1,
+          #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+            value: index(
+              ri!datosINE,
+              "domicilios",
+              "1",
+              "relacion_convivientes",
+              null
+            ),
+
+          ),
+          false
+        ),
+        todate(
+          index(
+            ri!datosINE,
+            "domicilios",
+            "fec_desde_reside",
+            null
+          )
+        ) &gt; edate(today(), - 24),
+
+      ),
+      false,
+      and(
+        #"SYSTEM_SYSRULES_forEach"(
+          items: local!obtenerRelacionSolicitante,
+          expression: if(
+            index(
+              fv!item,
+              "relacion",
+              "relacionSolicitante",
+              null
+            ) = #"_a-0000e7c8-6101-8000-3425-01ef9001ef90_166993",
+            #"_a-0000e7d4-8b0c-8000-3427-01ef9001ef90_181019"(
+              numNIE: index(fv!item, "numNIE", null),
+              meses: 24,
+              datosINE: ri!datosINE
+            ),
+            true
+          )
+        )
+      )
+    )
+  ),
+  local!viveSinProgenitoresUnAno: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(local!numNIEdatosINE),
+    false,
+    if(
+      #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+        value: index(
+          ri!datosINE,
+          "domicilios",
+          "relacion_convivientes",
+          null
+        )
+      ),
+      true,
+      and(
+        #"SYSTEM_SYSRULES_forEach"(
+          items: local!obtenerRelacionSolicitante,
+          expression: if(
+            index(
+              fv!item,
+              "relacion",
+              "relacionSolicitante",
+              null
+            ) = #"_a-0000e7c8-6101-8000-3425-01ef9001ef90_166993",
+            #"_a-0000e7d4-8b0c-8000-3427-01ef9001ef90_181019"(
+              numNIE: index(fv!item, "numNIE", null),
+              meses: 12,
+              datosINE: ri!datosINE
+            ),
+            true
+          )
+        )
+      )
+    )
+  ),
+  local!menorEdad30: #"_a-0000e593-6af6-8000-9ba8-011c48011c48_28861"(
+    edad: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_293238",
+    fecha: #"_a-0000e668-b124-8000-9bb9-011c48011c48_212759"(
+      fechaEntrada: index(
+        ri!expediente,
+        "solicitante",
+        "ciudadano",
+        "fechaNacimiento",
+        {}
+      )
+    ),
+    esApi: false
+  ),
+  local!menorEdad23: #"_a-0000e593-6af6-8000-9ba8-011c48011c48_28861"(
+    edad: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_311980",
+    fecha: #"_a-0000e668-b124-8000-9bb9-011c48011c48_212759"(
+      fechaEntrada: index(
+        ri!expediente,
+        "solicitante",
+        "ciudadano",
+        "fechaNacimiento",
+        {}
+      )
+    ),
+    esApi: false
+  ),
+  local!menorEdad52: #"_a-0000e593-6af6-8000-9ba8-011c48011c48_28861"(
+    edad: #"_a-0000e7c8-6101-8000-3425-01ef9001ef90_165232",
+    fecha: #"_a-0000e668-b124-8000-9bb9-011c48011c48_212759"(
+      fechaEntrada: index(
+        ri!expediente,
+        "solicitante",
+        "ciudadano",
+        "fechaNacimiento",
+        {}
+      )
+    ),
+    esApi: false
+  ),
+  local!formularioSolicitado: #"_a-0000e6ca-6390-8000-9bbf-011c48011c48_474230"(codigoFormulario: "PF"),
+  local!preguntas: #"_a-0000e5cd-0f79-8000-9bab-011c48011c48_73124"(
+    idFormulario: touniformstring(
+      property(
+        local!formularioSolicitado,
+        "idFormulario",
+        null
+      )
+    )
+  ),
+  local!evalVerificaciones: #"3378e6dc-eaf6-4513-aeaa-6497805201f1"(
+    respuestas: property(ri!expediente, "respuestas", null),
+    preguntas: local!preguntas,
+    tipoNegocio: 3,
+    tipo: "Manual",
+    idFormulario: property(
+      local!formularioSolicitado,
+      "idOriginal",
+      0
+    )
+  ),
+  local!evalVerificacionesAutomaticas: #"3378e6dc-eaf6-4513-aeaa-6497805201f1"(
+    respuestas: property(ri!expediente, "respuestas", null),
+    preguntas: local!preguntas,
+    tipoNegocio: 3,
+    tipo: "Automatica",
+    idFormulario: property(
+      local!formularioSolicitado,
+      "idOriginal",
+      0
+    )
+  ),
+  local!dupl: if(
+    find(
+      "IMV",
+      tostring(
+        property(
+          #"_a-0000e85d-70a7-8000-343c-01ef9001ef90_468806"(
+            idExpedienteFuncional: index(
+              ri!expediente,
+              "idExpedienteFuncional",
+              "-1"
+            ),
+            token: ri!token
+          ),
+          "CLAVE-PREST-S",
+          null
+        )
+      )
+    ) = 0,
+    true,
+    false
+  ),
+  a!flatten(
+    {
+      /*LAS AUTOMÁTICAS*/
+      /*Duplicidad*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[1],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[1],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[1],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: true,
+        categoria: 1,
+        verificacion: local!dupl
+      ),
+      /*Solicitante mayor de 23*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[2],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[2],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[2],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: not(local!menorEdad23),
+        categoria: 1,
+        verificacion: not(local!menorEdad23)
+      ),
+      /*Solicitante menor de 23 beneficiario por IMV*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[30],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[30],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[30],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: local!menorEdad23,
+        categoria: 1,
+        verificacion: index(
+          local!evalVerificacionesAutomaticas,
+          wherecontains(
+            #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[30],
+            touniformstring(
+              property(
+                local!evalVerificacionesAutomaticas,
+                "codigoVariable",
+                null
+              )
+            )
+          ),
+          1,
+          "resultado",
+          null
+        )
+      ),
+      /*Cumplimiento relación*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[3],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[3],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[3],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: true,
+        categoria: 1,
+        verificacion: #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+          #"_a-0000e617-fc07-8000-9bae-011c48011c48_142638"(expediente: ri!expediente)
+        )
+      ),
+      /*Miembros Coindiden con el INE*/
+      /*Los miembros de la Unidad de Convivencia coinciden con lo convivientes informados por el INE / Padrón*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[4],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[4],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[4],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: true,
+        categoria: 1,
+        verificacion: and(local!verificacionConvivientesINE)/*verificacion: if(*/
+        /*isnull(local!resultadoNIE),*/
+        /*false,*/
+        /*if(*/
+        /*contains(local!resultadoNIE, false),*/
+        /*false,*/
+        /*true*/
+        /*)*/
+        /*)*/
+
+      ),
+      /*ConvivenciaMismoDomicilio*/
+      /*Los miembros de le U.C han convivio al menos los últimos seis meses en el mismo domicilio*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[5],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[5],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[5],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: if(
+          length(local!miembrosUC) &gt; 1,
+          /*and(*/
+          /*No salta la excepción*/
+          index(
+            local!evalVerificacionesAutomaticas,
+            wherecontains(
+              #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[5],
+              touniformstring(
+                property(
+                  local!evalVerificacionesAutomaticas,
+                  "codigoVariable",
+                  null
+                )
+              )
+            ),
+            1,
+            "resultado",
+            null
+          ),
+          /*not(*/
+          /*rule!INSS_ARC_UT_isNullOrEmpty(*/
+          /*index(*/
+          /*local!datosINE,*/
+          /*"domicilios",*/
+          /*"relacion_convivientes",*/
+          /*null*/
+          /*)*/
+          /*)*/
+          /*)*/
+          /*),*/
+          false
+        ),
+        categoria: 1,
+        verificacion: if(
+          isnull(local!verificacionConvivientesINE),
+          false,
+          if(
+            and(local!verificacionConvivientesINE),
+            if(
+              isnull(local!resultadoConvivenciaSeisMeses),
+              false,
+              local!resultadoConvivenciaSeisMeses
+            ),
+            false
+          )
+        )
+      ),
+      /*Menor de 30 años y 2 años fuera de casa vermeno30*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[6],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[6],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[6],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        /*mostrarExtra: true,*/
+        mostrarExtra: and(
+          length(local!miembrosUC) = 1,
+          local!menorEdad30
+        ),
+        categoria: 1,
+        verificacion: and(
+          local!menorEdad30,
+          if(
+            contains(toboolean(local!viveSolo2Anyos), false),
+            false,
+            true
+          )
+        )
+      ),
+      /*VulnerabilidadEconomicaIngresos*/
+      /*TODO para próximos sprints*/
+      /*'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(*/
+        /*tipo: cons!INSS_IMV_LISTAVERIFICACIONES_TOTALES[7],*/
+        /*descripcion: index(*/
+          /*local!verificacionesAutomaticas,*/
+          /*"nombre",*/
+          /*null*/
+        /*)[wherecontains(*/
+          /*cons!INSS_IMV_LISTAVERIFICACIONES_TOTALES[7],*/
+          /*index(*/
+            /*local!verificacionesAutomaticas,*/
+            /*"codigoVariable",*/
+            /*null*/
+          /*)*/
+        /*)],*/
+        /*idNegocio: index(*/
+          /*local!verificacionesAutomaticas,*/
+          /*"idNegocio",*/
+          /*null*/
+        /*)[wherecontains(*/
+          /*cons!INSS_IMV_LISTAVERIFICACIONES_TOTALES[7],*/
+          /*index(*/
+            /*local!verificacionesAutomaticas,*/
+            /*"codigoVariable",*/
+            /*null*/
+          /*)*/
+        /*)],*/
+        /*mostrarExtra: true,*/
+        /*categoria: 1,*/
+        /*verificacion: if(*/
+          /*rule!INSS_IMV_ER_comparaIngresos_v2(*/
+            /*datosSolicitanteOrdinaria: ri!datosSolicitanteVencidos,*/
+            /*limiteIngresos: if(*/
+              /*ri!esDT3,*/
+              /*if(*/
+                /*and(*/
+                  /*ri!datosSolicitante.ingresosUC &gt; ri!datosSolicitante.limiteIngresos,*/
+                  /*ri!datosSolicitante.numMenores &gt; 0*/
+                /*),*/
+                /*ri!datosSolicitante.limiteAPi,*/
+                /*ri!datosSolicitante.limiteIngresos*/
+              /*),*/
+              /*if(*/
+                /*and(*/
+                  /*ri!datosSolicitanteVencidos.ingresosUC &gt; ri!datosSolicitanteVencidos.limiteIngresos,*/
+                  /*ri!datosSolicitanteVencidos.numMenores &gt; 0*/
+                /*),*/
+                /*ri!datosSolicitanteVencidos.limiteAPi,*/
+                /*ri!datosSolicitanteVencidos.limiteIngresos*/
+              /*)*/
+            /*)*/
+          /*) &lt;&gt; true,*/
+          /*true,*/
+          /*false*/
+        /*)*/
+      /*),*/
+      /*VulnerabilidadNoAdministrador de Sociedad Mercantil*/
+      /*SIEMPRE QUE LLEGUE AL TRAMITADOR, ESTA VERIFICACIÓN SERÁ CORRECTA*/
+      /*'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(*/
+        /*tipo: cons!INSS_IMV_LISTAVERIFICACIONES_TOTALES[8],*/
+        /*descripcion: index(*/
+          /*local!verificacionesAutomaticas,*/
+          /*"nombre",*/
+          /*null*/
+        /*)[wherecontains(*/
+          /*cons!INSS_IMV_LISTAVERIFICACIONES_TOTALES[8],*/
+          /*index(*/
+            /*local!verificacionesAutomaticas,*/
+            /*"codigoVariable",*/
+            /*null*/
+          /*)*/
+        /*)],*/
+        /*idNegocio: index(*/
+          /*local!verificacionesAutomaticas,*/
+          /*"idNegocio",*/
+          /*null*/
+        /*)[wherecontains(*/
+          /*cons!INSS_IMV_LISTAVERIFICACIONES_TOTALES[8],*/
+          /*index(*/
+            /*local!verificacionesAutomaticas,*/
+            /*"codigoVariable",*/
+            /*null*/
+          /*)*/
+        /*)],*/
+        /*mostrarExtra: true,*/
+        /*categoria: 1,*/
+        /*verificacion: if(*/
+          /*if(*/
+            /*ri!esDT3,*/
+            /*index(*/
+              /*ri!datosSolicitante,*/
+              /*"unidadMercantil",*/
+              /*null*/
+            /*),*/
+            /*index(*/
+              /*ri!datosSolicitanteVencidos,*/
+              /*"unidadMercantil",*/
+              /*null*/
+            /*)*/
+          /*) &lt;&gt; true,*/
+          /*true,*/
+          /*false*/
+        /*)*/
+      /*),*/
+      /*VulnerabilidadNoSuperaPatrimonio */
+      /*SIEMPRE QUE LLEGUE AL TRAMITADOR, ESTA VERIFICACIÓN SERÁ CORRECTA*/
+      /*'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(*/
+        /*tipo: cons!INSS_IMV_LISTAVERIFICACIONES_TOTALES[9],*/
+        /*descripcion: index(*/
+          /*local!verificacionesAutomaticas,*/
+          /*"nombre",*/
+          /*null*/
+        /*)[wherecontains(*/
+          /*cons!INSS_IMV_LISTAVERIFICACIONES_TOTALES[9],*/
+          /*index(*/
+            /*local!verificacionesAutomaticas,*/
+            /*"codigoVariable",*/
+            /*null*/
+          /*)*/
+        /*)],*/
+        /*idNegocio: index(*/
+          /*local!verificacionesAutomaticas,*/
+          /*"idNegocio",*/
+          /*null*/
+        /*)[wherecontains(*/
+          /*cons!INSS_IMV_LISTAVERIFICACIONES_TOTALES[9],*/
+          /*index(*/
+            /*local!verificacionesAutomaticas,*/
+            /*"codigoVariable",*/
+            /*null*/
+          /*)*/
+        /*)],*/
+        /*mostrarExtra: true,*/
+        /*categoria: 1,*/
+        /*verificacion: if(*/
+          /*if(*/
+            /*ri!esDT3,*/
+            /*rule!INSS_IMV_ER_comparaPatrimonio_v2(*/
+              /*datosSolicitanteOrdinaria: ri!datosSolicitante,*/
+              /*limitePatrimonio: if(*/
+                /*and(*/
+                  /*ri!datosSolicitante.patrimonioUC &gt; ri!datosSolicitante.limitePatrimonio,*/
+                  /*ri!datosSolicitante.numMenores &gt; 0*/
+                /*),*/
+                /*ri!datosSolicitante.limitePatrimonioApi,*/
+                /*ri!datosSolicitante.limitePatrimonio*/
+              /*)*/
+            /*),*/
+            /*rule!INSS_IMV_ER_comparaPatrimonio_v2(*/
+              /*datosSolicitanteOrdinaria: ri!datosSolicitanteVencidos,*/
+              /*limitePatrimonio: if(*/
+                /*and(*/
+                  /*ri!datosSolicitanteVencidos.patrimonioUC &gt; ri!datosSolicitanteVencidos.limitePatrimonio,*/
+                  /*ri!datosSolicitanteVencidos.numMenores &gt; 0*/
+                /*),*/
+                /*ri!datosSolicitanteVencidos.limitePatrimonioApi,*/
+                /*ri!datosSolicitanteVencidos.limitePatrimonio*/
+              /*)*/
+            /*)*/
+          /*) &lt;&gt; true,*/
+          /*true,*/
+          /*false*/
+        /*)*/
+      /*),*/
+      /*VulnerabilidadCumpleTestDeActivos */
+      /*SIEMPRE QUE LLEGUE AL TRAMITADOR, ESTA VERIFICACIÓN SERÁ CORRECTA, SI NO LLEGA ES QUE SE INADMITE*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[27],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[27],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[27],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: true,
+        categoria: 1,
+        verificacion: true
+        /*verificacion: if(*/
+          /*ri!esDT3,*/
+          /*not(*/
+            /*property(*/
+              /*ri!datosSolicitante,*/
+              /*"superaActivos",*/
+              /*false*/
+            /*)*/
+          /*),*/
+          /*not(*/
+            /*property(*/
+              /*ri!datosSolicitanteVencidos,*/
+              /*"superaActivos",*/
+              /*false*/
+            /*)*/
+          /*)*/
+        /*)*/
+
+      ),
+      /*DNIEnVigor*/
+      /*Con que un DNI esté caducado, se planta un true, que es mal*/
+      /*Si alguno está caducado, al OR devuevel TRUE. Y mostramos un FALSe*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[10],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[10],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[10],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: true,
+        categoria: 1,
+        verificacion: and(
+          #"SYSTEM_SYSRULES_forEach"(
+            items: local!miembrosUC,
+            expression: if(
+              #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+                index(
+                  fv!item,
+                  "ciudadano",
+                  "fechaCaducidad",
+                  today()
+                )
+              ),
+              false,
+              todate(
+                text(
+                  #"_a-0000e668-b124-8000-9bb9-011c48011c48_212759"(
+                    fechaEntrada: index(
+                      fv!item,
+                      "ciudadano",
+                      "fechaCaducidad",
+                      today()
+                    )
+                  ),
+                  "dd/mm/yyyy"
+                )
+              ) &gt; today()
+            )
+          )
+        )
+      ),
+      /*Ver la pensión*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[11],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[11],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[11],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: and(
+          not(local!menorEdad52),
+          not(
+            #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(value: local!pensiones)
+          )
+        ),
+        categoria: 1,
+        verificacion: true
+      ),
+      /*Mayor de 30 años y acredita un año sin vivir con progenitores*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[13],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[13],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[13],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: index(
+          local!evalVerificacionesAutomaticas,
+          wherecontains(
+            #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[13],
+            touniformstring(
+              property(
+                local!evalVerificacionesAutomaticas,
+                "codigoVariable",
+                null
+              )
+            )
+          ),
+          1,
+          "resultado",
+          null
+        ),
+        categoria: 1,
+        verificacion: and(
+          not(local!menorEdad30),
+          if(
+            contains(
+              toboolean(local!viveSinProgenitoresUnAno),
+              false
+            ),
+            false,
+            true
+          )
+        )
+      ),
+      /*vermenor18*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[32],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[32],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[32],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: index(
+          local!evalVerificacionesAutomaticas,
+          wherecontains(
+            #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[32],
+            touniformstring(
+              property(
+                local!evalVerificacionesAutomaticas,
+                "codigoVariable",
+                null
+              )
+            )
+          ),
+          1,
+          "resultado",
+          null
+        ),
+        categoria: 1,
+        verificacion: #"_a-0000e800-4d41-8000-343a-01ef9001ef90_292827"(expediente: ri!expediente)
+      ),
+      /*verfirmas*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[36],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[36],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[36],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: true,
+        categoria: 1,
+        verificacion: true
+      ),
+      /*verincapacidadobrar*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[35],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[35],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[35],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: index(
+          local!evalVerificacionesAutomaticas,
+          wherecontains(
+            #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[35],
+            touniformstring(
+              property(
+                local!evalVerificacionesAutomaticas,
+                "codigoVariable",
+                null
+              )
+            )
+          ),
+          1,
+          "resultado",
+          null
+        ),
+        categoria: 1,
+        verificacion: index(
+          local!evalVerificacionesAutomaticas,
+          wherecontains(
+            #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[35],
+            touniformstring(
+              property(
+                local!evalVerificacionesAutomaticas,
+                "codigoVariable",
+                null
+              )
+            )
+          ),
+          1,
+          "resultado",
+          null
+        )
+      ),
+      /*LAS MANUALES*/
+      #"SYSTEM_SYSRULES_forEach"(
+        items: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_326388",
+        expression: {
+          'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+            tipo: fv!item,
+            verificacion: null,
+            categoria: 2,
+            descripcion: index(
+              #"_a-0000e691-37d3-8000-9bbc-011c48011c48_326426",
+              fv!index,
+              null
+            ),
+            idNegocio: index(
+              local!verificacionesAutomaticas,
+              "idNegocio",
+              null
+            )[wherecontains(
+              index(
+                #"_a-0000e691-37d3-8000-9bbc-011c48011c48_326388", fv!index, null
+              ), index(
+                local!verificacionesAutomaticas, "codigoVariable", null
+              )
+            )],
+            mostrarExtra: index(
+              local!evalVerificaciones,
+              wherecontains(
+                fv!item,
+                touniformstring(
+                  property(
+                    local!evalVerificaciones,
+                    "codigoVariable",
+                    null
+                  )
+                )
+              ),
+              1,
+              "resultado",
+              null
+            )
+          )
+        }
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>expediente</name>
+            <type>
+                <name>Map</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>token</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>datosINE</name>
+            <type>
+                <name>Map</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e800-4d41-8000-343a-01ef9001ef90_346619"/>
+        <historyInfo versionUuid="_a-0000e808-f725-8000-3435-01ef9001ef90_221757"/>
+        <historyInfo versionUuid="_a-0000e808-f725-8000-3435-01ef9001ef90_222035"/>
+        <historyInfo versionUuid="_a-0000e808-f725-8000-3435-01ef9001ef90_223939"/>
+        <historyInfo versionUuid="_a-0000e87f-f1e1-8000-3439-01ef9001ef90_228420"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_468856"/>
+    </history>
+</contentHaul>

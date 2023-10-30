@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_606033</versionUuid>
+    <rule>
+        <name>P_IMV_IF_recogidaDeDatos</name>
+        <uuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_575928</uuid>
+        <description>Recogida de datos para tablas excel </description>
+        <parentUuid>_a-0000e668-b124-8000-9bb9-011c48011c48_190019</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!uniciado:false,
+  local!textoBoton:if(local!uniciado,"Actualizar","Buscar datos"),
+  local!refrescar:true,
+  local!hora:a!refreshVariable(
+    value: totime(local(now())),
+    refreshOnVarChange: local!refrescar
+    ),
+    {
+  #"SYSTEM_SYSRULES_sectionLayout_v1"(
+    label: "Recogida de Datos a las "&amp;local!hora&amp;" hora del sistema",
+    contents: {
+      if(
+        local!uniciado,
+        #"SYSTEM_SYSRULES_gridField_v1"(
+        label: "",
+        labelPosition: "ABOVE",
+        data: #"urn:appian:record-type:v1:65e78895-f0fc-44a2-964b-70dbe29409b7",
+        columns: {
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Nombre",
+            sortField: #"urn:appian:record-field:v1:65e78895-f0fc-44a2-964b-70dbe29409b7/nombre",
+            value:fv!row[#"urn:appian:record-field:v1:65e78895-f0fc-44a2-964b-70dbe29409b7/nombre"]
+            
+          ),
+          #"SYSTEM_SYSRULES_gridColumn"(
+            label: "Conteo",
+            sortField: #"urn:appian:record-field:v1:65e78895-f0fc-44a2-964b-70dbe29409b7/conteo",
+            value: fv!row[#"urn:appian:record-field:v1:65e78895-f0fc-44a2-964b-70dbe29409b7/conteo"],
+            align: "END"
+          )
+        },
+        validations: {},
+        refreshAfter: "RECORD_ACTION",
+        showSearchBox: true,
+        showRefreshButton: true,
+        showExportButton: true
+      ),
+        {}
+      )
+    }
+  ),
+    #"SYSTEM_SYSRULES_ButtonArrayLayout"(
+      buttons: {
+        #"SYSTEM_SYSRULES_ButtonWidget"(
+          label: local!textoBoton,
+          saveInto: {a!save(local!refrescar,not(local!refrescar)),
+          #"SYSTEM_SYSRULES_startProcess"(processModel: #"_a-0000e85d-70a7-8000-343c-01ef9001ef90_578619"),
+          a!save(local!uniciado,true)
+          },
+          style: "NORMAL"
+        )
+      },
+      align: "START"
+    )
+}
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="false" allowForAll="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="true" name="administrators">
+            <users>
+                <userUuid>alberto.salguero@inetum.com</userUuid>
+            </users>
+            <groups>
+                <groupUuid>_e-0000e570-a52b-8000-9af2-01075c01075c_83</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_578964"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_605878"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_606033"/>
+    </history>
+</contentHaul>

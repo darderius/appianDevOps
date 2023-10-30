@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_659166</versionUuid>
+    <rule>
+        <name>IST_IMV_calcularImporteIMV</name>
+        <uuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_433324</uuid>
+        <description></description>
+        <parentUuid>d7f9cab3-d1e0-4208-a347-d769ea71463d</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!cuantiaTotal: property(ri!expediente, "cuantiaTotal"),
+  local!totalAPI: if(
+    or(
+      #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+        value: todecimal(index(ri!expediente, "totalAPI", ""))
+      ),
+      not(
+        #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+          value: todecimal(
+            index(local!cuantiaTotal, "tipoInadmision", "")
+          )
+        )
+      )
+    ),
+    0,
+    todecimal(index(ri!expediente, "totalAPI", ""))
+  ),
+  local!vistaConceptos: #"_a-0000e737-b364-8000-9bc5-011c48011c48_768003"(anyo: year(now())),
+  local!porcentajeAPI: tointeger(
+    index(
+      local!vistaConceptos,
+      wherecontains(
+        #"_a-0000e7c8-6101-8000-3425-01ef9001ef90_175307",
+        tointeger(
+          index(local!vistaConceptos, "idConcepto", "")
+        )
+      ),
+      "valor",
+      1,
+      0
+    )
+  ) / 100,
+  /*local!periodo: if(*/
+    /*rule!INSS_ARC_UT_isNullOrEmpty(value: property(ri!expediente, "periodoRenta", null)),*/
+    /*0,*/
+    /*property(ri!expediente, "periodoRenta", null)*/
+  /*),*/
+  /*local!fecSolicitud: if(*/
+    /*rule!INSS_ARC_UT_isNullOrEmpty(value: property(ri!expediente, "fecSolicitud", null)),*/
+    /*now(),*/
+    /*property(ri!expediente, "fecSolicitud", null)*/
+  /*),*/
+  /*local!nombreConceptoRenta: "Total ingresos año 2021 Hacienda",*/
+  /*if(*/
+    /*local!periodo = 1,*/
+    /*todate(*/
+    /*rule!INSS_ARC_UT_extraerFechaDeTexto(*/
+    /*index(ri!expediente, "fecSolicitud", now())*/
+    /*)*/
+    /*) &lt; todate(local!fechaComparar),*/
+    /*if(*/
+      /*year(local!fecSolicitud) = year(now()),*/
+      /*"Total ingresos año " &amp; year(local!fecSolicitud) - 2 &amp; " Hacienda",*/
+      /*"Total ingresos año " &amp; year(local!fecSolicitud) - 1 &amp; " Hacienda",*/
+    /*),*/
+    /*"Total ingresos año " &amp; year(*/
+      /*local!fecSolicitud*/
+    /*) - 1&amp; " Hacienda"*/
+  /*),*/
+  /* INICIO INICIO INICIO      Para obtener local!anuales      INICIO INICIO INICIO */
+  local!ingresosHacienda: index(
+    index(
+      ri!expediente,
+      "datosEconomicosVencidos",
+      {}
+    ),
+    "ingresos",
+    0
+  ),
+  /*local!ingresos: a!refreshVariable(*/
+    /*value: if(*/
+      /*rule!INSS_ARC_UT_checkEmptyCDT(*/
+        /*index(ri!expediente, "ingresosManual", null)*/
+      /*),*/
+      /*{*/
+        /*a!map(*/
+          /*ingresos: null,*/
+          /*fechaCalculos: year(*/
+            /*rule!INSS_ARC_UT_extraerFechaDeTexto(*/
+              /*index(ri!expediente, "fecCreacion", now())*/
+            /*)*/
+          /*) - 2*/
+        /*),*/
+        /*a!map(*/
+          /*ingresos: null,*/
+          /*fechaCalculos: year(*/
+            /*rule!INSS_ARC_UT_extraerFechaDeTexto(*/
+              /*index(ri!expediente, "fecCreacion", now())*/
+            /*)*/
+          /*) - 1*/
+        /*),*/
+        /*a!map(*/
+          /*ingresos: null,*/
+          /*fechaCalculos: year(*/
+            /*rule!INSS_ARC_UT_extraerFechaDeTexto(*/
+              /*index(ri!expediente, "fecCreacion", now())*/
+            /*)*/
+          /*)*/
+        /*)*/
+      /*},*/
+      /*a!forEach(*/
+        /*items: todatasubset(*/
+          /*index(ri!expediente, "ingresosManual", null),*/
+          /*a!pagingInfo(1, - 1, a!sortInfo("fechaCalculos", true))*/
+        /*),*/
+        /*expression: a!map(*/
+          /*ingresos: fv!item.ingresos,*/
+          /*fechaCalculos: fv!item.fechaCalculos*/
+        /*)*/
+      /*)*/
+    /*),*/
+    /*refreshOnReferencedVarChange: false*/
+  /*),*/
+  /*local!formulario: {*/
+    /*index(*/
+      /*ri!expediente,*/
+      /*"solicitante",*/
+      /*"formulario",*/
+      /*""*/
+    /*),*/
+    /*a!forEach(*/
+      /*items: index(*/
+        /*ri!expediente,*/
+        /*"miembros",*/
+        /*"ciudadano",*/
+        /*""*/
+      /*),*/
+      /*expression: index(fv!item, "formulario", "")*/
+    /*)*/
+  /*},*/
+  /*local!anuales: {*/
+    /* Ingresos declarados en el formulario del año anterior (obligatorio) y del año actual (para transitoria 3ª) */
+    /*sum(*/
+      /*if(*/
+        /*find(*/
+          /*",",*/
+          /*index(*/
+            /*local!formulario,*/
+            /*"ingresosAnteriores",*/
+            /*""*/
+          /*)*/
+        /*) &gt; 0,*/
+        /*todecimal(*/
+          /*concat(*/
+            /*split(*/
+              /*index(*/
+                /*local!formulario,*/
+                /*"ingresosAnteriores",*/
+                /*""*/
+              /*),*/
+              /*","*/
+            /*)[1],*/
+            /*".",*/
+            /*split(*/
+              /*index(*/
+                /*local!formulario,*/
+                /*"ingresosAnteriores",*/
+                /*""*/
+              /*),*/
+              /*","*/
+            /*)[2]*/
+          /*)*/
+        /*),*/
+        /*index(*/
+          /*local!formulario,*/
+          /*"ingresosAnteriores",*/
+          /*""*/
+        /*)*/
+      /*)*/
+    /*),*/
+    /*sum(*/
+      /*if(*/
+        /*find(*/
+          /*",",*/
+          /*index(local!formulario, "ingresosActuales", "")*/
+        /*) &gt; 0,*/
+        /*todecimal(*/
+          /*concat(*/
+            /*split(*/
+              /*index(local!formulario, "ingresosActuales", ""),*/
+              /*","*/
+            /*)[1],*/
+            /*".",*/
+            /*split(*/
+              /*index(local!formulario, "ingresosActuales", ""),*/
+              /*","*/
+            /*)[2]*/
+          /*)*/
+        /*),*/
+        /*index(local!formulario, "ingresosActuales", "")*/
+      /*)*/
+    /*),*/
+    /*local!ingresosHacienda,*/
+    /* Quitamos los ingresos del año 2019 manuales porque nunca se van a poder meter*/
+    /*remove(local!ingresos.ingresos, 1)*/
+  /*},*/
+  /* FIN FIN FIN      Para obtener local!anuales      FIN FIN FIN *//* INICIO INICIO INICIO      Para obtener local!nombreConcepto      INICIO INICIO INICIO */
+  /*local!nombreConcepto: if(*/
+    /*local!periodo = 1,*/
+    /*todate(*/
+    /*rule!INSS_ARC_UT_extraerFechaDeTexto(*/
+    /*index(ri!expediente, "fecSolicitud", now())*/
+    /*)*/
+    /*) &lt; todate(local!fechaComparar),*/
+    /*if(*/
+      /*year(local!fecSolicitud) = year(now()),*/
+      /*"Total ingresos año " &amp; year(local!fecSolicitud) - 2 &amp; " Hacienda",*/
+      /*"Total ingresos año " &amp; year(local!fecSolicitud) - 1 &amp; " Hacienda",*/
+    /*),*/
+    /*"Total ingresos año " &amp; year(*/
+      /*local!fecSolicitud*/
+    /*) - 1&amp; " Hacienda"*/
+  /*),*/
+  /* FIN FIN FIN      Para obtener local!nombreConcepto      FIN FIN FIN *//* INICIO INICIO INICIO      Para obtener local!complementariosAnual      INICIO INICIO INICIO */
+  local!ingresosComp: a!refreshVariable(
+    value: #"SYSTEM_SYSRULES_forEach"(
+      items: index(
+        ri!expediente,
+        "ingresosComplementarios",
+        ""
+      ),
+      expression: 'type!{urn:com:giss:types:imv}INSS_IMV_Ingresos_Complementarios'(
+        ingresos: index(fv!item, "ingresos", ""),
+        idCiudadano: index(fv!item, "idCiudadano", ""),
+        concepto: index(fv!item, "concepto", ""),
+        revalorizable: index(fv!item, "revalorizable", ""),
+        fechaVencimiento: index(fv!item, "fechaVencimiento", ""),
+        anyoVigencia: index(fv!item, "anyoVigencia", "")
+      )
+    ),
+    refreshOnReferencedVarChange: false
+  ),
+  local!anyosComplementarios: union(
+    index(local!ingresosComp, "anyoVigencia", ""),
+    index(local!ingresosComp, "anyoVigencia", "")
+  ),
+  local!complementariosAnual: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(local!anyosComplementarios),
+    "",
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!anyosComplementarios,
+      expression: a!map(
+        anyo: fv!item,
+        complementarios: sum(
+          index(
+            local!ingresosComp[wherecontains(
+              fv!item, index(local!ingresosComp, "anyoVigencia", "")
+            )],
+            "ingresos",
+            ""
+          )
+        )
+      )
+    )
+  ),
+  /* FIN FIN FIN      Para obtener local!complementariosAnual      FIN FIN FIN */
+  /* INICIO INICIO INICIO      Para obtener local!anyoSelecionado      INICIO INICIO INICIO */
+  /*local!primerAcceso: rule!INSS_ARC_UT_isNullOrEmpty(*/
+    /*value: property(*/
+      /*ri!expediente,*/
+      /*"cuantiaTotal",*/
+      /*"procedenciaRenta",*/
+      /*null*/
+    /*)*/
+  /*),*/
+  local!anyoSelecionado: 2021,
+  /*if(*/
+    /*local!primerAcceso,*/
+    /*if(*/
+      /*tointeger(ri!expediente.periodoRenta) = 1,*/
+      /*year(*/
+        /*rule!INSS_ARC_UT_extraerFechaDeTexto(*/
+          /*index(ri!expediente, "fecCreacion", now())*/
+        /*)*/
+      /*) - 2,*/
+      /*year(*/
+        /*rule!INSS_ARC_UT_extraerFechaDeTexto(*/
+          /*index(ri!expediente, "fecCreacion", now())*/
+        /*)*/
+      /*) - 1*/
+    /*),*/
+    /*tostring(*/
+      /*reject(*/
+        /*fn!isnull,*/
+        /*left(*/
+          /*split(*/
+            /*index(*/
+              /*ri!expediente,*/
+              /*"cuantiaTotal",*/
+              /*"procedenciaRenta",*/
+              /*0*/
+            /*),*/
+            /*"Total ingresos año "*/
+          /*),*/
+          /*4*/
+        /*)*/
+      /*)*/
+    /*)*/
+  /*),*/
+  /* FIN FIN FIN      Para obtener local!anyoSelecionado      FIN FIN FIN */
+  /* INICIO INICIO INICIO      Para obtener local!minoracionesAnual      INICIO INICIO INICIO */
+  local!minoracionesUC: a!refreshVariable(
+    value: #"SYSTEM_SYSRULES_forEach"(
+      items: index(ri!expediente, "minoraciones", ""),
+      expression: 'type!{urn:com:giss:types:imv}INSS_IMV_Minoraciones'(
+        concepto: index(fv!item, "concepto", ""),
+        idCiudadano: index(fv!item, "idCiudadano", ""),
+        ingresos: index(fv!item, "ingresos", ""),
+        anyoVigencia: index(fv!item, "anyoVigencia", "")
+      )
+    ),
+    refreshOnReferencedVarChange: false
+  ),
+  local!anyos: union(
+    index(local!minoracionesUC, "anyoVigencia", ""),
+    index(local!minoracionesUC, "anyoVigencia", "")
+  ),
+  local!minoracionesAnual: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(local!anyos),
+    "",
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!anyos,
+      expression: a!map(
+        anyo: fv!item,
+        minoraciones: sum(
+          index(
+            local!minoracionesUC[wherecontains(
+              fv!item, index(local!minoracionesUC, "anyoVigencia", "")
+            )],
+            "ingresos",
+            ""
+          )
+        )
+      )
+    )
+  ),
+  /* FIN FIN FIN      Para obtener local!minoracionesAnual      FIN FIN FIN */
+  local!importeRentaInicial: sum(
+    local!ingresosHacienda,
+    index(
+      local!complementariosAnual,
+      wherecontains(
+        tostring(local!anyoSelecionado),
+        index(local!complementariosAnual, "anyo", "")
+      ),
+      1,
+      "complementarios",
+      0
+    )
+  ) - index(
+    local!minoracionesAnual,
+    wherecontains(
+      tostring(local!anyoSelecionado),
+      index(local!minoracionesAnual, "anyo", "")
+    ),
+    1,
+    "minoraciones",
+    0
+  ),
+  /* INICIO INICIO INICIO      Para obtener local!rentaGarantizadaVul      INICIO INICIO INICIO */
+  local!esDT3: property(ri!expediente, "indDT3", false),
+  local!nMenores: sum(
+    tointeger(
+      if(
+        #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+          property(ri!expediente, "numMenores3anios", 0)
+        ),
+        0,
+        property(ri!expediente, "numMenores3anios", 0)
+      )
+    ),
+    tointeger(
+      if(
+        #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+          property(
+            ri!expediente,
+            "numMenoresEntre3Y6anios",
+            0
+          )
+        ),
+        0,
+        property(
+          ri!expediente,
+          "numMenoresEntre3Y6anios",
+          0
+        )
+      )
+    ),
+    tointeger(
+      if(
+        #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+          property(
+            ri!expediente,
+            "numMenoresEntre6Y18anios",
+            0
+          )
+        ),
+        0,
+        property(
+          ri!expediente,
+          "numMenoresEntre6Y18anios",
+          0
+        )
+      )
+    )
+  ),
+  local!rentaGarantizadaVul: #"_a-0000e85d-70a7-8000-343c-01ef9001ef90_363603"(
+    esDT3: local!esDT3, 
+    datosEconomicosVencidos: property(
+      ri!expediente,
+      "datosEconomicosVencidos",
+      null
+    ),
+    datosEconomicosTransitoria: property(
+      ri!expediente,
+      "datosEconomicosTransitoria",
+      null
+    ),
+    nMenores: local!nMenores
+  ),
+  /* FIN FIN FIN      Para obtener local!rentaGarantizadaVul      FIN FIN FIN */
+  local!importeRenta: if(
+    local!importeRentaInicial &lt; 0,
+    0,
+    local!importeRentaInicial
+  ),
+  local!cumpleAPI: or(
+    and(
+      toboolean(
+        index(
+          index(
+            ri!expediente,
+            "datosEconomicosVencidos",
+            1,
+            {}
+          ),
+          "superaAPi",
+          true
+        )
+      ) = false,
+      local!nMenores &gt; 0,
+      local!rentaGarantizadaVul * local!porcentajeAPI - local!importeRenta &gt; 0
+    ),
+    and(
+      toboolean(
+        index(
+          index(
+            ri!expediente,
+            "datosEconomicosTransitoria",
+            1,
+            {}
+          ),
+          "superaAPi",
+          true
+        )
+      ) = false,
+      local!nMenores &gt; 0,
+      local!rentaGarantizadaVul * local!porcentajeAPI - local!importeRenta &gt; 0
+    )
+  ),
+  /* INICIO INICIO INICIO      Para obtener local!pensionesAnual      INICIO INICIO INICIO */
+  local!pensiones: a!refreshVariable(
+    value: #"SYSTEM_SYSRULES_forEach"(
+      items: index(ri!expediente, "pensiones", ""),
+      expression: 'type!{urn:com:giss:types:imv}INSS_IMV_Pensiones'(
+        cuantia: index(fv!item, "cuantia", ""),
+        idCiudadano: index(fv!item, "idCiudadano", ""),
+        concepto: index(fv!item, "concepto", ""),
+        anyoVigencia: index(fv!item, "anyoVigencia", "")
+      )
+    ),
+    refreshOnReferencedVarChange: false
+  ),
+  local!anyosPensiones: union(
+    index(local!pensiones, "anyoVigencia", ""),
+    index(local!pensiones, "anyoVigencia", "")
+  ),
+  local!pensionesAnual: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(local!anyosPensiones),
+    "",
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!anyosPensiones,
+      expression: a!map(
+        anyo: fv!item,
+        pensiones: sum(
+          index(
+            local!pensiones[wherecontains(
+              fv!item, index(local!pensiones, "anyoVigencia", "")
+            )],
+            "cuantia",
+            ""
+          )
+        )
+      )
+    )
+  ),
+  /* FIN FIN FIN      Para obtener local!pensionesAnual      FIN FIN FIN */
+  /* INICIO INICIO INICIO      Para obtener local!rentaGarantizadaIng      INICIO INICIO INICIO */
+  local!nAdultos: property(ri!expediente, "numAdultos", 0),
+  local!situacionUC: #"_a-0000e593-6af6-8000-9ba8-011c48011c48_19153"(
+    numAdultos: local!nAdultos,
+    numMenores: local!nMenores
+  ),
+  local!rentaGarantizadaIMV: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(value: local!situacionUC),
+    0,
+    #"_a-0000e7c8-6101-8000-3425-01ef9001ef90_163146"(
+      expediente: ri!expediente,
+      anyo: year(property(ri!expediente,"fecEfectos",now())),
+      situacion: local!situacionUC
+    )
+  ),
+  /* FIN FIN FIN      Para obtener local!rentaGarantizadaIng      FIN FIN FIN */
+  local!totalPensionesAcumuladas: reject(
+    fn!isnull,
+    #"SYSTEM_SYSRULES_forEach"(
+      items: local!pensionesAnual,
+      expression: if(
+        index(fv!item, "anyo", "") &gt;= local!anyoSelecionado,
+        index(fv!item, "pensiones", 0),
+        null
+      )
+    )
+  ),
+  local!sumaPensiones: sum(local!totalPensionesAcumuladas),
+  local!totalDiferenciaPensionesGarantizada: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(local!pensionesAnual),
+    local!rentaGarantizadaIMV,
+    if(
+      local!rentaGarantizadaIMV - todecimal(local!sumaPensiones) &lt; 0,
+      0,
+      local!rentaGarantizadaIMV - todecimal(local!sumaPensiones)
+    )
+  ),
+  local!calculoInicial: if(
+    local!rentaGarantizadaIMV - local!importeRenta &lt; local!totalDiferenciaPensionesGarantizada,
+    local!rentaGarantizadaIMV - local!importeRenta,
+    local!totalDiferenciaPensionesGarantizada
+  ),
+  local!valorPatrimonio: property(
+    property(
+      ri!expediente,
+      "datosEconomicosVencidos",
+      {}
+    ),
+    "patrimonio",
+    0
+  ),
+  local!limitePatrimonioIMV: todecimal(
+    property(
+      property(
+        ri!expediente,
+        "datosEconomicosVencidos",
+        {}
+      ),
+      "limitePatrimonio",
+      0
+    )
+  ),
+  local!superaLimitePatrimonio: tointeger(local!valorPatrimonio) &gt; tointeger(local!limitePatrimonioIMV),
+  local!importeIMV: if(
+    and(
+      or(
+        local!calculoInicial &lt; 0,
+        local!superaLimitePatrimonio
+      ),
+      local!cumpleAPI
+    ),
+    local!totalAPI,
+    if(
+      local!cumpleAPI,
+      sum(local!totalAPI, local!calculoInicial),
+      local!calculoInicial
+    )
+  ),
+  local!umbral: todecimal(
+    index(
+      local!vistaConceptos,
+      wherecontains(
+        #"_a-0000e737-b364-8000-9bc5-011c48011c48_769835",
+        tointeger(
+          index(local!vistaConceptos, "idConcepto", "")
+        )
+      ),
+      "valor",
+      1,
+      0
+    )
+  ),
+  local!tipoInadmision: if(
+    local!rentaGarantizadaVul - local!importeRenta &gt; local!umbral,
+    #"_a-0000e776-bade-8000-340e-01ef9001ef90_47232"[1],
+    if(
+      local!cumpleAPI,
+      #"_a-0000e776-bade-8000-340e-01ef9001ef90_47232"[1],
+      #"_a-0000e776-bade-8000-340e-01ef9001ef90_47232"[3]
+    )
+  ),
+  local!calculoIMV: if(
+    local!superaLimitePatrimonio,
+    if(
+      local!cumpleAPI,
+      todecimal(fixed(local!importeIMV, 2, true)),
+      null
+    ),
+    if(
+      local!rentaGarantizadaVul - local!importeRenta &gt; local!umbral,
+      todecimal(fixed(local!importeIMV, 2, true)),
+      if(
+        local!cumpleAPI,
+        todecimal(fixed(local!importeIMV, 2, true)),
+        null
+      )
+    )
+  ),
+  local!importeMensual: local!importeIMV / 12,
+  local!numImporteMensual: if(
+    local!rentaGarantizadaVul - local!importeRenta &gt; local!umbral,
+    todecimal(fixed(local!importeMensual, 2, true)),
+    if(
+      local!cumpleAPI,
+      todecimal(fixed(local!importeMensual, 2, true)),
+      null
+    )
+  ),
+  local!procedenciaRenta: "Total ingresos año 2021 Hacienda",
+  /*if(*/
+    /*local!periodo = 1,*/
+    /*todate(*/
+    /*rule!INSS_ARC_UT_extraerFechaDeTexto(*/
+    /*index(ri!expediente, "fecSolicitud", now())*/
+    /*)*/
+    /*) &lt; todate(local!fechaComparar),*/
+    /*if(*/
+      /*year(local!fecSolicitud) = year(now()),*/
+      /*"Total ingresos año " &amp; year(local!fecSolicitud) - 2 &amp; " Hacienda",*/
+      /*"Total ingresos año " &amp; year(local!fecSolicitud) - 1 &amp; " Hacienda",*/
+    /*),*/
+    /*"Total ingresos año " &amp; year(*/
+      /*local!fecSolicitud*/
+    /*) - 1&amp; " Hacienda"*/
+  /*),*/
+  local!importeRentaFinal: 
+  
+  todecimal(
+    fixed(
+      sum(
+        local!ingresosHacienda,
+        index(
+          local!complementariosAnual,
+          wherecontains(
+            tostring(local!anyoSelecionado),
+            index(local!complementariosAnual, "anyo", "")
+          ),
+          1,
+          "complementarios",
+          0
+        )
+      ) - index(
+        local!minoracionesAnual,
+        wherecontains(
+          tostring(local!anyoSelecionado),
+          index(local!minoracionesAnual, "anyo", "")
+        ),
+        1,
+        "minoraciones",
+        0
+      ),
+      2,
+      true
+    )
+  ),
+  /* DEVOLVER importe IMV*/
+  a!map(
+    importeIMV: local!importeRentaFinal,
+    rentaGarantizada: local!rentaGarantizadaIMV,
+    tipoInadmision: local!tipoInadmision[1],
+    calculoIMV: local!calculoIMV[1],
+    numImporteMensual: local!numImporteMensual[1],
+    procedenciaRenta: local!procedenciaRenta,
+    fecRenta: null
+  )
+  /*ri!expediente*/
+)</definition>
+        <namedTypedValue>
+            <name>expediente</name>
+            <type>
+                <name>Map</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_433433"/>
+        <historyInfo versionUuid="_a-0000e8a7-882a-8000-343c-01ef9001ef90_231327"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_433587"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_659166"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<webApiHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>06b547b9-e79a-4278-bd11-48c2f1838dfc</versionUuid>
+    <webApi a:uuid="05e9708a-ea1a-409a-ba36-8e4b3f0a5a7a" name="P_InadmisionEcoVerif">
+        <a:description>Wapi para invocar el proceso de actualizacion de datos economicos y verificaciones (vulnerabilidad economica)</a:description>
+        <a:expression>a!localVariables(
+  /*Si falla la comunicación con Pha60, devuelve un error httpResponse 400, y no lanza el proceso para no sobrecargar memoria*/
+  local!reconocimientoDerecho: #"_a-0000e800-4d41-8000-343a-01ef9001ef90_346399"(
+    idExpediente: http!request.queryParameters.idExpediente
+  ),
+  if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(local!reconocimientoDerecho),
+    /*Si falla el reconocimiento del derecho*/
+    #"SYSTEM_SYSRULES_httpResponse_v1"(
+      statusCode: 400,
+      headers: {
+        #"SYSTEM_SYSRULES_httpHeader"(
+          name: "Content-Type",
+          value: "application/json"
+        )
+      },
+      body: #"_a-0000e776-bade-8000-340e-01ef9001ef90_44951"
+    ),
+    #"SYSTEM_SYSRULES_startProcess"(
+      processModel: #"_a-0000e800-4d41-8000-343a-01ef9001ef90_346547",
+      processParameters: {
+        idExpediente: http!request.queryParameters.idExpediente,
+        expediente: property(local!reconocimientoDerecho,"expediente",null),
+        datosSolicitanteVencido: property(local!reconocimientoDerecho,"datosSolicitanteVencido",null),
+        reconocimientoDerecho: property(local!reconocimientoDerecho,"reconocimientoDerecho",null),
+        periodoRenta: property(local!reconocimientoDerecho,"periodoRenta",null),
+        indDT3: property(local!reconocimientoDerecho,"indDT3",null),
+        nopresentaIRPF: property(local!reconocimientoDerecho,"noPresentaIRPF", null),
+        miembrosAPIEdad: property(local!reconocimientoDerecho,"miembrosAPIEdad", null),
+        totalAPI: property(local!reconocimientoDerecho,"totalAPI", null),
+        indDiscapacidad: property(local!reconocimientoDerecho, "indDiscapacidad", false),
+        indMonoparentalidad: property(local!reconocimientoDerecho, "indMonoparentalidad", false),
+        hayAutonomos: property(local!reconocimientoDerecho, "hayAutonomos", false),
+        limitePatrimonioAPI: property(local!reconocimientoDerecho, "limitePatrimonioAPI", false)
+      },
+      onSuccess: #"SYSTEM_SYSRULES_httpResponse_v1"(
+        statusCode: if( #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"( property(
+          local!reconocimientoDerecho,
+          "expediente",
+          "errorCode",
+          null
+        )
+        ),
+        200,
+        503
+        ),
+        headers: {
+          #"SYSTEM_SYSRULES_httpHeader"(
+            name: "Content-Type",
+            value: "application/json"
+          )
+        },
+        body: if(
+          #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+            property(
+              local!reconocimientoDerecho,
+              "expediente",
+              "errorCode",
+              null
+            )
+          ),
+          /*200*/
+          if(
+            #"_a-0000e737-b364-8000-9bc5-011c48011c48_647370"(
+              expediente: property(
+                local!reconocimientoDerecho,
+                "expediente",
+                null
+              ),
+              usuario: loggedInUser()
+            ),
+            a!map(
+              indCodigoInadmision:"-",
+              codigoInadmision:#"_a-0000e668-b124-8000-9bb9-011c48011c48_210325"(
+                estado: #"_a-0000e668-b124-8000-9bb9-011c48011c48_266403"
+              ).denomLarga,
+              superaIngresos: fv!processInfo.pv.reconocimientoDerecho.superaIngresos,
+              superaPatrimonio: fv!processInfo.pv.reconocimientoDerecho.superaPatrimonio,
+              unidadMercantil: fv!processInfo.pv.reconocimientoDerecho.unidadMercantil),
+              #"SYSTEM_SYSRULES_toJson_v1"({success: "El proceso de Modificación de datos Economicos y Verificaciones ha sido iniciado correctamente"})
+          ),
+          /*503*/
+          "Get Expediente Unavailable"
+        )
+      ),
+      onError: #"SYSTEM_SYSRULES_httpResponse_v1"(statusCode: 500, headers: { #"SYSTEM_SYSRULES_httpHeader"(name: "Content-Type", value: "application/json")}, body: #"SYSTEM_SYSRULES_toJson_v1"({error: "Se produjo un error al iniciar el proceso de inadmisión"}
+        )
+      )
+    )
+  )
+)</a:expression>
+        <a:urlAlias>modifiDatosEconVerif</a:urlAlias>
+        <a:httpMethod>POST</a:httpMethod>
+        <a:system>false</a:system>
+        <a:requestBodyType>NONE</a:requestBodyType>
+    </webApi>
+    <roleMap>
+        <role name="web_api_administrator">
+            <users>
+                <userUuid>alberto.saavedrag@inetum.com</userUuid>
+            </users>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>WebApiRequest?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:path/>
+                <a:body/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="1e06a33a-9f34-4d7a-8eb3-20045f57037a"/>
+        <historyInfo versionUuid="6f76e234-4d9a-4f4d-bc24-9baccb4fc487"/>
+        <historyInfo versionUuid="b23f3258-2e2a-4536-8418-bae60abdd830"/>
+        <historyInfo versionUuid="06b547b9-e79a-4278-bd11-48c2f1838dfc"/>
+    </history>
+</webApiHaul>

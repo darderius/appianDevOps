@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e8a7-882a-8000-343c-01ef9001ef90_231488</versionUuid>
+    <rule>
+        <name>P_IMV_calcularVerificacionesINE</name>
+        <uuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_407087</uuid>
+        <description>Regla de prueba para calcular verificaciones INE al avanzar un expediente de estado asignado</description>
+        <parentUuid>_a-0000e75e-fc03-8000-33fa-01ef9001ef90_6838</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  /*Los TRUE son los buenos y los FALSE los malos*/
+  local!expediente: #"_a-0000e85d-70a7-8000-343c-01ef9001ef90_432200"(idExpediente: ri!idExpediente,token:ri!token),
+  local!verificacionesAutomaticas: #"_a-0000e617-fc07-8000-9bae-011c48011c48_124129"(tipo: 3),
+  local!datosINE: #"_a-0000e85d-70a7-8000-343c-01ef9001ef90_432210"(
+    idExpediente: index(
+      local!expediente,
+      "idExpedienteFuncional",
+      "-1"
+    ),
+    token: ri!token
+  ),
+  local!miembrosUC: #"_a-0000e668-b124-8000-9bb9-011c48011c48_282214"(expediente: local!expediente),
+  local!numNIEmiembrosUC: touniformstring(
+    index(
+      local!miembrosUC,
+      "ciudadano",
+      "numeroDocumento",
+      null
+    )
+  ),
+  local!numNIEdatosINE: touniformstring(
+    index(
+      local!datosINE,
+      "domicilios",
+      "relacion_convivientes",
+      "num_ipf",
+      null
+    )
+  ),
+  local!resultadoNIE: #"SYSTEM_SYSRULES_forEach"(
+    items: local!numNIEmiembrosUC,
+    expression: contains(local!numNIEdatosINE, fv!item)
+  ),
+  local!obtenerRelacionSolicitante: #"SYSTEM_SYSRULES_forEach"(
+    items: local!numNIEmiembrosUC,
+    expression: if(
+      contains(local!numNIEdatosINE, fv!item),
+      {
+        relacion: index(
+          local!miembrosUC,
+          fv!index,
+          "relacionSolicitante"
+        ),
+        numNIE: fv!item
+      },
+      {}
+    )
+  ),
+  local!resultadoConvivenciaSeisMeses: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+      index(
+        local!datosINE,
+        "domicilios",
+        "relacion_convivientes",
+        null
+      )
+    ),
+    false,
+    #"SYSTEM_SYSRULES_forEach"(
+      items: index(
+        local!datosINE,
+        "domicilios",
+        "relacion_convivientes",
+        null
+      ),
+      expression: and(
+        not(
+          #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+            index(fv!item, "fec_desde_reside_uc", null)
+          )
+        ),
+        todate(
+          index(fv!item, "fec_desde_reside_uc", null)
+        ) &lt;= edate(today(), - 6)
+      )
+    )
+  ),
+  local!viveSolo2Anyos: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+      value: index(
+        local!datosINE,
+        "domicilios",
+        "relacion_convivientes",
+        null
+      )
+    ),
+    true,
+    and(
+      #"SYSTEM_SYSRULES_forEach"(
+        items: local!obtenerRelacionSolicitante,
+        expression: if(
+          index(
+            fv!item,
+            "relacion",
+            "relacionSolicitante",
+            null
+          ) = #"_a-0000e7c8-6101-8000-3425-01ef9001ef90_166993",
+          #"_a-0000e7d4-8b0c-8000-3427-01ef9001ef90_181019"(
+            numNIE: index(fv!item, "numNIE", null),
+            meses: 24,
+            datosINE: local!datosINE
+          ),
+          true
+        )
+      )
+    )
+  ),
+  local!viveSinProgenitoresUnAno: if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+      value: index(
+        local!datosINE,
+        "domicilios",
+        "relacion_convivientes",
+        null
+      )
+    ),
+    true,
+    and(
+      #"SYSTEM_SYSRULES_forEach"(
+        items: local!obtenerRelacionSolicitante,
+        expression: if(
+          index(
+            fv!item,
+            "relacion",
+            "relacionSolicitante",
+            null
+          ) = #"_a-0000e7c8-6101-8000-3425-01ef9001ef90_166993",
+          #"_a-0000e7d4-8b0c-8000-3427-01ef9001ef90_181019"(
+            numNIE: index(fv!item, "numNIE", null),
+            meses: 12,
+            datosINE: local!datosINE
+          ),
+          true
+        )
+      )
+    )
+  ),
+  local!menorEdad30: #"_a-0000e593-6af6-8000-9ba8-011c48011c48_28861"(
+    edad: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_293238",
+    fecha: #"_a-0000e668-b124-8000-9bb9-011c48011c48_212759"(
+      fechaEntrada: index(
+        local!expediente,
+        "solicitante",
+        "ciudadano",
+        "fechaNacimiento",
+        {}
+      )
+    )
+  ),
+  local!formularioSolicitado: #"_a-0000e6ca-6390-8000-9bbf-011c48011c48_474230"(codigoFormulario: "PF"),
+  local!preguntas: #"_a-0000e5cd-0f79-8000-9bab-011c48011c48_73124"(
+    idFormulario: touniformstring(
+      property(
+        local!formularioSolicitado,
+        "idFormulario",
+        null
+      )
+    )
+  ),
+  local!evalVerificacionesAutomaticas: #"3378e6dc-eaf6-4513-aeaa-6497805201f1"(
+    respuestas: property(local!expediente, "respuestas", null),
+    preguntas: local!preguntas,
+    tipoNegocio: 3,
+    tipo: "Automatica",
+    idFormulario: property(
+      local!formularioSolicitado,
+      "idOriginal",
+      0
+    )
+  ),
+  a!flatten(
+    {
+      /*LAS AUTOMÁTICAS*/
+      /*Miembros Coindiden con el INE*/
+      /*Los miembros de la Unidad de Convivencia coinciden con lo convivientes informados por el INE / Padrón*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[4],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[4],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[4],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: true,
+        categoria: 1,
+        verificacion: if(
+          isnull(local!resultadoNIE),
+          false,
+          if(
+            contains(local!resultadoNIE, false),
+            false,
+            true
+          )
+        ),
+
+      ),
+      /*ConvivenciaMismoDomicilio*/
+      /*Los miembros de le U.C han convivio al menos los últimos seis meses en el mismo domicilio*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[5],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[5],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[5],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: if(
+          length(local!miembrosUC) &gt; 1,
+          and(
+            /*No salta la excepción*/
+            index(
+              local!evalVerificacionesAutomaticas,
+              wherecontains(
+                #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[5],
+                touniformstring(
+                  property(
+                    local!evalVerificacionesAutomaticas,
+                    "codigoVariable",
+                    null
+                  )
+                )
+              ),
+              1,
+              "resultado",
+              null
+            ),
+            not(
+              #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+                index(
+                  local!datosINE,
+                  "domicilios",
+                  "relacion_convivientes",
+                  null
+                )
+              )
+            )
+          ),
+          false
+        ),
+        categoria: 1,
+        verificacion: if(
+          isnull(local!resultadoNIE),
+          false,
+          if(
+            contains(local!resultadoNIE, false),
+            false,
+            if(
+              isnull(local!resultadoConvivenciaSeisMeses),
+              false,
+              local!resultadoConvivenciaSeisMeses
+            )
+          )
+        )
+      ),
+      /*Menor de 30 años y 2 años fuera de casa*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[6],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[6],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[6],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        /*mostrarExtra: true,*/
+        mostrarExtra: and(
+          length(local!miembrosUC) = 1,
+          local!menorEdad30
+        ),
+        categoria: 1,
+        verificacion: and(
+          local!menorEdad30,
+          if(
+            contains(toboolean(local!viveSolo2Anyos), false),
+            false,
+            true
+          )
+        )
+      ),
+      /*Mayor de 30 años y acredita un año sin vivir con progenitores*/
+      'type!{urn:com:giss:types:imv}INSS_IMV_Verificaciones'(
+        tipo: #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[13],
+        descripcion: index(
+          local!verificacionesAutomaticas,
+          "nombre",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[13],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        idNegocio: index(
+          local!verificacionesAutomaticas,
+          "idNegocio",
+          null
+        )[wherecontains(
+          #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[13],
+          index(
+            local!verificacionesAutomaticas,
+            "codigoVariable",
+            null
+          )
+        )],
+        mostrarExtra: index(
+          local!evalVerificacionesAutomaticas,
+          wherecontains(
+            #"_a-0000e691-37d3-8000-9bbc-011c48011c48_318794"[13],
+            touniformstring(
+              property(
+                local!evalVerificacionesAutomaticas,
+                "codigoVariable",
+                null
+              )
+            )
+          ),
+          1,
+          "resultado",
+          null
+        ),
+        categoria: 1,
+        verificacion: and(
+          not(local!menorEdad30),
+          if(
+            contains(
+              toboolean(local!viveSinProgenitoresUnAno),
+              false
+            ),
+            false,
+            true
+          )
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>idExpediente</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>token</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_432869"/>
+        <historyInfo versionUuid="_a-0000e8a7-882a-8000-343c-01ef9001ef90_231488"/>
+    </history>
+</contentHaul>

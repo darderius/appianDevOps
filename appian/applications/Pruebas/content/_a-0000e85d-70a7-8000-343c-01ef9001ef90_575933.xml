@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_665633</versionUuid>
+    <rule>
+        <name>P_IMV_ER_manejoRecogidaDeDatos</name>
+        <uuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_575933</uuid>
+        <description></description>
+        <parentUuid>_a-0000e668-b124-8000-9bb9-011c48011c48_190019</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!estados: {
+    "03",/*Afiliación integrada OK*/
+    "05",/*Expediente admitido*/
+    "02",/*Expediente creado*/
+    "78",/*Inadmisión bloqueada*/
+    "06",/*Integración INE OK*/
+    "44",/*Integración SGDA OK*/
+    "04",/*Integración AEAT OK*/
+    "01",/*Solicitud recibida*/
+    "55",/*Petición INE enviada*/
+    "56",/*Petición AEAT enviada*/
+    "08",/*Distribución dirección provincial*/
+    "83",/*Comprobar incompatibilidades*/
+    "16",/*Derecho de opción*/
+    "50",/*Solicitud de subsanación formal*/
+    "81",/*Desestimiento derecho de opción*/
+    "24",/*Afiliación error alta*/
+    "73",/*Fiscalización error datos*/
+    "30",/*Integración INE error sistemas*/
+    "46",/*Integración SGDA error datos*/
+    "28",/*AEAT error Integración hacienda error datos*/
+    "32",/*Integración PF error sistemas*/
+    "29",/*Proceso inadmisión error*/
+    
+    "27", /*AEAT error sistemas*/
+    "26", /*Afiliacion error datos*/
+    "25", /*Afiliacion error sistemas*/
+    "77", /*Derecho opcion error envio*/
+    "34", /*Distribucion DP error*/
+    "35", /*Error integridad*/
+    "76", /*Fiscalizacion error generacion pdf*/
+    "72", /*Fiscalizacion error sistemas*/
+    "31", /*INE error datos*/
+    "33", /*PF error datos*/
+    "43", /*Registro error datos*/
+    "42", /*Registro error sistemas*/
+    "45", /*SGDA error sistemas*/
+    "49", /*Sartido error datos*/
+    "48", /*Sartido error sistemas*/
+
+          
+    "38", /*Inadmisión*/
+    /*"05", Admisión reconocida --&gt; lo mismo que expediente admitido*/
+    "09", /*Distribución tramitador*/
+    "75", /*Ditribución tramitador reasignada*/
+    "11", /*Ditribución tramitador asignada*/
+    "14", /*Reconocimiento del derecho*/
+    "79", /*Identificación*/
+    "61", /*Archivada*/
+    /*"50", Subsanación formal --&gt; Solicitud de subsanación formal*/
+    "51", /*Subsanación informal*/
+    "60", /*Desestimiento subsanación*/
+    "54", /*Subsanado*/
+    "15", /*Cálculo*/
+    "40", /*Denegada*/
+    "86", /*Cancelada*/
+    "17", /*Propuesta resolución*/
+    "18", /*Envío intervención*/
+    "19", /*Fiscalización conforme*/
+    "20", /*Fiscalización con observaciones*/
+    "21", /*Fiscalización con reparos*/
+    "74", /*Sin fiscalizar*/
+    "80", /*Derecho de opción contestado*/
+    "22", /*Pendiente eliminar duplicidad*/
+    "39", /*Aprobada*/
+    "62", /*Reclamación previa inadmitida*/
+    "63", /*Reclamación previa denegada*/
+    "64", /*Reclamación previa aceptada*/
+    "65", /*Reclamación previa desistida*/
+    "84", /*Reclamación previa Prosa*/
+    "85", /*Reclamación previa aceptada modificada*/
+
+  },
+  local!pinfo: #"SYSTEM_SYSRULES_pagingInfo"(startIndex: 1, batchSize: 0),
+  local!llamadas: #"SYSTEM_SYSRULES_forEach"(
+    items: local!estados,
+    expression: a!map(
+      estado: fv!item,
+      res: #"_a-0000e7ed-efb7-8000-3434-01ef9001ef90_234046"(
+        fechaEstado: today(),
+        estado: fv!item,
+        token: #"_a-0000e658-e543-8000-9bb6-011c48011c48_180360"(usuario: ri!usuario),
+        pagingInfo: local!pinfo,
+        ambitos: null
+      )
+    )
+  ),
+  local!conteo: a!map(
+    hora: totime(local(now())),
+    datos: #"SYSTEM_SYSRULES_forEach"(
+      items: local!llamadas,
+      expression: 'type!{urn:com:appian:types:P}P_datosExportar'(
+        nombre: a!match(
+          value: property(fv!item, "estado", ""),
+          equals: "03",
+          then: "Afiliación integrada OK",
+          equals: "05",
+          then: "Expediente admitido",
+          equals: "02",
+          then: "Expediente creado",
+          equals: "78",
+          then: "Inadmisión bloqueada",
+          equals: "06",
+          then: "Integración INE OK",
+          equals: "44",
+          then: "Integración SGDA OK",
+          equals: "04",
+          then: "Integración AEAT OK",
+          equals: "01",
+          then: "Solicitud recibida",
+          equals: "55",
+          then: "Petición INE enviada",
+          equals: "56",
+          then: "Petición AEAT enviada",
+          equals: "08",
+          then: "Distribución dirección provincial",
+          equals: "83",
+          then: "Comprobar incompatibilidades",
+          equals: "16",
+          then: "Derecho de opción",
+          equals: "50",
+          then: "Solicitud de subsanación formal",
+          equals: "81",
+          then: "Desestimiento derecho de opción",
+          equals: "24",
+          then: "Afiliación error alta",
+          equals: "73",
+          then: "Fiscalización error datos",
+          equals: "30",
+          then: "Integración INE error sistemas",
+          equals: "46",
+          then: "Integración SGDA error datos",
+          equals: "28",
+          then: "Integración hacienda error datos",
+          equals: "32",
+          then: "Integración PF error sistemas",
+          equals: "29",
+          then: "Proceso inadmisión error",
+          equals: "27",
+          then: "AEAT error sistemas",
+          equals: "26",
+          then: "Afiliacion error datos",
+          equals: "25",
+          then: "Afiliacion error sistemas",
+          equals: "77",
+          then: "Derecho opcion error envio",
+          equals: "34",
+          then: "Distribucion DP error",
+          equals: "35",
+          then: "Error integridad",
+          equals: "76",
+          then: "Fiscalizacion error generacion pdf",
+          equals: "72",
+          then: "Fiscalizacion error sistemas",
+          equals: "31",
+          then: "INE error datos",
+          equals: "33",
+          then: "PF error datos",
+          equals: "43",
+          then: "Registro error datos",
+          equals: "42",
+          then: "Registro error sistemas",
+          equals: "45",
+          then: "SGDA error sistemas",
+          equals: "49",
+          then: "Sartido error datos",
+          equals: "48",
+          then: "Inadmisión",
+          equals: "38",
+          then: "Distribución tramitador",
+          equals: "09",
+          then: "Ditribución tramitador reasignada",
+          equals: "75",
+          then: "Ditribución tramitador asignada",
+          equals: "11",
+          then: "Reconocimiento del derecho",
+          equals: "14",
+          then: "Identificación",
+          equals: "79",
+          then: "Archivada",
+          equals: "61",
+          then: "Subsanación informal",
+          equals: "51",
+          then: "Desestimiento subsanación",
+          equals: "60",
+          then: "Subsanado",
+          equals: "54",
+          then: "Cálculo",
+          equals: "15",
+          then: "Denegada",
+          equals: "40",
+          then: "Cancelada",
+          equals: "86",
+          then: "Propuesta resolución",
+          equals: "17",
+          then: "Envío intervención",
+          equals: "18",
+          then: "Fiscalización conforme",
+          equals: "19",
+          then: "Fiscalización con observaciones",
+          equals: "20",
+          then: "Fiscalización con reparos",
+          equals: "21",
+          then: "Sin fiscalizar",
+          equals: "74",
+          then: "Derecho de opción contestado",
+          equals: "80",
+          then: "Pendiente eliminar duplicidad",
+          equals: "22",
+          then: "Aprobada",
+          equals: "39",
+          then: "Reclamación previa inadmitida",
+          equals: "62",
+          then: "Reclamación previa denegada",
+          equals: "63",
+          then: "Reclamación previa aceptada",
+          equals: "64",
+          then: "Reclamación previa desistida",
+          equals: "65",
+          then: "Reclamación previa Prosa",
+          equals: "84",
+          then: "Reclamación previa aceptada modificada",
+          equals: "85",
+          then: "Sartido error sistemas",
+          default: "Error"
+        ),
+        conteo: property(
+          property(
+            property(property(fv!item, "res", 0), "result", 0),
+            "headers",
+            0
+          ),
+          "count",
+          0
+        )
+      )
+    )
+  ),
+  local!conteo
+).datos</definition>
+        <namedTypedValue>
+            <name>usuario</name>
+            <type>
+                <name>User</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_589308"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_605879"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_606032"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_613313"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_613388"/>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_665633"/>
+    </history>
+</contentHaul>

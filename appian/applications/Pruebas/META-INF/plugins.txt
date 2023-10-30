@@ -1,0 +1,12 @@
+com.appiancorp.plugins.regexfunctions
+Appian Regular Expression Functions
+2.1.2
+
+com.appiancorp.cdtmanipulation
+Dictionary Manipulation
+2.0.1
+
+executestoredprocedure
+Execute Stored Procedure
+1.5.4
+

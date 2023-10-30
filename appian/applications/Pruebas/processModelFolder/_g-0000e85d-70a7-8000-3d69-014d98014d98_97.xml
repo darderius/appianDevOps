@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<processModelFolderHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_g-0000e85d-70a7-8000-3d69-014d98014d98_99</versionUuid>
+    <processModelFolder>
+        <name>Test Varios - PMs</name>
+        <uuid>_g-0000e85d-70a7-8000-3d69-014d98014d98_97</uuid>
+        <description>Carpeta para modelos de proceso</description>
+    </processModelFolder>
+    <roleMap>
+        <role name="ADMIN_OWNER">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e570-a52b-8000-9af2-01075c01075c_80</groupUuid>
+            </groups>
+        </role>
+        <role name="EDITOR">
+            <users/>
+            <groups/>
+        </role>
+        <role name="EXPLICIT_NONMEMBER">
+            <users/>
+            <groups/>
+        </role>
+        <role name="VIEWER">
+            <users/>
+            <groups/>
+        </role>
+        <role name="MANAGER">
+            <users/>
+            <groups/>
+        </role>
+        <role name="INITIATOR">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_g-0000e85d-70a7-8000-3d69-014d98014d98_99"/>
+    </history>
+</processModelFolderHaul>

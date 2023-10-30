@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e8a7-882a-8000-343c-01ef9001ef90_266985</versionUuid>
+    <outboundIntegration>
+        <name>P_INT_getBuscarExpedienteMasivo</name>
+        <uuid>_a-0000e8a7-882a-8000-343c-01ef9001ef90_266948</uuid>
+        <description>Obtener todos los expedientes que coincidan con los criterios introducidos con batch de 900</description>
+        <parentUuid>_a-0000e668-b124-8000-9bb9-011c48011c48_190019</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition></definition>
+        <namedTypedValue>
+            <name>estado</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fecCreacionDesde</name>
+            <type>
+                <name>date</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fecCreacionHasta</name>
+            <type>
+                <name>date</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>idTramitador</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>idExpediente</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>cdProvincia</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>fechaEstado</name>
+            <type>
+                <name>date</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ambitos</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>cdProvinciaApertura</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>numDocumento</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>numIpf</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>estadoDescartado</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>pagingInfo</name>
+            <type>
+                <name>PagingInfo</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>campoOrdenacion</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>token</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>indExpedienteProtegido</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <metadataExpr></metadataExpr>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <sharedConfigParameters>
+            <a:Dictionary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <url xsi:type="xsd:string">https://services-imv.portal.ss/expediente/private/buscarMasivo</url>
+                <isInheritedUrlOptionSelected xsi:type="xsd:boolean">false</isInheritedUrlOptionSelected>
+                <relativePath xsi:type="xsd:string"/>
+                <authType xsi:type="xsd:string">None</authType>
+                <authDetails xsi:type="xsd:string"/>
+            </a:Dictionary>
+        </sharedConfigParameters>
+        <configParameters>
+            <a:Dictionary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <contentType xsi:type="xsd:string"/>
+                <automaticallyConvert xsi:type="xsd:boolean">true</automaticallyConvert>
+                <shouldReceiveDocuments xsi:type="xsd:boolean">false</shouldReceiveDocuments>
+                <jsonSchema xsi:nil="true" xsi:type="a:NestedChoice?list"/>
+                <receiveFolderConfig xsi:type="a:Dictionary">
+                    <asExpr xsi:type="xsd:boolean">false</asExpr>
+                    <value xsi:type="a:Variant?list"/>
+                </receiveFolderConfig>
+                <bodyParseType xsi:type="xsd:string">application/json+19.3</bodyParseType>
+                <parameters xsi:type="a:NameValue?list">
+                    <item>
+                        <a:name>cdProvinciaAsignada</a:name>
+                        <a:value xsi:type="a:Expression">ri!cdProvincia</a:value>
+                    </item>
+                    <item>
+                        <a:name>fecCreacionDesde</a:name>
+                        <a:value xsi:type="a:Expression">ri!fecCreacionDesde</a:value>
+                    </item>
+                    <item>
+                        <a:name>fecCreacionHasta</a:name>
+                        <a:value xsi:type="a:Expression">ri!fecCreacionHasta</a:value>
+                    </item>
+                    <item>
+                        <a:name>idExpedienteFuncional</a:name>
+                        <a:value xsi:type="a:Expression">ri!idExpediente</a:value>
+                    </item>
+                    <item>
+                        <a:name>indSubEstado</a:name>
+                        <a:value xsi:type="a:Expression">substitute(tostring(ri!estado),";",",")</a:value>
+                    </item>
+                    <item>
+                        <a:name>idTramitador</a:name>
+                        <a:value xsi:type="a:Expression">ri!idTramitador</a:value>
+                    </item>
+                    <item>
+                        <a:name>numPage</a:name>
+                        <a:value xsi:type="a:Expression">if(
+  or(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(ri!pagingInfo),
+    and(
+      ri!pagingInfo.startIndex = 1,
+      ri!pagingInfo.startIndex = 1
+    )
+  ),
+  0,
+  tointeger(
+    rounddown(
+      ri!pagingInfo.startIndex / ri!pagingInfo.batchSize,
+      0
+    )
+  )
+)</a:value>
+                    </item>
+                    <item>
+                        <a:name>size</a:name>
+                        <a:value xsi:type="a:Expression">if(
+  isnull(ri!pagingInfo.batchSize),
+  10,
+  ri!pagingInfo.batchSize
+)</a:value>
+                    </item>
+                    <item>
+                        <a:name>fechaEstado</a:name>
+                        <a:value xsi:type="a:Expression">ri!fechaEstado</a:value>
+                    </item>
+                    <item>
+                        <a:name>indSubEstadoDescartado</a:name>
+                        <a:value xsi:type="a:Expression">substitute(tostring(ri!estadoDescartado),";",",")</a:value>
+                    </item>
+                    <item>
+                        <a:name>campoOrdenacion</a:name>
+                        <a:value xsi:type="a:Expression">if(
+  #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(ri!pagingInfo.sort),
+  ri!campoOrdenacion,
+  ri!pagingInfo.sort.field
+)</a:value>
+                    </item>
+                    <item>
+                        <a:name>ordenAscendente</a:name>
+                        <a:value xsi:type="a:Expression">if(#"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(ri!pagingInfo.sort),true,ri!pagingInfo.sort.ascending)</a:value>
+                    </item>
+                    <item>
+                        <a:name>indAmbito</a:name>
+                        <a:value xsi:type="a:Expression">if(
+  #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(value: ri!ambitos),
+  "",
+  tostring(joinarray(ri!ambitos, ","))
+)</a:value>
+                    </item>
+                    <item>
+                        <a:name>cdProvinciaApertura</a:name>
+                        <a:value xsi:type="a:Expression">ri!cdProvinciaApertura</a:value>
+                    </item>
+                    <item>
+                        <a:name>numDocumento</a:name>
+                        <a:value xsi:type="a:Expression">ri!numDocumento</a:value>
+                    </item>
+                    <item>
+                        <a:name>numIpf</a:name>
+                        <a:value xsi:type="a:Expression">ri!numIpf</a:value>
+                    </item>
+                    <item>
+                        <a:name>indExpedienteProtegido</a:name>
+                        <a:value xsi:type="a:Expression">ri!indExpedienteProtegido</a:value>
+                    </item>
+                </parameters>
+                <method xsi:type="xsd:string">GET</method>
+                <headers xsi:type="a:NameValue?list">
+                    <item>
+                        <a:name>Authorization</a:name>
+                        <a:value xsi:type="a:Expression">"Bearer " &amp; ri!token</a:value>
+                    </item>
+                </headers>
+                <excludeNullHeaders xsi:type="xsd:boolean">true</excludeNullHeaders>
+                <documentConfig xsi:type="xsd:string"/>
+                <excludeNullParams xsi:type="xsd:boolean">true</excludeNullParams>
+                <featureVersion xsi:type="xsd:int">1</featureVersion>
+                <timeout xsi:type="xsd:int">10</timeout>
+                <body xsi:type="xsd:string"/>
+                <flattenedJsonSchema xsi:nil="true" xsi:type="a:Text?list"/>
+            </a:Dictionary>
+        </configParameters>
+        <isWrite>false</isWrite>
+        <integrationType>system.http</integrationType>
+        <connectedSystemUuid></connectedSystemUuid>
+        <isConnectedSystemConnectionOptionSelected>false</isConnectedSystemConnectionOptionSelected>
+        <integrationOutputs>
+            <a:Dictionary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <outputs xsi:type="a:IntegrationOutput?list"/>
+            </a:Dictionary>
+        </integrationOutputs>
+        <isRequestResponseLoggingEnabled>false</isRequestResponseLoggingEnabled>
+    </outboundIntegration>
+    <roleMap public="true">
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e800-4d41-8000-3435-011e94011e94_247</groupUuid>
+                <groupUuid>_e-0000e570-a52b-8000-9af2-01075c01075c_78</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e570-a52b-8000-9af2-01075c01075c_80</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Text?list"/>
+                    <a:nameRef>estado</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:date"/>
+                    <a:nameRef>fecCreacionDesde</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:date"/>
+                    <a:nameRef>fecCreacionHasta</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>idTramitador</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string">141202280100135560100</a:value>
+                    <a:nameRef>idExpediente</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>cdProvincia</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="xsd:date"/>
+                    <a:nameRef>fechaEstado</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>ambitos</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>cdProvinciaApertura</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>numDocumento</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>numIpf</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Text?list"/>
+                    <a:nameRef>estadoDescartado</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="a:PagingInfo"/>
+                    <a:nameRef>pagingInfo</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>campoOrdenacion</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:Expression">"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5UjBPRnpXTzBVckdLN0VCeFJaWEZSN0c4X0Z3Yl83eUFxYy0tcFhKWkJZIn0.eyJleHAiOjE2NzEyNTY4ODIsImlhdCI6MTY3MTE1OTY4MiwianRpIjoiNTRkNmMzYWEtYWExOS00MTFiLTlkZWMtMTYwZTg5NWY5M2Q4IiwiaXNzIjoiaHR0cHM6Ly9rZXljbG9hay1wcm8taW12LmFwcHMuaW12LXByby5naXNzLWluc3MubG9jYWwvYXV0aC9yZWFsbXMvaW12LXJlYWxtIiwic3ViIjoiMmU1Mjk5OTMtMmY1OC00MmVjLWE0OGQtMWZiZTA1NjQ1MDUxIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiQVBJQU4tQ2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6Ijc1ODg0ZTYzLTg0N2YtNDM0NS05MmIwLWRjZjU2NjVkYWVmNCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiU2lsY29uIiwiVHJhbWl0YWRvciJdfSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNzU4ODRlNjMtODQ3Zi00MzQ1LTkyYjAtZGNmNTY2NWRhZWY0IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJhdWRpdCI6IntcImlwXCI6XCIxMC4xOTcuNTcuMTQ4XCIsXCJkbmlcIjpcImFsYmVydG8uc2FhdmVkcmFnQGluZXR1bS5jb21cIixcImRlcGFydGFtZW50b1wiOlwiQVBQSUFOX0RFVlwifSIsInJvbGVzIjoibnVsbCIsImltdi10eXBlIjoiU0lMQ09OIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWxiZXJ0by5zYWF2ZWRyYWdAaW5ldHVtLmNvbUBhcHBpYW5fZGV2In0.P5KFsgTO1FHPzLZa2dGRSCm0B4AS7n8VbOelSLVagclf4w75V7fDxSXi1n1-HlbvQOViyQR4rv7ov-V5BbpD1bAwjQLhl1FdX6bwqbieNimzoXF-8OqGAxekk9PM2Pv2SnQ_9fhlk7Wrju1b5vC5uj6ElRWBkClrcE6ivGMn2-Ino2E1vfQtVSuKSZLq9WaJ9JR8nhzXdcKucmbUWqYB_87kjAMCO3X_O-mcLbPqW3fPGnZFe-TKRCGrMZks-uO7Xm77oqtOHQrb0iMR4AwFCpSKQe3V6rKBlDoVJutqx1avhc6pk4H2MPh1FQ6STWUftbjy5nPVnGA5MkfZ244hkA"</a:value>
+                    <a:nameRef>token</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>indExpedienteProtegido</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="_a-0000e8a7-882a-8000-343c-01ef9001ef90_266985"/>
+    </history>
+</contentHaul>

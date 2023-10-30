@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_625335</versionUuid>
+    <rule>
+        <name>P_ListaTokens</name>
+        <uuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_625324</uuid>
+        <description></description>
+        <parentUuid>_a-0000e668-b124-8000-9bb9-011c48011c48_190019</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+
+  local!a:#"SYSTEM_SYSRULES_forEach"(
+    items: {1,501,1001,1501,2001,2501,3001},
+    expression: a!flatten(#"SYSTEM_SYSRULES_queryEntity_v1"(
+      entity: #"_a-0000e668-b124-8000-9bb9-011c48011c48_241715",
+      query: #"SYSTEM_SYSRULES_query"(
+        selection: #"SYSTEM_SYSRULES_querySelection"(
+          columns: {
+            #"SYSTEM_SYSRULES_queryColumn"(
+              field: "idUsuario"
+            ),
+            #"SYSTEM_SYSRULES_queryColumn"(
+              field: "activo"
+            ),
+            #"SYSTEM_SYSRULES_queryColumn"(
+              field: "token"
+            ),
+            #"SYSTEM_SYSRULES_queryColumn"(
+              field: "numSinPerfil"
+            ),
+            #"SYSTEM_SYSRULES_queryColumn"(
+              field: "fechaExpiracion"
+            )
+          }
+        ),
+        pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: fv!item,
+          batchSize: 500,
+          sort: #"SYSTEM_SYSRULES_sortInfo"(
+            field: "idUsuario",
+            ascending: true
+          )
+        )
+      ),
+      fetchTotalCount: false
+    ).data)
+  ),
+
+  local!b:#"SYSTEM_SYSRULES_forEach"(
+    items: local!a,
+    /*TOKEN IS NULL */
+    /*OR ACTIVO = 0 */
+    /*OR FECHA_EXPIRACION IS NULL */
+    /*OR NUM_SIN_PERFIL &gt; 0;*/
+    expression: 
+    if(
+      or(
+        #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(tostring(index(fv!item,"token",null))),
+        toboolean(index(fv!item,"activo",false))=false,
+        #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(todate(index(fv!item,"fechaExpiracion",null))),
+        tointeger(index(fv!item,"numSinPerfil",10))&gt;0  
+      ),
+      /*KO*/
+      a!map(
+        idUsuario:index(fv!item,"idUsuario",null),
+        estado:"KO"
+      ),
+      /*OK*/
+      a!map(
+        idUsuario:index(fv!item,"idUsuario",null),
+        estado:"OK"
+      ),
+    )
+  ),
+  local!b
+
+
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_625335"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,2043 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea05-cec3-8000-3447-01ef9001ef90_308046</versionUuid>
+    <rule>
+        <name>P_ER_getJsonTest</name>
+        <uuid>_a-0000e808-f725-8000-3435-01ef9001ef90_213712</uuid>
+        <description>Obtener JSON de pruebas</description>
+        <parentUuid>_a-0000e75e-fc03-8000-33fa-01ef9001ef90_6838</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!json25: #"SYSTEM_SYSRULES_fromJson_v1"("[
+{
+""key"": ""PC1"",
+""value"": ""3"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC35"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC3"",
+""value"": ""5"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC4"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC5.1"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC5"",
+""value"": [
+""1"",
+""15""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PC5.2"",
+""value"": ""15"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC7"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC12"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC13"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC22"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC26"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC28"",
+""value"": ""3"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC30"",
+""value"": ""3"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI01"",
+""value"": ""DFSDSF"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI02"",
+""value"": ""SDF"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI03"",
+""value"": ""TEST"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI04"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI06"",
+""value"": ""99988816L"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI07"",
+""value"": ""2023-01-28"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI08"",
+""value"": ""ASD123123"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI11"",
+""value"": ""victor.bernabeperez@nttdata.com"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI14"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI27"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF1"",
+""value"": ""DFSDSF"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF2"",
+""value"": ""SDF"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF3"",
+""value"": ""TEST"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF4"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF5"",
+""value"": ""99988816L"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF6"",
+""value"": ""2023-01-28"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF182"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF116"",
+""value"": ""ASD123123"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF7"",
+""value"": ""1945-01-21"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF9"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF10"",
+""value"": ""724"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF11"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF12"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF183"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF164"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF18"",
+""value"": ""3"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF141"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF122"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF175"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF53"",
+""value"": ""victor.bernabeperez@nttdata.com"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF54"",
+""value"": ""666666666"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF19.1"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF19"",
+""value"": [
+""1"",
+""15""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF19.2"",
+""value"": ""15"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF75"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF123"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF124"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF125"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF176"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF184.1"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF184"",
+""value"": [
+""1"",
+""1""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF100.1"",
+""value"": ""724"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF100"",
+""value"": [
+""724"",
+""660""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF184.2"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF100.2"",
+""value"": ""660"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF27.1.0"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF27.2.0"",
+""value"": ""13"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF20.1"",
+""value"": ""ASDFASDF"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF20"",
+""value"": [
+""ASDFASDF"",
+""SFASDF""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF21.1"",
+""value"": ""ASDF"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF21"",
+""value"": [
+""ASDF"",
+""SDF""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF22.1"",
+""value"": ""ASDF"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF22"",
+""value"": [
+""ASDF"",
+""ASDF""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF23.1"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF23"",
+""value"": [
+""1"",
+""6""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF24.1"",
+""value"": ""33333333D"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF24"",
+""value"": [
+""33333333D"",
+""Y4444444C""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF25"",
+""value"": [
+"""",
+""2022-01-06""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF107.1"",
+""value"": ""ASD123333"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF107"",
+""value"": [
+""ASD123333"",
+""E44444444""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF26.1"",
+""value"": ""1990-01-21"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF26"",
+""value"": [
+""1990-01-21"",
+""1960-01-21""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF114.1"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF114"",
+""value"": [
+""1"",
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF115.1"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF115"",
+""value"": [
+""2"",
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF104"",
+""value"": [
+""1""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF177.1"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF177"",
+""value"": [
+""2"",
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF178.1"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF178"",
+""value"": [
+""2"",
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF118.1"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF118"",
+""value"": [
+""2"",
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF119.1"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF119"",
+""value"": [
+""2"",
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF120.1"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF120"",
+""value"": [
+""2"",
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF99"",
+""value"": [
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF142"",
+""value"": [
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF27.1"",
+""value"": [
+""1"",
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF27"",
+""value"": [
+""1"",
+""2"",
+""13"",
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF27.1.2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF20.2"",
+""value"": ""SFASDF"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF21.2"",
+""value"": ""SDF"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF22.2"",
+""value"": ""ASDF"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF23.2"",
+""value"": ""6"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF24.2"",
+""value"": ""Y4444444C"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF25.2"",
+""value"": ""2022-01-06"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF107.2"",
+""value"": ""E44444444"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF26.2"",
+""value"": ""1960-01-21"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF114.2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF115.2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF104.2"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF177.2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF178.2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF118.2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF119.2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF120.2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF99.2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF142.2"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF27.2"",
+""value"": [
+""13"",
+""2""
+],
+""tipo"": ""3"",
+""hasChildren"": true
+},
+{
+""key"": ""PF27.2.1"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF31"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF38"",
+""value"": ""CL"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF39"",
+""value"": ""DFS"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF40"",
+""value"": ""4"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF45"",
+""value"": ""724"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF46"",
+""value"": ""04"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF47"",
+""value"": ""040780001"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF48"",
+""value"": ""04004"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF90"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF56"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF59"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF72"",
+""value"": 1,
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF180"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF51"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF74"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF79"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+}
+]"),
+local!respuestas: #"SYSTEM_SYSRULES_fromJson_v1"("{
+""idExpedienteFuncional"": ""146202280100094910100"",
+""clavePrestacion"": null,
+""solicitante"": {
+""formulario"": {
+""idCiudadano"": ""be05f889-2749-4140-abb8-a581b9ce31b6"",
+""nombre"": ""FATIMA ZAHRA"",
+""primerApellido"": ""MAKROUT"",
+""segundoApellido"": null,
+""numIdentificacion"": ""Y4702615A"",
+""tipoDocumentacion"": ""6"",
+""numeroSoporte"": ""E20011045"",
+""estadoCivil"": ""4"",
+""nacionalidad"": ""504"",
+""discapacidad"": false,
+""fechaFinDiscapacidad"": null,
+""administradorSM"": null,
+""patrimonio"": ""0"",
+""ingresosActuales"": null,
+""ingresosAnteriores"": ""11464,60"",
+""correoElectronico"": ""FATIMAZAHRAMAKROUT@GMAIL.COM"",
+""telefonoFijo"": null,
+""telefonoMovil"": ""642482509"",
+""sexo"": null,
+""fechaNacimiento"": ""1975-08-21"",
+""NOR-TIPO-VIA"": ""AV"",
+""NOR-NOMBRE-VIA"": ""DEL ROMERAL"",
+""NOR-NUMERO-VIA"": ""5"",
+""NOR-BIS"": null,
+""NOR-ESCALERA"": null,
+""NOR-PISO"": ""3"",
+""NOR-PUERTA"": ""6"",
+""NOR-LIT-LOCALIDAD"": null,
+""NOR-C-POSTAL"": ""46860"",
+""NOR-BLOQUE"": null,
+""NACIO"": null,
+""PROVINCIA"": ""46"",
+""NOR-COD-LOCALIDAD"": ""460060000"",
+""FECHA-CAD"": null
+},
+""ciudadano"": {
+""id"": ""be05f889-2749-4140-abb8-a581b9ce31b6"",
+""tipoDocumento"": ""6"",
+""numeroDocumento"": ""Y4702615A"",
+""numeroSoporte"": ""E20011045"",
+""numeroIpf"": ""60Y4702615A0100"",
+""fechaCaducidad"": ""2022-11-21 00:00:00.0"",
+""nombre"": ""FATIMA ZAHRA"",
+""primerApellido"": ""MAKROUF"",
+""segundoApellido"": null,
+""sexo"": ""2"",
+""estadoCivil"": ""4"",
+""fechaNacimiento"": ""1975-08-21 00:00:00.0"",
+""localidadNacimiento"": ""BERKANE"",
+""provinciaNacimiento"": ""MARRUECOS"",
+""fechaInicioRes"": null,
+""fechaFinRes"": null,
+""nacionalidad"": ""504"",
+""indResideEsp"": false,
+""fechaRegistro"": ""2022-04-07 14:09:43.888"",
+""codErrorPolicia"": null,
+""codErrorAfiliacion"": null,
+""nombrePadre"": ""BOUJEMAA"",
+""nombreMadre"": ""RAHMA"",
+""canalesComunicacion"": [],
+""domicilios"": []
+}
+},
+""miembros"": [
+{
+""idx"": 1,
+""ciudadano"": {
+""formulario"": {
+""idCiudadano"": null,
+""nombre"": ""OSSAMA"",
+""primerApellido"": ""JOUHRI"",
+""segundoApellido"": null,
+""numIdentificacion"": ""Y4702648J"",
+""tipoDocumentacion"": ""6"",
+""numeroSoporte"": ""E20011046"",
+""estadoCivil"": null,
+""nacionalidad"": ""504"",
+""discapacidad"": false,
+""fechaFinDiscapacidad"": null,
+""administradorSM"": null,
+""patrimonio"": null,
+""ingresosActuales"": null,
+""ingresosAnteriores"": null,
+""correoElectronico"": null,
+""telefonoFijo"": null,
+""telefonoMovil"": null,
+""sexo"": ""1"",
+""fechaNacimiento"": ""2008-05-13"",
+""NOR-TIPO-VIA"": ""AV"",
+""NOR-NOMBRE-VIA"": ""DEL ROMERAL"",
+""NOR-NUMERO-VIA"": ""5"",
+""NOR-BIS"": null,
+""NOR-ESCALERA"": null,
+""NOR-PISO"": ""3"",
+""NOR-PUERTA"": ""6"",
+""NOR-LIT-LOCALIDAD"": ""460060000"",
+""NOR-C-POSTAL"": ""46860"",
+""NOR-BLOQUE"": null,
+""NACIO"": ""504"",
+""PROVINCIA"": ""46"",
+""NOR-COD-LOCALIDAD"": ""460060000"",
+""FECHA-CAD"": ""2022-11-21""
+},
+""ciudadano"": {
+""id"": ""8f5a1b48-7fbb-4507-8fbd-31ce6bfdd54d"",
+""tipoDocumento"": ""6"",
+""numeroDocumento"": ""Y4702648J"",
+""numeroSoporte"": ""E20011046"",
+""numeroIpf"": ""60Y4702648J0100"",
+""fechaCaducidad"": ""2022-11-21 00:00:00.0"",
+""nombre"": ""OSSAMA"",
+""primerApellido"": ""JOUHRI"",
+""segundoApellido"": null,
+""sexo"": ""1"",
+""estadoCivil"": null,
+""fechaNacimiento"": ""2008-05-13 00:00:00.0"",
+""localidadNacimiento"": ""BERKANE"",
+""provinciaNacimiento"": ""MARRUECOS"",
+""fechaInicioRes"": null,
+""fechaFinRes"": null,
+""nacionalidad"": ""504"",
+""indResideEsp"": false,
+""fechaRegistro"": ""2022-04-07 14:09:46.505"",
+""codErrorPolicia"": null,
+""codErrorAfiliacion"": null,
+""nombrePadre"": ""ABDELKHALEK"",
+""nombreMadre"": ""FATIMA ZAHRA"",
+""canalesComunicacion"": [],
+""domicilios"": []
+}
+},
+""relacionSolicitante"": ""15"",
+""custodia"": null,
+""relacionMiembros"": []
+}
+],
+""domicilio"": {
+""codPostal"": ""46860"",
+""localidad"": ""460060000"",
+""provincia"": ""46"",
+""pais"": ""724"",
+""tipoVia"": ""AV"",
+""nombreVia"": ""DEL ROMERAL"",
+""numVia"": ""5"",
+""bloque"": null,
+""escalera"": null,
+""piso"": ""3"",
+""puerta"": ""6""
+},
+""comunicaciones"": {
+""codPostal"": null,
+""localidad"": null,
+""provincia"": null,
+""pais"": null,
+""tipoVia"": null,
+""nombreVia"": null,
+""numVia"": null,
+""bloque"": null,
+""escalera"": null,
+""piso"": null,
+""puerta"": null,
+""aptdoCorreos"": null,
+""indDireccComunic"": ""1""
+},
+""cdEntidadGestora"": ""1"",
+""cdProvinciaApertura"": ""46"",
+""fecAnyoApertura"": ""2022-04-07"",
+""cdProteccionFamiliar"": ""8"",
+""idExpedienteSeq"": ""10009491"",
+""cdDuplicidad"": ""01"",
+""cdDesdoblamiento"": ""00"",
+""cdUnidadGestion"": ""146"",
+""fecCreacion"": ""2022-04-07 12:09:34"",
+""indGestorCiudadano"": null,
+""idTramitador"": null,
+""fecAsignacion"": null,
+""cdProvinciaAsignada"": null,
+""indCasuistica"": null,
+""fecSolicitud"": ""2022-03-22"",
+""fecResolucion"": null,
+""cdLenguaCooficial"": ""1"",
+""numPersonasUc"": ""2"",
+""dsIbanBancario"": ""9720386368906000039143"",
+""idSolicitud"": ""c2969bb3-475f-4aa5-8bd4-5b557ac9b0ee"",
+""idRegistro"": ""20224460000072490"",
+""fecRegistro"": ""2022-03-22 00:00:00"",
+""nombreCiudadano"": ""FATIMA ZAHRA"",
+""indSubEstado"": ""55"",
+""fechaEstado"": ""2022-04-12"",
+""notas"": [],
+""datosEconomicosTransitoria"": [],
+""datosEconomicosVencidos"": [
+{
+""ingresos"": 3780.5699999999997,
+""sociedadMercantil"": false,
+""patrimonio"": 960.53,
+""otrasFuentes"": 0.0,
+""fechaCalculos"": ""2022-04-11"",
+""limitePatrimonio"": 24778.32,
+""limiteIngresos"": 7669.4800000000005,
+""superaAPi"": false,
+""limiteAPi"": 23008.440000000002,
+""superaActivos"": false,
+""limiteActivos"": 46016.880000000005,
+""activosUC"": 960.53
+}
+],
+""ingresosComplementarios"": [],
+""ingresosManual"": [],
+""minoraciones"": [],
+""verificaciones"": [
+{
+""tipo"": ""verdirpadr"",
+""descripcion"": ""Cumplimiento dirección del padrón coincide con la manifestada en la solicitud o se aporta certificado expedido por los servicios sociales competentes que lo justifique. "",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""412"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""ver23"",
+""descripcion"": ""Mayor de 23 años"",
+""categoria"": ""1"",
+""verificacion"": true,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""349"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""verucpadron"",
+""descripcion"": ""Cumplimiento de la unidad de convivencia alegada coincide con la que figura en el certificado de empadronamiento."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""397"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""verexcsol"",
+""descripcion"": ""Cumplimiento acreditación situación de exclusión social. "",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""321"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""verhabinv"",
+""descripcion"": ""Cumplimiento acreditación uso individualizado de habitación mediante contrato o título jurídico."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""396"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""verpension"",
+""descripcion"": ""Por ser pensionista de pensión de jubilación contributiva o no contributiva. Invalidez no contributiva o incapacidad permanente que no cumple las condiciones y el importe para reconocer el ingresos mínimo vital.\t"",
+""categoria"": ""1"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""344"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""ver30alta"",
+""descripcion"": ""Cumplimiento Menor de 30 años en fecha de solicitud y acredita 12 meses en alta laboral en los 3 años inmediatamente anteriores a la solicitud. "",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""457"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""vercusjud"",
+""descripcion"": ""Cumplimiento acreditación la guarda y custodia judicial o en su defecto, la presentación de la demanda ante el órgano judicial correspondiente. "",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""346"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""ver30prog"",
+""descripcion"": ""Mayor de 30 años en fecha de solicitud y acreditar un año con domicilio distinto al de sus progenitores, tutores o acogedores"",
+""categoria"": ""1"",
+""verificacion"": true,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""401"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""verservresiden"",
+""descripcion"": ""Cumplimiento NO usuario de una prestación de servicio residencial de carácter social, sanitario o socio-sanitario. "",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""416"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""vervulpat"",
+""descripcion"": ""Cumplimiento Vulnerabilidad Económica por NO superar Patrimonio Neto"",
+""categoria"": ""1"",
+""verificacion"": true,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""403"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""verconv"",
+""descripcion"": ""Los miembros de la Unidad de Convivencia coinciden con los convivientes informados por el INE / Padrón"",
+""categoria"": ""1"",
+""verificacion"": false,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""458"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""vervuleco"",
+""descripcion"": ""Cumplimiento Vulnerabilidad Económica por NO superar Ingresos"",
+""categoria"": ""1"",
+""verificacion"": true,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""462"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""verdupl"",
+""descripcion"": ""Se cumple la condición de no tener asignada o solicitada una prestación IMV anterior"",
+""categoria"": ""1"",
+""verificacion"": true,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""353"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""vervulad"",
+""descripcion"": ""Cumplimiento Vulnerabilidad por NO ser administrador de una sociedad mercantil que no haya cesado en su actividad"",
+""categoria"": ""1"",
+""verificacion"": true,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""315"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""verzondom"",
+""descripcion"": ""Cumplimiento acreditación del uso exclusivo de una determinada zona del domicilio mediante título jurídico."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""339"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""verparhecho"",
+""descripcion"": ""Cumplimiento acreditación vinculación como pareja de hecho."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""394"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""verderopc"",
+""descripcion"": ""No superado el límite de días establecidos para responder al derecho de opción por parte del ciudadano."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""360"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""ver23orf"",
+""descripcion"": ""El solicitante es menor de 23 años pero cumple con la exclusión de Orfandad absoluta."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""345"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""verdnivigor"",
+""descripcion"": ""Cumplimiento DNI en Vigor"",
+""categoria"": ""1"",
+""verificacion"": true,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""452"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""verultanu"",
+""descripcion"": ""Los miembros de la U.C han convivido al menos los últimos seis meses en el mismo domicilio"",
+""categoria"": ""1"",
+""verificacion"": false,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""343"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""verrel"",
+""descripcion"": ""Cumplimiento requisito de vínculo de parentesco o asimilado entre los miembros de la unidad de convivencia"",
+""categoria"": ""1"",
+""verificacion"": true,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""322"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""vermeno30"",
+""descripcion"": ""Menor de 30 años en fecha de solicitud, acredita dos años con domicilio distinto al de sus progenitores, tutores o acogedores"",
+""categoria"": ""1"",
+""verificacion"": false,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""371"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""vermenor23"",
+""descripcion"": ""El solicitante es menor de 23 años pero cumple con alguna de las exclusiones posibles."",
+""categoria"": ""1"",
+""verificacion"": false,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""398"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""vertestact"",
+""descripcion"": ""Cumple las condiciones del test de activos"",
+""categoria"": ""1"",
+""verificacion"": true,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""329"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""ver23men"",
+""descripcion"": ""El solicitante es menor de 23 años pero cumple con la exclusión de centro de menores."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""342"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""verresidesp"",
+""descripcion"": ""Cumplimiento acreditación residencia legal y efectiva en España durante al menos, el año inmediatamente anterior a la fecha de la solicitud, del solicitante y/o de algún miembro de la unidad de convivencia."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""363"",
+""mostrarExtra"": true
+},
+{
+""tipo"": ""veridentok"",
+""descripcion"": ""Identificación del solicitante es correcta."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""449"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""verviolgen"",
+""descripcion"": ""Cumplimiento acreditación su condición de víctima de violencia de género/ trata o explotación sexual."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""348"",
+""mostrarExtra"": false
+},
+{
+""tipo"": ""vertradiv"",
+""descripcion"": ""Cumplimiento acreditación del inicio de los trámites de separación o divorcio."",
+""categoria"": ""2"",
+""verificacion"": null,
+""fecRegistro"": ""2022-04-11 08:02:44"",
+""idNegocio"": ""350"",
+""mostrarExtra"": false
+}
+],
+""cuantiaTotal"": {
+""importeRenta"": null,
+""fecRenta"": null,
+""procedenciaRenta"": null,
+""calculoIMV"": null,
+""rentaGarantizada"": null,
+""numImporteMensual"": null,
+""tipoInadmision"": null
+},
+""calculoIMV"": null,
+""documentosASubsanar"": [],
+""idSgda"": ""SGDA_df656f59"",
+""versionSgda"": ""1.0"",
+""idSgdaFormulario"": ""SGDA_df6579bd"",
+""versionSgdaFormulario"": ""1"",
+""representante"": false,
+""indMonoparentalidad"": false,
+""respuestas"": [
+{
+""key"": ""PF1"",
+""dsCampo"": ""DS_NOMBRE"",
+""value"": ""FATIMA ZAHRA"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF2"",
+""dsCampo"": ""DS_APELLIDO1"",
+""value"": ""MAKROUT"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF4"",
+""dsCampo"": ""IND_TIPO_IPF"",
+""value"": ""6"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF5"",
+""dsCampo"": ""NUM_IPF"",
+""value"": ""Y4702615A"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF6"",
+""dsCampo"": ""FEC_CADUCIDAD_IPF"",
+""value"": ""2022-11-21"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF182"",
+""dsCampo"": ""IND_SIN_FECHA_CADUCIDAD"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF116"",
+""dsCampo"": ""NUM_SOPORTE_IPF"",
+""value"": ""E20011045"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF7"",
+""dsCampo"": ""FEC_NACIMIENTO"",
+""value"": ""1975-08-21"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF9"",
+""dsCampo"": ""CD_SEXO"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF10"",
+""dsCampo"": ""CD_PAIS_NACIONALIDAD"",
+""value"": ""504"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF11"",
+""dsCampo"": ""CD_EST_CIVIL"",
+""value"": ""4"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF12"",
+""dsCampo"": ""IND_REPRESENTANTE"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF183"",
+""dsCampo"": null,
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF164"",
+""dsCampo"": ""IND_TERCER_SECTOR"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF18"",
+""dsCampo"": ""IND_PERSONAS_UC"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF122"",
+""dsCampo"": ""IND_COMPARTIR_PISO_NOUC"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF175"",
+""dsCampo"": ""IND_EMPLEO_ACTUAL"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF53"",
+""dsCampo"": ""DS_EMAIL"",
+""value"": ""FATIMAZAHRAMAKROUT@GMAIL.COM"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF54"",
+""dsCampo"": ""DS_TELEFONO_MOVIL"",
+""value"": ""642482509"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF101"",
+""dsCampo"": ""IND_RESIDE_ESPANYA"",
+""value"": ""3"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF102"",
+""dsCampo"": ""INCIO_PERMISO_RESIDENCIA"",
+""value"": ""2017-12-11"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF19"",
+""dsCampo"": ""IND_RELACION_SOL_UC"",
+""value"": ""[ \""15\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF176"",
+""dsCampo"": ""IND_DEMANDANTE_EMPLEO"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF124"",
+""dsCampo"": ""IND_DISCAPACIDAD"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF125"",
+""dsCampo"": ""IND_DEPENDENCIA"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF19.1"",
+""dsCampo"": ""IND_RELACION_SOL_UC"",
+""value"": ""15"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF184.1"",
+""dsCampo"": ""IND_SIN_FECHA_CADUCIDAD_UC"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF184"",
+""dsCampo"": ""IND_SIN_FECHA_CADUCIDAD_UC"",
+""value"": ""[ \""2\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF100.1"",
+""dsCampo"": ""CD_PAIS_NACIONALIDAD_UC"",
+""value"": ""504"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF100"",
+""dsCampo"": ""CD_PAIS_NACIONALIDAD_UC"",
+""value"": ""[ \""504\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF27.1.0"",
+""dsCampo"": ""IND_RELACION_UC"",
+""value"": ""13"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF20.1"",
+""dsCampo"": ""DS_NOMBRE_UC"",
+""value"": ""OSSAMA"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF20"",
+""dsCampo"": ""DS_NOMBRE_UC"",
+""value"": ""[ \""OSSAMA\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF21.1"",
+""dsCampo"": ""DS_APELLIDO1_UC"",
+""value"": ""JOUHRI"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF21"",
+""dsCampo"": ""DS_APELLIDO1_UC"",
+""value"": ""[ \""JOUHRI\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF23.1"",
+""dsCampo"": ""IND_TIPO_IPF_UC"",
+""value"": ""6"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF23"",
+""dsCampo"": ""IND_TIPO_IPF_UC"",
+""value"": ""[ \""6\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF24.1"",
+""dsCampo"": ""NUM_IPF_UC"",
+""value"": ""Y4702648J"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF24"",
+""dsCampo"": ""NUM_IPF_UC"",
+""value"": ""[ \""Y4702648J\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF25.1"",
+""dsCampo"": ""FEC_CADUCIDAD_IPF_UC"",
+""value"": ""2022-11-21"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF25"",
+""dsCampo"": ""FEC_CADUCIDAD_IPF_UC"",
+""value"": ""[ \""2022-11-21\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF107.1"",
+""dsCampo"": ""NUM_SOPORTE_IPF_UC"",
+""value"": ""E20011046"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF107"",
+""dsCampo"": ""NUM_SOPORTE_IPF_UC"",
+""value"": ""[ \""E20011046\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF26.1"",
+""dsCampo"": ""FEC_NACIMIENTO_UC"",
+""value"": ""2008-05-13"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF26"",
+""dsCampo"": ""FEC_NACIMIENTO_UC"",
+""value"": ""[ \""2008-05-13\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF114.1"",
+""dsCampo"": ""CD_SEXO_UC"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF114"",
+""dsCampo"": ""CD_SEXO_UC"",
+""value"": ""[ \""1\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF104.1"",
+""dsCampo"": ""IND_RESIDE_ESPANYA_UC"",
+""value"": ""3"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF105.1"",
+""dsCampo"": ""INCIO_PERMISO_RESIDENCIA_UC"",
+""value"": ""2018-01-24"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF27.1"",
+""dsCampo"": ""IND_RELACION_UC"",
+""value"": ""[ \""13\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF27"",
+""dsCampo"": ""IND_RELACION_UC"",
+""value"": ""[ \""13\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF92"",
+""dsCampo"": ""IND_RESIDENCIA_ESPANYA_UC_1_ANYO"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF31"",
+""dsCampo"": ""IND_ESTABILIDAD_1_ANYO"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF121"",
+""dsCampo"": ""IND_OTRO_PROGENITOR_HOSPIT"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF185"",
+""dsCampo"": ""IND_OTRO_PROGENITOR_PRISION"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF104"",
+""dsCampo"": ""IND_RESIDE_ESPANYA_UC"",
+""value"": ""[ \""3\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF105"",
+""dsCampo"": ""INCIO_PERMISO_RESIDENCIA_UC"",
+""value"": ""[ \""2018-01-24\"" ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF38"",
+""dsCampo"": ""IND_TIPO_VIA"",
+""value"": ""AV"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF39"",
+""dsCampo"": ""DS_NOMBRE_VIA"",
+""value"": ""DEL ROMERAL"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF40"",
+""dsCampo"": ""NUM_VIA"",
+""value"": ""5"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF43"",
+""dsCampo"": ""IND_PISO"",
+""value"": ""3"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF44"",
+""dsCampo"": ""IND_PUERTA"",
+""value"": ""6"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF45"",
+""dsCampo"": ""CD_PAIS"",
+""value"": ""724"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF46"",
+""dsCampo"": ""CD_PROVINCIA"",
+""value"": ""46"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF47"",
+""dsCampo"": ""CD_LOCALIDAD"",
+""value"": ""460060000"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF48"",
+""dsCampo"": ""CD_COD_POSTAL"",
+""value"": ""46860"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF90"",
+""dsCampo"": ""IND_TIPO_ALOJAMIENTO"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF56"",
+""dsCampo"": ""IND_DIRECC_EFISCALES"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF59"",
+""dsCampo"": ""IND_DIRECC_COMUNIC"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF72"",
+""dsCampo"": ""IND_LENGUA_COOFICIAL"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF180"",
+""dsCampo"": ""IND_DOMICILIO_PADRON_UC"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF51"",
+""dsCampo"": ""CAMPO_IND_DOMICILIO_1ANYO_UC"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF74"",
+""dsCampo"": ""IND_BENEFIC_PRESTACIONES_UC"",
+""value"": ""3"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF113"",
+""dsCampo"": ""IND_PENSION_ALIM_COMP_UC"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF117"",
+""dsCampo"": ""IND_OTRAS_PRESTACIONES_UC"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF79"",
+""dsCampo"": ""IND_SOCIEDAD_MERCANTIL_UC"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF83"",
+""dsCampo"": ""NUM_INGRESOS_ANYO_ANT_UC"",
+""value"": ""11464,60"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF85"",
+""dsCampo"": ""NUM_BIENES_ANYO_ANT_UC"",
+""value"": ""0"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF111"",
+""dsCampo"": ""IND_URGENCIA_SOCIAL_UC"",
+""value"": ""2"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF87"",
+""dsCampo"": ""DS_IBAN_BANCARIO"",
+""value"": ""9720386368906000039143"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF88"",
+""dsCampo"": ""IND_CONSENTIM_CONSULTA"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF89"",
+""dsCampo"": ""IND_CONSENTIM_COMUN"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""RF1"",
+""dsCampo"": null,
+""value"": ""[ {\n \""id\"" : \""c1bf74d3-7cba-4cb1-8b42-0e41964571f6\"",\n \""name\"" : \""FATIMA.FIRMA.pdf\"",\n \""type\"" : \""application/pdf\"",\n \""size\"" : 13328,\n \""file\"" : \""c1bf74d3-7cba-4cb1-8b42-0e41964571f6\"",\n \""date\"" : null,\n \""fileBase64\"" : \""\"",\n \""error\"" : false\n} ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""RF5"",
+""dsCampo"": null,
+""value"": ""[ {\n \""id\"" : \""4c23fefc-e531-4618-8017-76926a7ef556\"",\n \""name\"" : \""FATIMA.NIES.pdf\"",\n \""type\"" : \""application/pdf\"",\n \""size\"" : 158780,\n \""file\"" : \""4c23fefc-e531-4618-8017-76926a7ef556\"",\n \""date\"" : null,\n \""fileBase64\"" : \""\"",\n \""error\"" : false\n} ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""RF13.1"",
+""dsCampo"": null,
+""value"": ""[ {\n \""id\"" : \""15c68346-d0e3-4b8b-a7e2-c589940d0f53\"",\n \""name\"" : \""FATIMA.NIES.pdf\"",\n \""type\"" : \""application/pdf\"",\n \""size\"" : 158780,\n \""file\"" : \""15c68346-d0e3-4b8b-a7e2-c589940d0f53\"",\n \""date\"" : null,\n \""fileBase64\"" : \""\"",\n \""error\"" : false\n} ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""RF2"",
+""dsCampo"": null,
+""value"": ""[ {\n \""id\"" : \""1fa18e26-66ec-4059-9823-6543338e4e6c\"",\n \""name\"" : \""FATIMA.REGCIVIL.pdf\"",\n \""type\"" : \""application/pdf\"",\n \""size\"" : 65239,\n \""file\"" : \""1fa18e26-66ec-4059-9823-6543338e4e6c\"",\n \""date\"" : null,\n \""fileBase64\"" : \""\"",\n \""error\"" : false\n} ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF154"",
+""dsCampo"": ""DIRECCION_PROVINCIAL_CAISS"",
+""value"": ""99"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF158"",
+""dsCampo"": ""FEC_SOLICITUD_CAISS"",
+""value"": ""2022-03-22"",
+""tipo"": ""1""
+},
+{
+""key"": ""RF46"",
+""dsCampo"": null,
+""value"": ""[ ]"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF159"",
+""dsCampo"": ""IND_REGISTRO_PRESENCIAL"",
+""value"": ""1"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF156"",
+""dsCampo"": ""FEC_REGISTRO_CAISS"",
+""value"": ""2022-03-22"",
+""tipo"": ""1""
+},
+{
+""key"": ""PF157"",
+""dsCampo"": ""ID_REGISTRO_CAISS"",
+""value"": ""20224460000072490"",
+""tipo"": ""1""
+}
+],
+""nombre"": ""FATIMA ZAHRA"",
+""primerApellido"": ""MAKROUT"",
+""segundoApellido"": null,
+""denegaciones"": [],
+""tipoInadmision"": null,
+""fecComunicacionInot"": null,
+""posibilidadReclamacionPrevia"": false,
+""dentroPlazoReclamacionPrevia"": false,
+""dentroPlazoMaximoReclamacionPrevia"": false,
+""canalPresentacion"": ""CAISS"",
+""fecEfectos"": ""01/04/2022"",
+""representanteSolicitud"": {
+""nombreRepresentante"": null,
+""apellido1Representante"": null,
+""apellido2Representante"": null,
+""indTipoDocumentoRepresentante"": null,
+""numDocumentoRepresentante"": null,
+""tipoRepresentante"": null,
+""tipoEntidadRepresentante"": null,
+""fecCaducidadNumDocumentoRepresentante"": null,
+""numSoporteRepresentante"": null,
+""emailRepresentante"": null,
+""razonSocialRepresentante"": null
+},
+""domicilioFiscal"": {
+""paisAnyoActual"": null,
+""provinciaAnyoActual"": null,
+""paisAnyoMenosUno"": null,
+""provinciaAnyoMenosUno"": null,
+""paisAnyoMenosDos"": null,
+""provinciaAnyoMenosDos"": null
+},
+""reclamacionesPrevias"": [],
+""fecCreacionEstadoInicial"": ""2022-04-07 12:09:34"",
+""numImporteMensual"": null,
+""rentaGarantizada"": null,
+""hayNuevaDocumentacion"": false,
+""periodoRenta"": 1,
+""indDT3"": false,
+""indDerechoOpcion"": null,
+""numeroDerechoOpcion"": null,
+""fechaDerechoOpcion"": null,
+""numCuantiaPf"": null,
+""validarIdentidadCaiss"": null,
+""respuestaIdentidadCaiss"": null,
+""codInadmision"": null,
+""fecNotificacionDerechoOpcion"": null,
+""fecVerificaIdentidad"": ""2022-04-07"",
+""numAdultos"": 1.0,
+""numMenores3anios"": 0.0,
+""numMenoresEntre3Y6anios"": 0.0,
+""numMenoresEntre6Y18anios"": 1.0,
+""indDiscapacidad"": ""0"",
+""totalAPI"": 600.0,
+""totalAPIMensual"": 50.0,
+""totalDiferenciaPensionesGarantizada"": null,
+""pensiones"": []
+}"),
+local!json25
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea05-cec3-8000-3447-01ef9001ef90_308046"/>
+    </history>
+</contentHaul>

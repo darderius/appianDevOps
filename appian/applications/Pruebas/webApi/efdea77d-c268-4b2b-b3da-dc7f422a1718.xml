@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<webApiHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>ce59702f-0588-4b6b-a547-4b12af91d319</versionUuid>
+    <webApi a:uuid="efdea77d-c268-4b2b-b3da-dc7f422a1718" name="P_TraerDatosPRO">
+        <a:description>Trae datos desde PRO</a:description>
+        <a:expression>a!localVariables(
+  local!CDT: index(
+    index(
+      index(
+        #"_a-0000e7ed-efb7-8000-3434-01ef9001ef90_234046"(
+          fechaEstado: today(),
+          estado: http!request.queryParameters.estado,
+          token: #"_a-0000e658-e543-8000-9bb6-011c48011c48_180360"(usuario: null),
+          pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(startIndex: 1, batchSize: 0),
+          ambitos: null
+        ),
+        "result",
+        null
+      ),
+      "headers",
+      null
+    ),
+    "count",
+    null
+  ),
+  #"SYSTEM_SYSRULES_httpResponse_v1"(
+    /*
+  * The 'statusCode' parameter is a number that represents the HTTP status code
+  * of the response. If no status code is specified, a default of '200' is used,
+  * meaning that the request was successful.
+  */
+    statusCode: 200,
+    /*
+  * The 'headers' parameter is a list of HTTP headers to include on the response.
+  * HTTP headers should be built with 'a!httpHeader()'.
+  */
+    headers: {},
+    /*
+  * The 'body' parameter is the text that will be included in the HTTP response's
+  * body.
+  */
+    body: { local!CDT }
+  )
+)</a:expression>
+        <a:urlAlias>rK5j6w</a:urlAlias>
+        <a:httpMethod>GET</a:httpMethod>
+        <a:system>false</a:system>
+        <a:requestBodyType>NONE</a:requestBodyType>
+    </webApi>
+    <roleMap>
+        <role name="web_api_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e570-a52b-8000-9af2-01075c01075c_83</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>WebApiRequest?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:path/>
+                <a:queryParameters>
+                    <a:name>estado</a:name>
+                    <a:value/>
+                </a:queryParameters>
+                <a:body/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="68b0ae26-1f9e-4b1e-a3af-81e7ce7d73a8"/>
+        <historyInfo versionUuid="220a1470-9619-4fe5-bb72-23fef43b9764"/>
+        <historyInfo versionUuid="ce59702f-0588-4b6b-a547-4b12af91d319"/>
+    </history>
+</webApiHaul>

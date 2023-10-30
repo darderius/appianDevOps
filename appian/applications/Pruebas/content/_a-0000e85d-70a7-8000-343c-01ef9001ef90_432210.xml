@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_432219</versionUuid>
+    <rule>
+        <name>P_IMV_UT_manejoDatosINE</name>
+        <uuid>_a-0000e85d-70a7-8000-343c-01ef9001ef90_432210</uuid>
+        <description>Regla que maneja los datos de la integracion INSS_INT_datosINE</description>
+        <parentUuid>_a-0000e668-b124-8000-9bb9-011c48011c48_190019</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!integracion: #"_a-0000e617-fc07-8000-9bae-011c48011c48_142147"(
+    idExpediente: ri!idExpediente,
+    token: ri!token
+  ),
+  local!datos: if(
+    or(
+      cast(typeof(true()),local!integracion.success) = false,
+      local!integracion.result.statusCode &lt;&gt; 200
+    ),
+    {},
+    index(local!integracion, "result", "body", {})
+  ),
+  
+  if(
+    #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(local!datos),
+    local!datos,
+    #"SYSTEM_SYSRULES_fromJson_v1"(local!datos)
+  )
+  
+)</definition>
+        <namedTypedValue>
+            <name>idExpediente</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>token</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users>
+                <userUuid>alberto.saavedrag@inetum.com</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e85d-70a7-8000-343c-01ef9001ef90_432219"/>
+    </history>
+</contentHaul>

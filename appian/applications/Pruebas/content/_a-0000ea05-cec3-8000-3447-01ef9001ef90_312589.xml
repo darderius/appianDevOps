@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea05-cec3-8000-3447-01ef9001ef90_312605</versionUuid>
+    <rule>
+        <name>P_CuerpoRuleTEST</name>
+        <uuid>_a-0000ea05-cec3-8000-3447-01ef9001ef90_312589</uuid>
+        <description></description>
+        <parentUuid>_a-0000e668-b124-8000-9bb9-011c48011c48_190019</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>"{
+""version"": ""64"",
+""isCaiss"": false,
+""ordenPaso"": 5,
+""respuestas"": [
+{
+""key"": ""PC1"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC3"",
+""value"": ""5"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC2"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC11"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC8"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC53"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC54"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC50"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC55"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC21"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC25"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC14"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC27"",
+""value"": ""3"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PC29"",
+""value"": ""3"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""MI1"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""MI2"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI01"",
+""value"": ""DANIEL"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI02"",
+""value"": ""TAPIA"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI03"",
+""value"": ""RIVAS"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI04"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI06"",
+""value"": ""05877587Y"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI07"",
+""value"": ""2025-10-15"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI11"",
+""value"": ""carlos.diez2@at.seg-social.es"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI14"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI13"",
+""value"": [
+{
+""id"": ""11c4d3a6-7f9b-45c7-aa63-fbe4da993db4"",
+""name"": ""SGDA_884e875c.pdf"",
+""type"": ""application/pdf"",
+""size"": 189955,
+""file"": ""11c4d3a6-7f9b-45c7-aa63-fbe4da993db4"",
+""fileBase64"": """",
+""error"": false
+},
+{
+""id"": ""fd3feecc-4b95-429e-ba27-e0b832cd3dfe"",
+""name"": ""SGDA_884ff5ed.pdf"",
+""type"": ""application/pdf"",
+""size"": 189955,
+""file"": ""fd3feecc-4b95-429e-ba27-e0b832cd3dfe"",
+""fileBase64"": """",
+""error"": false
+}
+],
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PI28"",
+""value"": [
+{
+""id"": ""37d98716-63cf-42ba-b7e6-d7afe8939d2a"",
+""name"": ""Foto.png"",
+""type"": ""image/png"",
+""size"": null,
+""file"": ""37d98716-63cf-42ba-b7e6-d7afe8939d2a"",
+""fileBase64"": """",
+""error"": false
+}
+],
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF1"",
+""value"": ""DANIEL"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF2"",
+""value"": ""TAPIA"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF3"",
+""value"": ""RIVAS"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF4"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF5"",
+""value"": ""05877587Y"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF6"",
+""value"": ""2025-10-15"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF182"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF7"",
+""value"": ""1983-10-15"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF9"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF10"",
+""value"": ""724"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF11"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF12"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF183"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF164"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF18"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF122"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF124"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF53"",
+""value"": ""carlos.diez2@at.seg-social.es"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF54"",
+""value"": ""666666666"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF197"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF36"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF191"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF125"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF38"",
+""value"": ""CL"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF39"",
+""value"": ""AS"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF40"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF45"",
+""value"": ""724"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF46"",
+""value"": ""23"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF47"",
+""value"": ""230500000"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF48"",
+""value"": ""23001"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF90"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF56"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF160"",
+""value"": ""724"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF161"",
+""value"": ""03"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF162"",
+""value"": ""004"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF57"",
+""value"": ""724"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF58"",
+""value"": ""03"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF59"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF60"",
+""value"": ""AQ"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF61"",
+""value"": ""AS"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF62"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF67"",
+""value"": ""724"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF68"",
+""value"": ""03"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF69"",
+""value"": ""030570001"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF70"",
+""value"": ""03001"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF71"",
+""value"": ""03001"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF116"",
+""value"": ""ABC000001"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF72"",
+""value"": 1,
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF179"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF50"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF73"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF112"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF110"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF78"",
+""value"": ""2"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF80"",
+""value"": ""5000"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF82"",
+""value"": ""2000"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF87"",
+""value"": ""6621032162955668678580"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF88"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+},
+{
+""key"": ""PF89"",
+""value"": ""1"",
+""tipo"": ""3"",
+""hasChildren"": false
+}
+]
+}"</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users>
+                <userUuid>alberto.saavedrag@inetum.com</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea05-cec3-8000-3447-01ef9001ef90_312605"/>
+    </history>
+</contentHaul>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e8a7-882a-8000-343c-01ef9001ef90_274138</versionUuid>
+    <rule>
+        <name>P_IMV_ER_checkDatosAExcel</name>
+        <uuid>_a-0000e8a7-882a-8000-343c-01ef9001ef90_274096</uuid>
+        <description>comprueba los datos</description>
+        <parentUuid>_a-0000e668-b124-8000-9bb9-011c48011c48_190019</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!lista:#"_a-0000e8a7-882a-8000-343c-01ef9001ef90_274125",
+  
+  and(
+    #"SYSTEM_SYSRULES_forEach"(
+      items: ri!mapa,
+      expression: 
+      
+      a!match(
+        value: property(fv!item, "estado", ""),
+        equals: "03",
+        then: "Afiliación integrada OK",
+        equals: "05",
+        then: "Expediente admitido",
+        equals: "02",
+        then: "Expediente creado",
+        equals: "78",
+        then: "Inadmisión bloqueada",
+        equals: "06",
+        then: "Integración INE OK",
+        equals: "44",
+        then: "Integración SGDA OK",
+        equals: "04",
+        then: "Integración AEAT OK",
+        equals: "01",
+        then: "Solicitud recibida",
+        equals: "55",
+        then: "Petición INE enviada",
+        equals: "56",
+        then: "Petición AEAT enviada",
+        equals: "08",
+        then: "Distribución dirección provincial",
+        equals: "83",
+        then: "Comprobar incompatibilidades",
+        equals: "16",
+        then: "Derecho de opción",
+        equals: "50",
+        then: "Solicitud de subsanación formal",
+        equals: "81",
+        then: "Desestimiento derecho de opción",
+        equals: "24",
+        then: "Afiliación error alta",
+        equals: "73",
+        then: "Fiscalización error datos",
+        equals: "30",
+        then: "Integración INE error sistemas",
+        equals: "46",
+        then: "Integración SGDA error datos",
+        equals: "28",
+        then: "Integración hacienda error datos",
+        equals: "32",
+        then: "Integración PF error sistemas",
+        equals: "29",
+        then: "Proceso inadmisión error",
+        equals: "27",
+        then: "AEAT error sistemas",
+        equals: "26",
+        then: "Afiliacion error datos",
+        equals: "25",
+        then: "Afiliacion error sistemas",
+        equals: "77",
+        then: "Derecho opcion error envio",
+        equals: "34",
+        then: "Distribucion DP error",
+        equals: "35",
+        then: "Error integridad",
+        equals: "76",
+        then: "Fiscalizacion error generacion pdf",
+        equals: "72",
+        then: "Fiscalizacion error sistemas",
+        equals: "31",
+        then: "INE error datos",
+        equals: "33",
+        then: "PF error datos",
+        equals: "43",
+        then: "Registro error datos",
+        equals: "42",
+        then: "Registro error sistemas",
+        equals: "45",
+        then: "SGDA error sistemas",
+        equals: "49",
+        then: "Sartido error datos",
+        equals: "48",
+        then: "Sartido error sistemas",
+        default: "Error"
+      ),
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>mapa</name>
+            <type>
+                <name>Map?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users>
+                <userUuid>diego.marcos@inetum.com</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e8a7-882a-8000-343c-01ef9001ef90_274138"/>
+    </history>
+</contentHaul>

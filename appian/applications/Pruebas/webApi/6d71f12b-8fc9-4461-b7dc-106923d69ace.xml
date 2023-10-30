@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<webApiHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>4aa80157-ee08-4935-92d2-e48f8cf4c9fd</versionUuid>
+    <webApi a:uuid="6d71f12b-8fc9-4461-b7dc-106923d69ace" name="P_EnviarPorCorreo">
+        <a:description>WAPI temporal: Envia por correo el doc excel</a:description>
+        <a:urlAlias>getdocumento</a:urlAlias>
+        <a:httpMethod>GET</a:httpMethod>
+        <a:system>false</a:system>
+        <a:requestBodyType>NONE</a:requestBodyType>
+    </webApi>
+    <roleMap>
+        <role name="web_api_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e570-a52b-8000-9af2-01075c01075c_83</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="4aa80157-ee08-4935-92d2-e48f8cf4c9fd"/>
+    </history>
+</webApiHaul>

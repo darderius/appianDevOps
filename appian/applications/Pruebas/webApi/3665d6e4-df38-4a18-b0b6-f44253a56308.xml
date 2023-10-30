@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<webApiHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>6d0dbf0b-befe-41c1-b6f8-524a5b2035e9</versionUuid>
+    <webApi a:uuid="3665d6e4-df38-4a18-b0b6-f44253a56308" name="P_UsuariosPRO">
+        <a:description>Esta WAPI trae los datos de PRO sobre los usuarios de negocio</a:description>
+        <a:expression>a!localVariables(
+  local!data: #"SYSTEM_SYSRULES_forEach"(
+    items: { 1, 501, 1001, 1501, 2001, 2501, 3001 },
+    expression: a!flatten(
+      #"SYSTEM_SYSRULES_queryEntity_v1"(
+        entity: #"_a-0000e668-b124-8000-9bb9-011c48011c48_241715",
+        query: #"SYSTEM_SYSRULES_query"(
+          selection: #"SYSTEM_SYSRULES_querySelection"(
+            columns: {
+              #"SYSTEM_SYSRULES_queryColumn"(field: "idUsuario"),
+              #"SYSTEM_SYSRULES_queryColumn"(field: "activo"),
+              #"SYSTEM_SYSRULES_queryColumn"(field: "token"),
+              #"SYSTEM_SYSRULES_queryColumn"(field: "numSinPerfil"),
+              #"SYSTEM_SYSRULES_queryColumn"(field: "fechaExpiracion")
+            }
+          ),
+          pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+            startIndex: fv!item,
+            batchSize: 500,
+            sort: #"SYSTEM_SYSRULES_sortInfo"(field: "idUsuario", ascending: true)
+          )
+        ),
+        fetchTotalCount: false
+      ).data
+    )
+  ),
+  local!Usuarios: #"SYSTEM_SYSRULES_forEach"(
+    items: local!data,
+    /*TOKEN IS NULL */
+    /*OR ACTIVO = 0 */
+    /*OR FECHA_EXPIRACION IS NULL */
+    /*OR NUM_SIN_PERFIL &gt; 0;*/
+    expression: if(
+      or(
+        #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(tostring(index(fv!item, "token", null))),
+        toboolean(index(fv!item, "activo", false)) = false,
+        #"_a-0000e570-a52b-8000-9ba5-011c48011c48_9851"(
+          todate(index(fv!item, "fechaExpiracion", null))
+        ),
+        tointeger(index(fv!item, "numSinPerfil", 10)) &gt; 0
+      ),
+      /*KO*/
+      a!map(
+        idUsuario: index(fv!item, "idUsuario", null),
+        estado: "KO"
+      ),
+      /*OK*/
+      a!map(
+        idUsuario: index(fv!item, "idUsuario", null),
+        estado: "OK"
+      ),
+      
+    )
+  ),
+  local!Json: #"SYSTEM_SYSRULES_toJson_v1"(local!Usuarios),
+  #"SYSTEM_SYSRULES_httpResponse_v1"(
+    /*
+  * The 'statusCode' parameter is a number that represents the HTTP status code
+  * of the response. If no status code is specified, a default of '200' is used,
+  * meaning that the request was successful.
+  */
+    statusCode: 200,
+    /*
+  * The 'headers' parameter is a list of HTTP headers to include on the response.
+  * HTTP headers should be built with 'a!httpHeader()'.
+  */
+    headers: {},
+    /*
+  * The 'body' parameter is the text that will be included in the HTTP response's
+  * body.
+  */
+    body: local!Json
+  )
+)</a:expression>
+        <a:urlAlias>OrHFLg</a:urlAlias>
+        <a:httpMethod>GET</a:httpMethod>
+        <a:system>false</a:system>
+        <a:requestBodyType>NONE</a:requestBodyType>
+    </webApi>
+    <roleMap>
+        <role name="web_api_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000e570-a52b-8000-9af2-01075c01075c_83</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>WebApiRequest?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:path/>
+                <a:queryParameters>
+                    <a:name>index</a:name>
+                    <a:value>1</a:value>
+                </a:queryParameters>
+                <a:body/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="940ddf96-d9bb-475c-9925-58737c427df0"/>
+        <historyInfo versionUuid="6d0dbf0b-befe-41c1-b6f8-524a5b2035e9"/>
+    </history>
+</webApiHaul>
