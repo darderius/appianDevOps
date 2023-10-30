@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>31e48ce1-eb79-4fbd-af5d-7d1246d61c93</versionUuid>
+    <group>
+        <name>A Users</name>
+        <securityMap>SECURITYMAP_TEAM</securityMap>
+        <uuid>31e48ce1-eb79-4fbd-af5d-7d1246d61c93</uuid>
+        <groupTypeUuid>SYSTEM_GROUP_TYPE_CUSTOM</groupTypeUuid>
+        <description>Group that all App_Toolkit_DJC activity is secured to</description>
+        <delegatedCreation>false</delegatedCreation>
+        <memberPolicy>MEMBERPOLICY_CLOSED</memberPolicy>
+        <viewingPolicy>VIEWINGPOLICY_LOW</viewingPolicy>
+        <attributes/>
+    </group>
+    <members>
+        <users/>
+        <groups>
+            <groupUuid>6f2a05f1-cbee-4ce8-8db1-29cb243aec87</groupUuid>
+        </groups>
+    </members>
+    <admins>
+        <users/>
+        <groups>
+            <groupUuid>6f2a05f1-cbee-4ce8-8db1-29cb243aec87</groupUuid>
+        </groups>
+    </admins>
+    <ruleSet/>
+    <history>
+        <historyInfo versionUuid="31e48ce1-eb79-4fbd-af5d-7d1246d61c93"/>
+    </history>
+</groupHaul>

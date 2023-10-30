@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<siteHaul xmlns:a="http://www.appian.com/ae/types/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <versionUuid>862b8ff3-256c-452d-b2a7-695ac34be313</versionUuid>
+  <site a:uuid="da12f481-aa84-4740-9ad7-62eaa44277a7" name="DJC Aena Solicita">
+    <description>Portal AENA Solicita</description>
+    <urlStub>aena-solicita</urlStub>
+    <page a:uuid="e0a713e8-3440-311a-ab85-9e267423e09e">
+      <staticName>Portal SOLICITA</staticName>
+      <description/>
+      <urlStub>home-aena</urlStub>
+      <uiObject a:uuid="_a-0000e93a-32c6-8000-9bf7-011c48011c48_1375098" xsi:type="a:ContentFreeformRule"/>
+      <iconId>f015</iconId>
+      <visibilityExpr>fn!true()</visibilityExpr>
+      <pageWidth>WIDE</pageWidth>
+    </page>
+    <visibility>268435456</visibility>
+    <headerBackgroundColor>#222A35</headerBackgroundColor>
+    <faviconHref>https://companieslogo.com/img/orig/AENA.MC-019c70b2.png?t=1621708725</faviconHref>
+    <logoHref>https://www.aena.es/publica/assets/images/aena-green-bg.svg</logoHref>
+    <showName>false</showName>
+    <tempoLinkVisibility>HIDDEN</tempoLinkVisibility>
+    <showRecordNews>true</showRecordNews>
+    <tasksInSitesVisibility>HIDDEN</tasksInSitesVisibility>
+    <buttonShape>SQUARED</buttonShape>
+    <navigationBarStyle>STYLE1</navigationBarStyle>
+    <inputShape>SQUARED</inputShape>
+    <isSystem>false</isSystem>
+    <displayName>AENA Solicita</displayName>
+    <isStaticDisplayName>true</isStaticDisplayName>
+  </site>
+  <roleMap>
+    <role name="site_administrator">
+      <users/>
+      <groups>
+        <groupUuid>d9ae02e1-4f4b-4d3f-9400-7af2467259a4</groupUuid>
+      </groups>
+    </role>
+    <role name="site_viewer">
+      <users/>
+      <groups>
+        <groupUuid>851610d3-a8e1-4d23-b581-797cd7798bd8</groupUuid>
+      </groups>
+    </role>
+  </roleMap>
+  <history>
+    <historyInfo versionUuid="862b8ff3-256c-452d-b2a7-695ac34be313"/>
+  </history>
+</siteHaul>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<webApiHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>df250a51-974c-4311-b062-a45c1cb2e1d6</versionUuid>
+    <webApi a:uuid="6f8b07e3-b107-4c2a-9c29-bdf3de5b125f" name="D _TEST">
+        <a:description></a:description>
+        <a:expression>a!localVariables(
+  local!value: cast(
+    'type!{urn:com:appian:types:BTCMP}BTCMP_ENCUESTA',
+    #"SYSTEM_SYSRULES_fromJson_v1"(http!request.body)
+  ),
+  #"SYSTEM_SYSRULES_writeToDataStoreEntity"(
+    dataStoreEntity: #"_a-0000e809-bc83-8000-9be4-011c48011c48_1163361",
+    valueToStore: local!value,
+    onSuccess: #"SYSTEM_SYSRULES_httpResponse_v1"(
+      statusCode: 200,
+      headers: {
+        #"SYSTEM_SYSRULES_httpHeader"(name: "Content-Type", value: "application/json")
+      },
+      body: #"SYSTEM_SYSRULES_toJson_v1"(
+        fv!storedValues
+      )
+    ),
+    onError: #"SYSTEM_SYSRULES_httpResponse_v1"(
+      statusCode: 500,
+      headers: {
+        #"SYSTEM_SYSRULES_httpHeader"(name: "Content-Type", value: "application/json")
+      },
+      body: #"SYSTEM_SYSRULES_toJson_v1"(
+        {
+          error: "There was an error writing to the data store"
+        }
+      )
+    )
+  )
+)</a:expression>
+        <a:urlAlias>writeDS</a:urlAlias>
+        <a:httpMethod>POST</a:httpMethod>
+        <a:system>false</a:system>
+        <a:requestBodyType>NONE</a:requestBodyType>
+        <a:loggingEnabled>false</a:loggingEnabled>
+    </webApi>
+    <roleMap>
+        <role name="web_api_administrator">
+            <users/>
+            <groups>
+                <groupUuid>d9ae02e1-4f4b-4d3f-9400-7af2467259a4</groupUuid>
+            </groups>
+        </role>
+        <role name="web_api_viewer">
+            <users/>
+            <groups>
+                <groupUuid>851610d3-a8e1-4d23-b581-797cd7798bd8</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>WebApiRequest?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:path/>
+                <a:headers>
+                    <a:name>Content-Type</a:name>
+                    <a:value>application/json</a:value>
+                </a:headers>
+                <a:body>{}</a:body>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="df250a51-974c-4311-b062-a45c1cb2e1d6"/>
+    </history>
+</webApiHaul>

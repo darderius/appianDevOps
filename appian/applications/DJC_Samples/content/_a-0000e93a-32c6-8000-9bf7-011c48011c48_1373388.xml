@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e93a-32c6-8000-9bf7-011c48011c48_1375160</versionUuid>
+    <interface>
+        <name>D_AENA_SAMPLE</name>
+        <uuid>_a-0000e93a-32c6-8000-9bf7-011c48011c48_1373388</uuid>
+        <description></description>
+        <parentUuid>23f43b9b-3845-44c3-9f4e-3b5b61031d3b</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!visible:false,
+  local!activeSection: 1,
+  local!activeSubsection: 1,
+  local!sections: {
+    a!map(
+      sectionName: "MI PERFIL",
+      subsections: {
+        a!map(name: "Mi Cuenta"),
+      }
+    ),
+    a!map(
+      sectionName: "MI REPOSITORIO",
+      subsections: {
+        a!map(name: "Expedientes"),
+        a!map(name: "Empresas"),
+        a!map(name: "Subcontratas"),
+        a!map(name: "Empleados"),
+        a!map(name: "Vehiculos")
+      }
+    ),
+    a!map(
+      sectionName: "SOLICITUDES",
+      subsections: {
+        a!map(name: "Acreditaciones"),
+        a!map(name: "Autorizaciones")
+      }
+    )
+  },
+  {
+    #"SYSTEM_SYSRULES_columnsLayout"(
+      columns: {
+        #"SYSTEM_SYSRULES_columnLayout"(
+          contents: {
+            #"SYSTEM_SYSRULES_cardLayout"(
+              contents: {
+                #"SYSTEM_SYSRULES_sectionLayout_v1"(),
+                #"SYSTEM_SYSRULES_forEach"(
+                  items: local!sections,
+                  expression: {
+                    #"SYSTEM_SYSRULES_sectionLayout_v1"(
+                      contents: {
+                        #"SYSTEM_SYSRULES_richTextDisplayField"(
+                          labelPosition: "COLLAPSED",
+                          
+                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                            text: fn!upper(fv!item.sectionName),
+                            link: #"SYSTEM_SYSRULES_dynamicLink"(saveInto: {a!save(local!visible, true)}),
+                            size: "MEDIUM",
+                            style: if(fv!index = local!activeSection, "STRONG", "PLAIN")
+                            
+                          )
+                        ),
+                        a!localVariables(
+                          local!parentSection: fv!index,
+                          
+                          #"SYSTEM_SYSRULES_cardLayout"(
+                            contents:{
+                          /*Inicio del foreach*/
+                              #"SYSTEM_SYSRULES_forEach"(
+                                items: fv!item.subsections,
+                                expression : {
+                                  #"SYSTEM_SYSRULES_sideBySideLayout"(
+                                    items: {
+                                      #"SYSTEM_SYSRULES_sideBySideItem"(
+                                        item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(text: "   ")
+                                        ),
+                                        width: "MINIMIZE"
+                                      ),
+                                      
+                                      /*Comienzo del menu anidado*/
+                                      #"SYSTEM_SYSRULES_sideBySideItem"(
+                                        item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                          labelPosition: "COLLAPSED",
+                                          value: #"SYSTEM_SYSRULES_richTextItem_v1"(
+                                            text: fv!item.name,
+                                            link: if(
+                                              fn!and(
+                                                local!parentSection = local!activeSection,
+                                                fv!index = local!activeSubsection
+                                              ),
+                                              fn!null(),
+                                              #"SYSTEM_SYSRULES_dynamicLink"(
+                                                saveInto: {
+                                                  a!save(local!activeSubsection, fv!index),
+                                                  a!save(local!activeSection, local!parentSection),
+                                                  a!save(local!visible, true)
+                                                }
+                                              )
+                                            ),
+                                            linkStyle: "STANDALONE",
+                                            color: "#C8CACC",
+                                            size: "MEDIUM",
+                                            style: if(
+                                              fn!and(
+                                                local!parentSection = local!activeSection,
+                                                fv!index = local!activeSubsection
+                                              ),
+                                              "STRONG",
+                                              "PLAIN"
+                                            )
+                                          )
+                                        ),
+                                        width: "AUTO"
+                                      ),
+                                      #"SYSTEM_SYSRULES_sideBySideItem"(
+                                        
+                                        item: #"SYSTEM_SYSRULES_richTextDisplayField"(
+                                          labelPosition: "COLLAPSED",
+                                          value: #"SYSTEM_SYSRULES_richTextIcon"(
+                                            icon: if(
+                                              fn!and(
+                                                local!parentSection = local!activeSection,
+                                                fv!index = local!activeSubsection
+                                              ),
+                                              "chevron-right",
+                                              ""
+                                            ),
+                                            size: "MEDIUM"
+                                          )
+                                        ),
+                                        width: "MINIMIZE"
+                                      )
+                                      /*Fin del menu anidado*/
+                                    },
+                                    showWhen: local!visible,
+                                    spacing: "DENSE"
+                                  )
+                                }
+                              )},
+                            style: "#222A35")
+                          /*Findel foreach*/
+                        )
+                      },
+                      marginBelow: "NONE"
+                    ),
+                    #"SYSTEM_SYSRULES_sectionLayout_v1"(),
+                    if(
+                      fv!index &lt;&gt; fv!itemCount,
+                      #"SYSTEM_SYSRULES_sectionLayout_v1"(),
+                      {}
+                    )
+                  }
+                )
+              },
+              height: "AUTO",
+              style: "#90CE00"
+            )
+          },
+          width: "NARROW_PLUS"
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"(),
+        #"SYSTEM_SYSRULES_columnLayout"(
+          showWhen: local!visible=true,
+          contents: {
+            #"SYSTEM_SYSRULES_richTextDisplayField"(
+              labelPosition: "COLLAPSED",
+              value: {
+                #"SYSTEM_SYSRULES_richTextItem_v1"(
+                  text: index(local!sections.sectionName, local!activeSection, 1),
+                  color: "ACCENT",
+                  size: "LARGE"
+                )
+              }
+            ),
+            #"SYSTEM_SYSRULES_sectionLayout_v1"(
+              label: local!sections[local!activeSection].subsections[local!activeSubsection].name &amp; "A",
+              contents: {},
+              showWhen: or(local!activeSection = 1)
+            ),
+            #"SYSTEM_SYSRULES_sectionLayout_v1"(
+              label: local!sections[local!activeSection].subsections[local!activeSubsection].name &amp; "B",
+              contents: {},
+              showWhen: or(local!activeSection = 2)
+            ),
+            #"SYSTEM_SYSRULES_sectionLayout_v1"(
+              label: local!sections[local!activeSection].subsections[local!activeSubsection].name &amp; "C",
+              contents: {},
+              showWhen: or(local!activeSection = 3)
+            )
+          },
+          width: "WIDE"
+        ),
+        #"SYSTEM_SYSRULES_columnLayout"()
+      }
+    )
+  }
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e93a-32c6-8000-9bf7-011c48011c48_1375160"/>
+    </history>
+</contentHaul>

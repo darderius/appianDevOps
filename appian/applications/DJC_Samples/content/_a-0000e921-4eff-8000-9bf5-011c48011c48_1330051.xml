@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e921-4eff-8000-9bf5-011c48011c48_1331532</versionUuid>
+    <rule>
+        <name>D_externalize_2</name>
+        <uuid>_a-0000e921-4eff-8000-9bf5-011c48011c48_1330051</uuid>
+        <description></description>
+        <parentUuid>23f43b9b-3845-44c3-9f4e-3b5b61031d3b</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+  local!temp:
+  cast(
+    #"urn:appian:record-type:v1:3c9b1645-3eae-49cd-81f1-8296b0ebc58b",
+    #"SYSTEM_SYSRULES_fromJson_v1"(
+      "{""appianid"":301,""id"":""Conoces OWASP"",
+""banco"":""McLean"",""oficina"":75,""dninif"":""026403879w""}"
+    )
+  ),
+  local!temp
+  
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e921-4eff-8000-9bf5-011c48011c48_1331532"/>
+    </history>
+</contentHaul>
