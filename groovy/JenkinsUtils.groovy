@@ -4,7 +4,7 @@ void runTestsVNC(propertyFile) {
   sh "cp devops/f4a/" + propertyFile + " f4a/FitNesseForAppian/fitnesse-automation.properties"
   dir("f4a/FitNesseForAppian") {
     wrap([$class:'Xvnc', useXauthority: true]) {
-      sh script: "bash ./runFitNesseTest.sh"
+      sh script: "bash ./runFitNesseTest.bat"
     }
   }
 }
@@ -22,7 +22,7 @@ void runTestsDocker(propertyFile) {
   }
   sleep(10)
   dir("f4a/FitNesseForAppian") {
-    sh script: "bash ./runFitNesseTest.sh"
+    sh script: "bash ./runFitNesseTest.bat"
   }
 }
 
@@ -42,9 +42,9 @@ void buildPackage(versionPropertyFile) {
     setProperty("version-manager.properties", "vcUsername", "${REPOUSERNAME}")
     setProperty("version-manager.properties", "vcPassword", "${REPOPASSWORD}")
     setProperty("version-manager.properties", "appianObjectsRepoPath", "appian/applications/${APPLICATIONNAME}")
-	sh "chmod 777 version-application.sh"
+	sh "chmod 777 version-application.bat"
 	sh "git config --global http.sslVerify false"
-    sh "./version-application.sh -package_path ./app-package.zip -local_repo_path ./local-repo"
+    sh "./version-application.bat -package_path ./app-package.zip -local_repo_path ./local-repo"
     sh "unzip ./app-package.zip"
     sh "mv application* ../deploy-package.zip"
     sh "rm -rf newBundle"
