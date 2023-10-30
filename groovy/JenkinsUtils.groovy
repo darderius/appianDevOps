@@ -59,9 +59,9 @@ void inspectPackage(customProperties) {
   String response = null
   if (fileExists("appian/properties/${APPLICATIONNAME}/" + customProperties)) {
   	println "Properties Exist"
-	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\"", returnStdout: true).trim()
+	response=sh( script:"curl --location --insecure --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\"", returnStdout: true).trim()
   } else{
-  	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\"}\"", returnStdout: true).trim()
+  	response=sh( script:"curl --location  --insecure --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\"}\"", returnStdout: true).trim()
   }
   println response
   //.readLines().drop(1).join(" ")
