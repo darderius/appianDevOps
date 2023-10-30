@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e921-4eff-8000-9bf5-011c48011c48_1330038</versionUuid>
+    <interface>
+        <name>D_XSS_Interface</name>
+        <uuid>_a-0000e8ea-e133-8000-9bf0-011c48011c48_1260685</uuid>
+        <description>
+</description>
+        <parentUuid>23f43b9b-3845-44c3-9f4e-3b5b61031d3b</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  local!peticion,
+  local!resultado,
+  {
+  #"SYSTEM_SYSRULES_textField"(
+    label: "Consulta",
+    labelPosition: "ABOVE",
+    saveInto: {local!peticion},
+    value: local!peticion,
+    refreshAfter: "UNFOCUS",
+    validations: {}
+  ),
+  #"SYSTEM_SYSRULES_textField"(
+    label: "Resultado",
+    labelPosition: "ABOVE",
+    saveInto: {},
+    value: local!resultado,
+    refreshAfter: "UNFOCUS",
+    validations: {}
+  ),
+  #"SYSTEM_SYSRULES_ButtonArrayLayout"(
+    buttons: {
+      #"SYSTEM_SYSRULES_ButtonWidget"(
+        label: "Test",
+        icon: "ad",
+        saveInto: 
+          a!save(local!resultado, local!peticion),
+        style: "NORMAL"
+      )
+    },
+    align: "START"
+  )
+  }
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <isCustom>false</isCustom>
+    </interface>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e921-4eff-8000-9bf5-011c48011c48_1330038"/>
+    </history>
+</contentHaul>

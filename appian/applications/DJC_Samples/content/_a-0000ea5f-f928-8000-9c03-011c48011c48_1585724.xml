@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea5f-f928-8000-9c03-011c48011c48_1585945</versionUuid>
+    <rule>
+        <name>D_saveError</name>
+        <uuid>_a-0000ea5f-f928-8000-9c03-011c48011c48_1585724</uuid>
+        <description></description>
+        <parentUuid>23f43b9b-3845-44c3-9f4e-3b5b61031d3b</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+  local!detalle: {usuario: "99GU9677", nombre:"David", taskid: ri!taskid},
+  
+  local!error: 'type!{urn:com:appian:types:D}D_DJC_ERROR_HANDLING'(
+    processmodel: "DJC_errorHandler",
+    taskid: "124",
+    context: #"SYSTEM_SYSRULES_toJson_v1"(local!detalle),
+    
+  )
+  , local!error
+)</definition>
+        <namedTypedValue>
+            <name>taskid</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea5f-f928-8000-9c03-011c48011c48_1585945"/>
+    </history>
+</contentHaul>

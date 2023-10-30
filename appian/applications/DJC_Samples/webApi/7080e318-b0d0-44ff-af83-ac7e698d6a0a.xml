@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<webApiHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>0e4e52d3-4022-48b6-b8e0-1feb7d02d69b</versionUuid>
+    <webApi a:uuid="7080e318-b0d0-44ff-af83-ac7e698d6a0a" name="D _testXML_API">
+        <a:description>XML test web api</a:description>
+        <a:expression>a!localVariables(
+  /*
+  * If there is a username specified in the query string of the HTTP request,
+  * we'll retrieve information about the specified user.  If there is no
+  * username specified then we'll retrieve information about the user that is
+  * executing the Web API.
+  */
+  local!username: if(
+    isnull(http!request.queryParameters.username),
+    loggedInUser(),
+    http!request.queryParameters.username
+  ),
+
+  /*
+  * Retrieve information about the user using the 'user()' function and assemble
+  * this information into a dictionary and store that dictionary in a local
+  * variable named 'local!user'.
+  */
+  local!user: {
+    firstName: user(local!username, "firstName"),
+    lastName: user(local!username, "lastName"),
+    email: user(local!username, "email"),
+    phoneNumber: user(local!username, "phoneOffice")
+  },
+
+  /*
+  * Construct an HTTP response that contains the information that we just stored
+  * in 'local!user'.
+  */
+  #"SYSTEM_SYSRULES_httpResponse_v1"(
+    /*
+    * Set an HTTP header that tells the client that the body of the response
+    * will be XML-encoded.
+    */
+    headers: {
+      #"SYSTEM_SYSRULES_httpHeader"(name: "Content-Type", value: "application/xml")
+    },
+    /*
+    * XML-encode the value of 'local!user' and place it in the response body.
+    */
+    body: toxml(local!user)
+  )
+)</a:expression>
+        <a:urlAlias>xmlAPI</a:urlAlias>
+        <a:httpMethod>GET</a:httpMethod>
+        <a:system>false</a:system>
+        <a:requestBodyType>NONE</a:requestBodyType>
+        <a:loggingEnabled>false</a:loggingEnabled>
+    </webApi>
+    <roleMap>
+        <role name="web_api_administrator">
+            <users/>
+            <groups>
+                <groupUuid>d9ae02e1-4f4b-4d3f-9400-7af2467259a4</groupUuid>
+            </groups>
+        </role>
+        <role name="web_api_viewer">
+            <users/>
+            <groups>
+                <groupUuid>851610d3-a8e1-4d23-b581-797cd7798bd8</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>WebApiRequest?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:path/>
+                <a:queryParameters>
+                    <a:name>username</a:name>
+                    <a:value>davidjc</a:value>
+                </a:queryParameters>
+                <a:body/>
+            </el>
+        </value>
+    </typedValue>
+    <history>
+        <historyInfo versionUuid="0e4e52d3-4022-48b6-b8e0-1feb7d02d69b"/>
+    </history>
+</webApiHaul>

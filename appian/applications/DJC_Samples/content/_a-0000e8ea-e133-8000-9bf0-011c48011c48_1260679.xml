@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e921-4eff-8000-9bf5-011c48011c48_1329993</versionUuid>
+    <rule>
+        <name>D_SQL_Injection_ER</name>
+        <uuid>_a-0000e8ea-e133-8000-9bf0-011c48011c48_1260679</uuid>
+        <description>Regla que usaremos para mostrar la inyeccion sql
+</description>
+        <parentUuid>23f43b9b-3845-44c3-9f4e-3b5b61031d3b</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#"SYSTEM_SYSRULES_queryEntity_v2"(
+  
+  entity: #"_a-0000e809-bc83-8000-9be4-011c48011c48_1163361",
+  query: 
+    #"SYSTEM_SYSRULES_query"(
+      filter: 
+        /*a!queryFilter(*/
+        /*field: "usuario",*/
+        /*operator:"=",*/
+        /*value: ri!parametro*/
+        /*),*/
+        #"SYSTEM_SYSRULES_queryFilter"(
+          field: "idencuesta",
+          operator:"=",
+          value: tointeger(ri!parametro)
+        ),
+      pagingInfo: 
+        #"SYSTEM_SYSRULES_pagingInfo"(
+          startIndex: 1,
+          batchSize: 1
+        )
+    )
+)</definition>
+        <namedTypedValue>
+            <name>parametro</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e921-4eff-8000-9bf5-011c48011c48_1329993"/>
+    </history>
+</contentHaul>

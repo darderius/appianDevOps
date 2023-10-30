@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>a7e8c57e-83a4-459a-a7cc-0e2656e0fe7c</versionUuid>
+    <dataStore>
+        <uuid>62e5f986-2916-41c0-b301-edd7c3c273fa</uuid>
+        <name>A Data Store</name>
+        <description>Data store containing all application's data store entities</description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>c457c102-55a3-4c69-89c7-f98ec90f1a25</uuid>
+                <name>A_TestRecord</name>
+                <type>{urn:com:appian:types:A}A_TestRecord</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>6f2a05f1-cbee-4ce8-8db1-29cb243aec87</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>31e48ce1-eb79-4fbd-af5d-7d1246d61c93</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="a7e8c57e-83a4-459a-a7cc-0e2656e0fe7c"/>
+    </history>
+</dataStoreHaul>

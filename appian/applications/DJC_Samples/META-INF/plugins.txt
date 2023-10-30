@@ -1,0 +1,12 @@
+com.appiancorp.gpt.ttk.processvars
+Get and Set Process Variables
+2.0.0
+
+adusersynchronizationwithusernames
+LDAP Tools
+1.5.1
+
+com.appiancorp.ps.plugins.xml
+XML Tools Plugin
+1.0.2
+

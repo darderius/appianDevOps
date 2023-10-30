@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea5f-f928-8000-9c03-011c48011c48_1585721</versionUuid>
+    <dataStore>
+        <uuid>_a-0000ea5f-f928-8000-9c03-011c48011c48_1585709</uuid>
+        <name>D_DS</name>
+        <description></description>
+        <dataSourceKey>jdbc/Appian</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>c45c8c97-d053-4558-b9e4-cff92238d032</uuid>
+                <name>D_DJC_ERROR_HANDLING</name>
+                <type>{urn:com:appian:types:D}D_DJC_ERROR_HANDLING</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role inherit="false" allowForAll="false" name="administrators">
+            <users/>
+            <groups>
+                <groupUuid>d9ae02e1-4f4b-4d3f-9400-7af2467259a4</groupUuid>
+            </groups>
+        </role>
+        <role inherit="false" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="readers">
+            <users/>
+            <groups>
+                <groupUuid>851610d3-a8e1-4d23-b581-797cd7798bd8</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea5f-f928-8000-9c03-011c48011c48_1585721"/>
+    </history>
+</dataStoreHaul>
