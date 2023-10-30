@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:com:appian:types:A"
+  xmlns:tns="urn:com:appian:types:A" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="A_TestRecord">
+    <xsd:annotation>
+      <xsd:appinfo source="appian.jpa">@Table(name="BTCMP_PREGUNTAS")</xsd:appinfo>
+      <xsd:appinfo source="http://www.appian.com/ae/types/2009">
+        <ns2:Metadata xmlns:ns2="http://www.appian.com/ae/types/2009">
+          <ns2:versionUuid>c457c102-55a3-4c69-89c7-f98ec90f1a25</ns2:versionUuid>
+          <ns2:history>
+            <ns2:historyInfo versionUuid="c457c102-55a3-4c69-89c7-f98ec90f1a25"/>
+          </ns2:history>
+        </ns2:Metadata>
+      </xsd:appinfo>
+      <xsd:documentation><![CDATA[Base data structure for a single Test_Record record]]></xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="idpregunta" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Id @GeneratedValue @Column(name="idPregunta", columnDefinition="INT", nullable=false, unique=true)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="literalpregunta" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="literalPregunta", columnDefinition="VARCHAR(500)", nullable=false)</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

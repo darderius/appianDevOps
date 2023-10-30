@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea98-55a7-8000-9c06-011c48011c48_1614736</versionUuid>
+    <outboundIntegration>
+        <name>D_redsysTest</name>
+        <uuid>cdd24bf4-75ea-43ac-8d31-71bc8d9db51c</uuid>
+        <description></description>
+        <parentUuid>23f43b9b-3845-44c3-9f4e-3b5b61031d3b</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition></definition>
+        <namedTypedValue>
+            <name>onSuccess</name>
+            <description>A list of saves or an HTTP response to execute after the smart service executes successfully. Created with a!save() or a!httpResponse(). The result of the request is available in the function variable fv!result.</description>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>onError</name>
+            <description>A list of saves or an HTTP response to execute after the smart service does not execute successfully. Created with a!save() or a!httpResponse(). The result of the request is available in the function variable fv!result. Information about the error is available in the function variable fv!error. If using a Connected System that uses OAuth, whenever there is an error due to missing user authorization, the Connected System will be available in the function variable fv!connectedSystem. The Connected System can be used with the a!authorizationLink function to generate a link end users can click to perform the authorization.</description>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <metadataExpr>{
+deferredRuleInputs: {
+    onSuccess: {
+      "fv!result": 'type!{http://www.appian.com/ae/types/2009}Dictionary'
+    },
+    onError: {
+      "fv!result": 'type!{http://www.appian.com/ae/types/2009}Dictionary',
+      "fv!error": 'type!{http://www.appian.com/ae/types/2009}Dictionary',
+      "fv!connectedSystem": 'type!{http://www.appian.com/ae/types/2009}ConnectedSystem'
+    }
+  }
+}</metadataExpr>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+        <sharedConfigParameters>
+            <a:Dictionary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <url xsi:type="xsd:string">https://sis-t.redsys.es:25443/sis/rest/trataPeticionREST</url>
+                <isInheritedUrlOptionSelected xsi:type="xsd:boolean">false</isInheritedUrlOptionSelected>
+                <relativePath xsi:type="xsd:string"/>
+                <authType xsi:type="xsd:string">None</authType>
+                <authDetails xsi:type="xsd:string"/>
+            </a:Dictionary>
+        </sharedConfigParameters>
+        <configParameters>
+            <a:Dictionary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <contentType xsi:type="xsd:string">application/json</contentType>
+                <automaticallyConvert xsi:type="xsd:boolean">true</automaticallyConvert>
+                <jsonSchema xsi:nil="true" xsi:type="a:NestedChoice?list"/>
+                <parameters xsi:type="a:NameValue?list"/>
+                <removeNullOrEmptyJsonFields xsi:type="xsd:boolean">true</removeNullOrEmptyJsonFields>
+                <method xsi:type="xsd:string">POST</method>
+                <headers xsi:type="a:NameValue?list"/>
+                <excludeNullHeaders xsi:type="xsd:boolean">true</excludeNullHeaders>
+                <documentConfig xsi:type="xsd:string"/>
+                <excludeNullParams xsi:type="xsd:boolean">true</excludeNullParams>
+                <featureVersion xsi:type="xsd:int">1</featureVersion>
+                <timeout xsi:type="xsd:int">10</timeout>
+                <body xsi:type="a:Expression">{
+  "Ds_MerchantParameters":"eyJEU19NRVJDSEFOVF9JREVOVElGSUVSIjoiUkVRVUlSRUQiLCJEU19NRVJDSEFOVF9DVlYyIjoiMTIzIiwiRFNfTUVSQ0hBTlRfVFJBTlNBQ1RJT05UWVBFIjoiMCIsIkRTX01FUkNIQU5UX0NVUlJFTkNZIjoiOTc4IiwiRFNfTUVSQ0hBTlRfUEFOIjoiNDU0ODgxMjA0OTQwMDAwNCIsIkRTX01FUkNIQU5UX01FUkNIQU5UQ09ERSI6Ijk5OTAwODg4MSIsIkRTX01FUkNIQU5UX1RFUk1JTkFMIjoiMSIsIkRTX01FUkNIQU5UX0RJUkVDVFBBWU1FTlQiOiJ0cnVlIiwiRFNfTUVSQ0hBTlRfQU1PVU5UIjoiMTQ1IiwiRFNfTUVSQ0hBTlRfT1JERVIiOiIxNjg5NjgxMTMyMzcxIiwiRFNfTUVSQ0hBTlRfRVhQSVJZREFURSI6IjIwMTIifQ==",
+  "Ds_Signature":"XWJGqpi9XpBYgNSKRc1cqp4NY99s6tisoxNRnulIz1s=",
+  "Ds_SignatureVersion":"HMAC_SHA256_V1"
+}</body>
+                <flattenedJsonSchema xsi:nil="true" xsi:type="a:Text?list"/>
+            </a:Dictionary>
+        </configParameters>
+        <isWrite>true</isWrite>
+        <integrationType>system.http</integrationType>
+        <connectedSystemUuid></connectedSystemUuid>
+        <isConnectedSystemConnectionOptionSelected>false</isConnectedSystemConnectionOptionSelected>
+        <integrationOutputs>
+            <a:Dictionary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <outputs xsi:type="a:IntegrationOutput?list"/>
+            </a:Dictionary>
+        </integrationOutputs>
+        <isRequestResponseLoggingEnabled>false</isRequestResponseLoggingEnabled>
+    </outboundIntegration>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea98-55a7-8000-9c06-011c48011c48_1614736"/>
+    </history>
+</contentHaul>

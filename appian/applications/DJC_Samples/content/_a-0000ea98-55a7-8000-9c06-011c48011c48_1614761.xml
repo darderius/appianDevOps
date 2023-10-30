@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000ea98-55a7-8000-9c06-011c48011c48_1614796</versionUuid>
+    <rule>
+        <name>D_toFromJsonSamples</name>
+        <uuid>_a-0000ea98-55a7-8000-9c06-011c48011c48_1614761</uuid>
+        <description></description>
+        <parentUuid>23f43b9b-3845-44c3-9f4e-3b5b61031d3b</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>a!localVariables(
+  
+  local!datos: index(#"SYSTEM_SYSRULES_queryRecordType_v1"(
+    recordType: #"urn:appian:record-type:v1:225c0de9-f08e-4fc5-8629-b505b6a38c78",
+   
+    pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+      startIndex: 1,
+      batchSize: 1,
+   
+    ),
+    fetchTotalCount: true
+  ).data,1),
+  
+  /*Convertimos el valor a json*/
+  local!json: #"SYSTEM_SYSRULES_toJson_v1"(local!datos),
+  
+  /*Teniendo el valor en JSON , lo casteamos a recordType*/
+  local!recordFromJson: cast(#"urn:appian:record-type:v1:225c0de9-f08e-4fc5-8629-b505b6a38c78", #"SYSTEM_SYSRULES_fromJson_v1"(local!json)),
+  local!recordFromJson
+   
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000ea98-55a7-8000-9c06-011c48011c48_1614796"/>
+    </history>
+</contentHaul>
