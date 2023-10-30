@@ -4,7 +4,7 @@ environment {
 
 SITEBASEURL = null
 APIKEY = null
-PACKAGEFILENAME = null
+PACKAGEFILENAME = null 
 initiateInspectionJson = null
 deploymentResponseJson = null
 response = null
