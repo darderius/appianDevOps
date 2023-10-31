@@ -108,18 +108,18 @@ DEPLOYMENTDESCRIPTION = null
     //      jenkinsUtils.runTestsDocker("fitnesse-automation.integrate.properties")
     //    }
     //  }
-      post {
-        always {
-          sh script: "docker-compose -f docker/docker-compose.yml down", returnStatus: true
-          dir("f4a/FitNesseForAppian"){ junit "fitnesse-results.xml" }
-        }
-        failure {
-          script {
-            def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-            archiveArtifacts artifacts: jenkinsUtils.retrieveLogs("fitnesse-automation.integrate.properties"), fingerprint: true
-          }
-        }
-      }
+    //  post {
+    //    always {
+    //      sh script: "docker-compose -f docker/docker-compose.yml down", returnStatus: true
+    //      dir("f4a/FitNesseForAppian"){ junit "fitnesse-results.xml" }
+    //    }
+    //    failure {
+    //      script {
+    //        def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+    //        archiveArtifacts artifacts: jenkinsUtils.retrieveLogs("fitnesse-automation.integrate.properties"), fingerprint: true
+    //      }
+    //    }
+    //  }
     }
    
    
