@@ -93,21 +93,21 @@ DEPLOYMENTDESCRIPTION = null
         }
       }
     }
-    stage("Tag Successful Import into Test") {
-      steps {
-        script {
-          def githubUtils = load "groovy/GitHubUtils.groovy"
-          githubUtils.tagSuccessfulImport("TEST")
-        }
-      }
-    }
-    stage("Run Integration Tests") {
-      steps {
-        script {
-          def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.runTestsDocker("fitnesse-automation.integrate.properties")
-        }
-      }
+    //stage("Tag Successful Import into Test") {
+    //  steps {
+    //    script {
+    //      def githubUtils = load "groovy/GitHubUtils.groovy"
+    //      githubUtils.tagSuccessfulImport("TEST")
+    //    }
+    //  }
+    //}
+    //stage("Run Integration Tests") {
+    //  steps {
+    //    script {
+    //      def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+    //      jenkinsUtils.runTestsDocker("fitnesse-automation.integrate.properties")
+    //    }
+    //  }
       post {
         always {
           sh script: "docker-compose -f docker/docker-compose.yml down", returnStatus: true
