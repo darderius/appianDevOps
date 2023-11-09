@@ -108,16 +108,44 @@ void createDeployment(customProperties) {
 }
 
 void requestPatchAnalysis(customProperties) {
-  aquamanUrl = SITEBASEURL + "/webapi/analysePatch?applicationUuid=b62d65c9-d656-42c3-b480-83ebb9f4fb4a" 
+  aquamanUrl = SITEBASEURL + "/webapi/analysePatch?applicationUuid=_a-0000e37c-4333-8000-9baa-011c48011c48_3444351" 
    response=sh( script:"curl --location  --request POST \"$aquamanUrl\" --header \"Appian-Document-Name:finalPackage.zip\" --header \"Appian-API-Key: $APIKEY\" --data-binary @\"adm/finalPackage.zip\"", returnStdout: true).trim()
    println "Respuesta recibida"
     println response
-  //.readLines().drop(1).join(" ")
-  deploymentResponseJson = new groovy.json.JsonSlurperClassic().parseText(response)
-  println "Deployment Requested"
+   //.readLines().drop(1).join(" ")
+   analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(response)
+   patchId = analysisStatusJson.patchId
+   
+   checkAnalyzePatchStatus(patchId)
+  
+  
+  println "Source Code analysis finished"
 }
 
+void checkAnalyzePatchStatus() {
+  sleep 15
+  String newUrl = SITEBASEURL + "/webapi/getPatchAnalysisSummary?id=" + "/" + patchId +"/"
+  String analysisStatus = sh(script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
+  analysisStatus = analysisStatus
+  //.readLines().drop(1).join(" ")
+  analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
+  statusVar = deploymentStatusJson.status
+  
 
+  while (!statusVar.equals("Completed")) {
+    sleep 30
+    deploymentStatus = sh(script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
+    deploymentStatus = deploymentStatus.readLines().drop(1).join(" ")
+    deploymentStatusJson = new groovy.json.JsonSlurperClassic().parseText(deploymentStatus)
+    statusVar = deploymentStatusJson.status
+  }
+  
+  summaryVar = deploymentStatusJson.summary
+  
+  
+  println "Deployment Finished and Status is " + statusVar
+
+}
 
 void checkDeploymentStatus() {
   sleep 15
