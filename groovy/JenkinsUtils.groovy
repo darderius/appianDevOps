@@ -107,6 +107,19 @@ void createDeployment(customProperties) {
   println "Deployment Requested"
 }
 
+void requestPatchAnalysis(customProperties) {
+  aquamanUrl = SITEBASEURL + "/webapi/analysePatch"
+  //response=sh( script:"curl --silent  --location  --request POST \"$aquamanUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"Appian-Document-Name\":\"finalPackage.zip\",\"applicationUuid\":\"$DEPLOYMENTNAME\"}\"", returnStdout: true).trim()
+   response=sh( script:"curl --location  --request POST \"$aquamanUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"Appian-Document-Name\":\"finalPackage.zip\",\"applicationUuid\":\"$DEPLOYMENTNAME\"}\"", returnStdout: true).trim()
+
+    println response
+  //.readLines().drop(1).join(" ")
+  deploymentResponseJson = new groovy.json.JsonSlurperClassic().parseText(response)
+  println "Deployment Requested"
+}
+
+
+
 void checkDeploymentStatus() {
   sleep 15
   String newUrl = SITEBASEURL + "/deployment-management/v1/deployments" + "/" + deploymentResponseJson.uuid +"/"
