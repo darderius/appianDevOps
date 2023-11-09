@@ -47,6 +47,24 @@ DEPLOYMENTDESCRIPTION = null
     //  }
     //}
 
+	stage("Analyse Patch") {
+      steps {
+        script {
+          def properties = readProperties file: "devops\\deploymentmanagement.test.properties"
+          DEPLOYMENTDESCRIPTION = properties['deploymentDescription']
+          DEPLOYMENTNAME = properties['deploymentName']
+          SITEBASEURL = properties['url']
+          APIKEY = properties['siteApiKey']
+          PACKAGEFILENAME = properties['packageFileName']
+          def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+          jenkinsUtils.requestPatchAnalysis("${APPLICATIONNAME}.test.properties")
+          
+
+
+        }
+      }
+    }
+
     stage("Inspect Package - Test") {
       steps {
         script {
@@ -93,6 +111,8 @@ DEPLOYMENTDESCRIPTION = null
         }
       }
     }
+	
+
     //stage("Tag Successful Import into Test") {
     //  steps {
     //    script {
