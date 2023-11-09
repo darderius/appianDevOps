@@ -122,7 +122,7 @@ void requestPatchAnalysis(customProperties) {
   println "Source Code analysis finished"
 }
 
-void checkAnalyzePatchStatus() {
+void checkAnalyzePatchStatus(patchId) {
   sleep 15
   String newUrl = SITEBASEURL + "/webapi/getPatchAnalysisSummary?id=" + "/" + patchId +"/"
   String analysisStatus = sh(script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
