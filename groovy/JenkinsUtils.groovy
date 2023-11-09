@@ -109,7 +109,6 @@ void createDeployment(customProperties) {
 
 void requestPatchAnalysis(customProperties) {
   aquamanUrl = SITEBASEURL + "/webapi/analysePatch"
-  //response=sh( script:"curl --silent  --location  --request POST \"$aquamanUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"Appian-Document-Name\":\"finalPackage.zip\",\"applicationUuid\":\"$DEPLOYMENTNAME\"}\"", returnStdout: true).trim()
    response=sh( script:"curl --location  --request POST \"$aquamanUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"Appian-Document-Name\":\"finalPackage.zip\",\"applicationUuid\":\"$DEPLOYMENTNAME\"}\"", returnStdout: true).trim()
 
     println response
