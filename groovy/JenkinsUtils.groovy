@@ -109,8 +109,8 @@ void createDeployment(customProperties) {
 
 void requestPatchAnalysis(customProperties) {
   aquamanUrl = SITEBASEURL + "/webapi/analysePatch"
-   response=sh( script:"curl --location  --request POST \"$aquamanUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" , returnStdout: true).trim()
-  println "Respuesta recibida"
+   response=sh( script:"curl --location  --request POST \"$aquamanUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"Appian-Document-Name=@\"adm/finalPackage.zip\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\",\"name\":\"$DEPLOYMENTNAME\"}\"", returnStdout: true).trim()
+   println "Respuesta recibida"
     println response
   //.readLines().drop(1).join(" ")
   deploymentResponseJson = new groovy.json.JsonSlurperClassic().parseText(response)
