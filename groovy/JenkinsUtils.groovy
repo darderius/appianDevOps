@@ -143,7 +143,9 @@ void checkAnalyzePatchStatus() {
   summaryVar = deploymentStatusJson.summary
   
   
-  println "Deployment Finished and Status is " + statusVar
+  println "Deployment Finished and Status is " + summaryVar
+  
+  exit(1)
 
 }
 
