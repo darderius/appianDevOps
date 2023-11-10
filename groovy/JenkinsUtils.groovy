@@ -146,15 +146,32 @@ void checkAnalyzePatchStatus(patchId) {
   summaryVar = analysisStatusJson.summary
   
   if(summaryVar.equals("Fail")){
+	//El analisis ha fallado, mostramos informacion del mismo por consola
+	getAnalysisDetails(patchId)
+	
+	//Devolvemos codigo de error dado que ha fallado el analisis en Aquaman
 	error("Code analysis failed")
   }
   
-  
   println "Aquaman analysis finished: " + summaryVar
-  
-  
-
+ 
 }
+
+
+void getAnalysisDetails(patchId) {
+   //Llaamos la web api que nos da el detalle del analisis, si no pasamos el parametro, nos devuelve unicamente los que han fallado
+  String newUrl = SITEBASEURL + "/webapi/getPatchAnalysisDetails?id=" + "/" + patchId +"/"
+  String analysisStatus = sh(script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
+  analysisStatus = analysisStatus
+  //.readLines().drop(1).join(" ")
+  analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
+  
+  //Imprimimos los resultados para que los vea el usuario desde el pipeline
+  println analysisStatusJson
+}
+
+
+
 
 void checkDeploymentStatus() {
   sleep 15
