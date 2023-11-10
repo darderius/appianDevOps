@@ -132,7 +132,7 @@ void checkAnalyzePatchStatus(patchId) {
   statusVar = analysisStatusJson.status
   println statusVar
 
-  while (!statusVar.equals(Completed)) {
+  while (!statusVar.equals('Completed')) {
     sleep 30
 	println "statusVar:" + statusVar
     analysisStatus = sh(script: "curl --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
