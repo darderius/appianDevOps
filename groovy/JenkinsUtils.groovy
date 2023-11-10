@@ -145,10 +145,14 @@ void checkAnalyzePatchStatus(patchId) {
   
   summaryVar = analysisStatusJson.summary
   
+  if(summaryVar.equals("Fail"){
+	error("Code analysis failed")
+  }
+  
   
   println "Aquaman analysis finished: " + summaryVar
   
-  exit(1)
+  
 
 }
 
