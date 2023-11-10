@@ -130,7 +130,7 @@ void checkAnalyzePatchStatus(patchId) {
   //.readLines().drop(1).join(" ")
   analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
   statusVar = analysisStatusJson.status
-  
+  println statusVar
 
   while (!statusVar.equals("Completed")) {
     sleep 30
@@ -141,10 +141,10 @@ void checkAnalyzePatchStatus(patchId) {
 	
   }
   
-  summaryVar = deploymentStatusJson.summary
+  summaryVar = analysisStatusJson.summary
   
   
-  println "Deployment Finished and Status is " + summaryVar
+  println "Aquaman analysis finished: " + summaryVar
   
   exit(1)
 
