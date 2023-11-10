@@ -145,7 +145,7 @@ void checkAnalyzePatchStatus(patchId) {
   
   summaryVar = analysisStatusJson.summary
   
-  if(summaryVar.equals("Fail"){
+  if(summaryVar.equals("Fail")){
 	error("Code analysis failed")
   }
   
