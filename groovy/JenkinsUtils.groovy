@@ -132,13 +132,12 @@ void checkAnalyzePatchStatus(patchId) {
   statusVar = analysisStatusJson.status
   println statusVar
 
-  while (statusVar!="Completed") {
+  while (!statusVar.equals("Completed")) {
     sleep 30
 	println "statusVar:" + statusVar
 	println statusVar.equals("Completed")
     analysisStatus = sh(script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
-	
-    analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
+	analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
     println analysisStatusJson
 	statusVar = analysisStatusJson.status
 	
