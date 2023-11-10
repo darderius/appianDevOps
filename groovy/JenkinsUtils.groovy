@@ -149,7 +149,7 @@ void checkAnalyzePatchStatus(patchId) {
 	//El analisis ha fallado, mostramos informacion del mismo por consola
 	getAnalysisDetails(patchId)
 	
-	//Devolvemos codigo de error dado que ha fallado el analisis en Aquaman
+	//Devolvemos codigo de error dado que ha fallado el analisis en Aquaman para abortar el resto de la ejecucion
 	error("Code analysis failed")
   }
   
