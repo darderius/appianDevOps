@@ -47,7 +47,7 @@ DEPLOYMENTDESCRIPTION = null
     //  }
     //}
 
-	stage("Analyse Patch") {
+	stage("Aquaman Analyse Patch") {
       steps {
         script {
           def properties = readProperties file: "devops\\deploymentmanagement.test.properties"
