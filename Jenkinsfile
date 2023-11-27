@@ -57,7 +57,7 @@ DEPLOYMENTDESCRIPTION = null
           APIKEY = properties['siteApiKey']
           PACKAGEFILENAME = properties['packageFileName']
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.requestPatchAnalysis("${APPLICATIONNAME}.test.properties")
+          jenkinsUtils.requestPatchAnalysis("${APPLICATIONNAME}.test.properties") 
           
 
 

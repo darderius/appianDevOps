@@ -151,6 +151,7 @@ void checkAnalyzePatchStatus(patchId) {
 	//El analisis ha fallado, mostramos informacion del mismo por consola
 	//getAnalysisDetails(patchId)
 	//En vez de esto, mostramos un link a un reporte con la informacion para el usuario
+	println 'Haga click a continuacion para ver los resutlados del analisis'
 	println 'https://everisspaindemo.appianportals.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?id' + patchId
 	
 	//Devolvemos codigo de error dado que ha fallado el analisis en Aquaman para abortar el resto de la ejecucion
