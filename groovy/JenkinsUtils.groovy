@@ -57,9 +57,9 @@ void inspectPackage(customProperties) {
   String response = null
   if (fileExists("appian/properties/${APPLICATIONNAME}/" + customProperties)) {
   	println "Properties Exist"
-	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\"", returnStdout: true).trim()
+	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/$PACKAGEFILENAME\"\" --form \"ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\" --form \"json={\"packageFileName\":\"$PACKAGEFILENAME\",\"customizationFileName\":\"$customProperties\"}\"", returnStdout: true).trim()
   } else{
-  	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\"}\"", returnStdout: true).trim()
+  	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/$PACKAGEFILENAME\"\" --form \"json={\"packageFileName\":\"$PACKAGEFILENAME\"}\"", returnStdout: true).trim()
   }
   println response
   //.readLines().drop(1).join(" ")
@@ -94,11 +94,11 @@ void createDeployment(customProperties) {
   deploymentUrl = SITEBASEURL + "/deployment-management/v1/deployments"
   if (fileExists("appian/properties/${APPLICATIONNAME}/" + customProperties)) {
     print "fileExists"
-	//response=sh( script:"curl --silent --location  --request POST \'$deploymentUrl\' --header \'Appian-API-Key: $APIKEY\' --form \'zipFile=@\"adm/finalPackage.zip\"\' --form \'ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\' --form \'json={\"name\":\"newDeploymentUnix\",\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\'", returnStdout: true).trim()
-	response=sh( script:"curl --location  --request POST \'$deploymentUrl\' --header \'Appian-API-Key: $APIKEY\' --form \'zipFile=@\"adm/finalPackage.zip\"\' --form \'ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\' --form \'json={\"name\":\"newDeploymentUnix\",\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\'", returnStdout: true).trim()
+	//response=sh( script:"curl --silent --location  --request POST \'$deploymentUrl\' --header \'Appian-API-Key: $APIKEY\' --form \'zipFile=@\"adm/$PACKAGEFILENAME\"\' --form \'ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\' --form \'json={\"name\":\"newDeploymentUnix\",\"packageFileName\":\"$PACKAGEFILENAME\",\"customizationFileName\":\"$customProperties\"}\'", returnStdout: true).trim()
+	response=sh( script:"curl --location  --request POST \'$deploymentUrl\' --header \'Appian-API-Key: $APIKEY\' --form \'zipFile=@\"adm/$PACKAGEFILENAME\"\' --form \'ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\' --form \'json={\"name\":\"newDeploymentUnix\",\"packageFileName\":\"$PACKAGEFILENAME\",\"customizationFileName\":\"$customProperties\"}\'", returnStdout: true).trim()
   } else{
-   //response=sh( script:"curl --silent  --location  --request POST \"$deploymentUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"packagFileName\":\"finalPackage.zip\",\"name\":\"$DEPLOYMENTNAME\"}\"", returnStdout: true).trim()
-   response=sh( script:"curl --location  --request POST \"$deploymentUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\",\"name\":\"$DEPLOYMENTNAME\"}\"", returnStdout: true).trim()
+   //response=sh( script:"curl --silent  --location  --request POST \"$deploymentUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/$PACKAGEFILENAME\"\" --form \"json={\"packagFileName\":\"$PACKAGEFILENAME\",\"name\":\"$DEPLOYMENTNAME\"}\"", returnStdout: true).trim()
+   response=sh( script:"curl --location  --request POST \"$deploymentUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/$PACKAGEFILENAME\"\" --form \"json={\"packageFileName\":\"$PACKAGEFILENAME\",\"name\":\"$DEPLOYMENTNAME\"}\"", returnStdout: true).trim()
 
   }
   println response
