@@ -57,6 +57,7 @@ DEPLOYMENTDESCRIPTION = null
           APIKEY = properties['siteApiKey']
           PACKAGEFILENAME = properties['packageFileName']
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+		  //En este caso el properties pasado se corresponde con el de customizacion de la aplicacion
           jenkinsUtils.requestPatchAnalysis("${APPLICATIONNAME}.test.properties") 
           
 
