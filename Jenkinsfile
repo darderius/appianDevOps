@@ -20,20 +20,18 @@ DEPLOYMENTDESCRIPTION = null
     //  steps {
     //    script {
     //      def jenkinsUtils = load "groovy/JenkinsUtils.groovy" 
-
-          // Retrieve and setup ADM
+    //       Retrieve and setup ADM
     //      sh "rm -rf adm f4a"
     //      jenkinsUtils.shNoTrace("curl -H X-JFrog-Art-Api:$ARTIFACTORYAPIKEY -O $ARTIFACTORYURL/appian-devops/adm.zip")
     //      sh "unzip devops/adm.zip -d adm"
-          //sh "unzip adm/appian-adm-versioning-client-2.5.30.zip -d adm/appian-version-client"
+    //        sh "unzip adm/appian-adm-versioning-client-2.5.30.zip -d adm/appian-version-client"
     //      jenkinsUtils.setProperty("adm/appian-version-client/metrics.properties", "pipelineUsage", "true")
-          // Retrieve and setup F4A
-          //jenkinsUtils.shNoTrace("curl -H X-JFrog-Art-Api:$ARTIFACTORYAPIKEY -O $ARTIFACTORYURL/appian-devops/f4a.zip")
-          //sh "unzip f4a.zip -d f4a"
-          //jenkinsUtils.setProperty("f4a/FitNesseForAppian/configs/metrics.properties", "pipeline.usage", "true")
-          //sh "cp -a devops/f4a/test_suites/. f4a/FitNesseForAppian/FitNesseRoot/FitNesseForAppian/Examples/"
-          //sh "cp devops/f4a/users.properties f4a/FitNesseForAppian/configs/users.properties"
-          
+    //      Retrieve and setup F4A
+    //      jenkinsUtils.shNoTrace("curl -H X-JFrog-Art-Api:$ARTIFACTORYAPIKEY -O $ARTIFACTORYURL/appian-devops/f4a.zip")
+    //      sh "unzip f4a.zip -d f4a"
+    //      jenkinsUtils.setProperty("f4a/FitNesseForAppian/configs/metrics.properties", "pipeline.usage", "true")
+    //      sh "cp -a devops/f4a/test_suites/. f4a/FitNesseForAppian/FitNesseRoot/FitNesseForAppian/Examples/"
+    //      sh "cp devops/f4a/users.properties f4a/FitNesseForAppian/configs/users.properties"
     //    }
     //  }
     //}
