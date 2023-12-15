@@ -149,17 +149,19 @@ void checkAnalyzePatchStatus(patchId) {
   summaryVar = analysisStatusJson.summary
   
   if(summaryVar.equals("Fail")){
-	//El analisis ha fallado, mostramos informacion del mismo por consola
-	//getAnalysisDetails(patchId)
-	//En vez de esto, mostramos un link a un reporte con la informacion para el usuario
-	println 'Haga click a continuacion para ver los resutlados del analisis'
-	println 'https://everisspaindemo.appianportals.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?patchId=' + patchId
 	
 	//Devolvemos codigo de error dado que ha fallado el analisis en Aquaman para abortar el resto de la ejecucion
 	error("Code analysis failed")
   }
-  
-  println "Aquaman analysis finished: " + summaryVar
+  //Mostramos los resultados del analisis
+	//getAnalysisDetails(patchId)
+	//En vez de esto, mostramos un link a un reporte con la informacion para el usuario
+	println '************************************************************************************************************'
+	println 'Haga click a continuacion para ver los resutlados del analisis'
+	println 'https://everisspaindemo.appianportals.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?patchId=' + patchId
+	println '************************************************************************************************************'
+	
+	println "Aquaman analysis finished: " + summaryVar
  
 }
 
