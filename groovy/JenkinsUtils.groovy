@@ -178,7 +178,77 @@ void getAnalysisDetails(patchId) {
   println analysisStatusJson
 }
 
+void requestApplicationTests() {
+	println "requestApplicationTests"
+	
+	//URL de la web api que usaremos para ejecutar los tests asociados a la aplicacion
+   testUrl = SITEBASEURL + "/webapi/executeApplicationTests?appName=$APPLICATIONNAME" 
+   response=sh( script:"curl --location  --request POST \"$testUrl\" --header \"Appian-API-Key: $APIKEY\" , returnStdout: true).trim()
+   println "Respuesta recibida"
+    println response
+   //.readLines().drop(1).join(" ")
+   analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(response)
+   patchId = analysisStatusJson.patchId
+   
+   checkAnalyzePatchStatus(patchId)
+  
+  
+  println "Tests requested"
+}
 
+void checkTestStatus(testId) {
+  sleep 15
+  String newUrl = SITEBASEURL + "/webapi/getTestStatus?id=" + "/" + testId +"/"
+  String analysisStatus = sh(script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
+  analysisStatus = analysisStatus
+  //.readLines().drop(1).join(" ")
+  analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
+  statusVar = analysisStatusJson.status
+  println statusVar
+
+  while (!statusVar.equals("COMPLETE")) {
+    sleep 30
+	println "statusVar:" + statusVar
+	println statusVar.equals("COMPLETE")
+    analysisStatus = sh(script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
+	analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
+    println analysisStatusJson
+	statusVar = analysisStatusJson.status
+	
+  }
+  
+  //Llamamos al metodo que nos da detalle del resultado del test
+  getTestDetails(testId)
+  
+  
+}
+
+
+void getTestDetails(testId) {
+   //Llaamos la web api que nos da el detalle del analisis, si no pasamos el parametro, nos devuelve unicamente los que han fallado
+  String newUrl = SITEBASEURL + "/webapi/getTestResults?id=" + "/" + testId +"/"
+  String analysisStatus = sh(script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
+  analysisStatus = analysisStatus
+  //.readLines().drop(1).join(" ")
+  analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
+  
+   summaryVar = analysisStatusJson.status
+  
+  if(summaryVar.equals("FAIL")||summaryVar.equals("ERROR")){
+	
+	//Devolvemos codigo de error dado que ha fallado el analisis en Aquaman para abortar el resto de la ejecucion
+	error("Tests failed")
+  }
+  //Mostramos los resultados de los tests
+	
+	//En vez de esto, mostramos un link a un reporte con la informacion para el usuario
+	println '************************************************************************************************************'
+	println 'Haga click a continuacion para ver los resutlados de la ejecucion de los tests'
+	println 'https://everisspaindemo.appianportals.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?patchId=' + patchId
+	println '************************************************************************************************************'
+	
+	println "Application tests finished: " + summaryVar
+}
 
 
 void checkDeploymentStatus() {
