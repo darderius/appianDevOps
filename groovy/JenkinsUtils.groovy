@@ -188,9 +188,9 @@ void requestApplicationTests() {
     println response
    //.readLines().drop(1).join(" ")
    analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(response)
-   patchId = analysisStatusJson.patchId
+   testId = analysisStatusJson.TestRunId
    
-   checkTestStatus(patchId)
+   checkTestStatus(testId)
   
   
   println "Tests requested"
