@@ -157,7 +157,7 @@ void checkAnalyzePatchStatus(patchId) {
 	//getAnalysisDetails(patchId)
 	//En vez de esto, mostramos un link a un reporte con la informacion para el usuario
 	println '************************************************************************************************************'
-	println 'Haga click a continuacion para ver los resutlados del analisis'
+	println 'Haga click a continuacion para ver los resultados del analisis'
 	println 'https://everisspaindemo.appianportals.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?patchId=' + patchId
 	println '************************************************************************************************************'
 	
@@ -243,8 +243,8 @@ void getTestDetails(testId) {
 	
 	//En vez de esto, mostramos un link a un reporte con la informacion para el usuario
 	println '************************************************************************************************************'
-	println 'Haga click a continuacion para ver los resutlados de la ejecucion de los tests'
-	println 'https://everisspaindemo.appianportals.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?patchId=' + patchId
+	println 'Haga click a continuacion para ver los resultados de la ejecucion de los tests'
+	println 'https://everisspaindemo.appianportals.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?patchId=' + testId
 	println '************************************************************************************************************'
 	
 	println "Application tests finished: " + summaryVar
