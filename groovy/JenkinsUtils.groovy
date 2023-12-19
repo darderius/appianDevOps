@@ -182,7 +182,7 @@ void requestApplicationTests() {
 	println "requestApplicationTests"
 	
 	//URL de la web api que usaremos para ejecutar los tests asociados a la aplicacion
-   testUrl = SITEBASEURL + "/webapi/executeApplicationTests?appName=$APPLICATIONNAME" 
+   testUrl = SITEBASEURL + "/webapi/executeApplicationTests?application=$APPLICATIONNAME" 
    response=sh( script:"curl --location  --request POST \"$testUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
    println "Respuesta recibida"
     println response
