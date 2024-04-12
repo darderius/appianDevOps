@@ -7,7 +7,7 @@ void runTestsVNC(propertyFile) {
       sh script: "bash ./runFitNesseTest.sh"
     }
   }
-}
+} 
 
 void runTestsDocker(propertyFile) {
   sh "cp devops/f4a/" + propertyFile + " f4a/FitNesseForAppian/fitnesse-automation.properties"
