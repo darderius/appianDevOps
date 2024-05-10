@@ -45,7 +45,20 @@ DEPLOYMENTDESCRIPTION = null
     //  }
     //}
 
-
+    stage("Inspect Package - Test") {
+      steps {
+        script {
+          def properties = readProperties file: "devops\\deploymentmanagement.test.properties"
+          DEPLOYMENTDESCRIPTION = properties['deploymentDescription']
+          DEPLOYMENTNAME = properties['deploymentName']
+          SITEBASEURL = properties['url']
+          APIKEY = properties['siteApiKey']
+          PACKAGEFILENAME = properties['packageFileName']
+          def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+          jenkinsUtils.inspectPackage("${APPLICATIONNAME}.test.properties")
+        }
+      }
+    }
 	
 	stage("Aquaman Analyse Patch") {
       steps {
@@ -67,20 +80,7 @@ DEPLOYMENTDESCRIPTION = null
       }
     }
 
-    stage("Inspect Package - Test") {
-      steps {
-        script {
-          def properties = readProperties file: "devops\\deploymentmanagement.test.properties"
-          DEPLOYMENTDESCRIPTION = properties['deploymentDescription']
-          DEPLOYMENTNAME = properties['deploymentName']
-          SITEBASEURL = properties['url']
-          APIKEY = properties['siteApiKey']
-          PACKAGEFILENAME = properties['packageFileName']
-          def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.inspectPackage("${APPLICATIONNAME}.test.properties")
-        }
-      }
-    }
+
     
     stage("Create Deployment Request - Test") {
       steps {
