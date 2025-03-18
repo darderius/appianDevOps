@@ -59,6 +59,7 @@ void inspectPackage(customProperties) {
   	println "Properties Exist"
 	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/$PACKAGEFILENAME\"\" --form \"ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\" --form \"json={\"packageFileName\":\"$PACKAGEFILENAME\",\"customizationFileName\":\"$customProperties\"}\"", returnStdout: true).trim()
   } else{
+	println "Properties does not Exist"
   	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/$PACKAGEFILENAME\"\" --form \"json={\"packageFileName\":\"$PACKAGEFILENAME\"}\"", returnStdout: true).trim()
   }
   println "respuesta " + response
