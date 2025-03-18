@@ -63,7 +63,8 @@ void inspectPackage(customProperties) {
   }
   println "respuesta " + response
   //.readLines().drop(1).join(" ")
-  initiateInspectionJson = new groovy.json.JsonSlurperClassic().parseText(response)
+  //initiateInspectionJson = new groovy.json.JsonSlurperClassic().parseText(response)
+  initiateInspectionJson = new groovy.json.JsonSlurperClassic().parse(response)
   println "Inspection Started"
   sleep 5
   String newUrl = SITEBASEURL + "/deployment-management/v1/inspections" + "/" + initiateInspectionJson.uuid +"/"
