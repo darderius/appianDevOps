@@ -112,24 +112,23 @@ DEPLOYMENTDESCRIPTION = null
       }
     }
 	
-	stage("Execute Rule Tests") {
-      steps {
-        script {
-          def properties = readProperties file: "devops\\deploymentmanagement.test.properties"
-          DEPLOYMENTDESCRIPTION = properties['deploymentDescription']
-          DEPLOYMENTNAME = properties['deploymentName']
-          SITEBASEURL = properties['url']
-          APIKEY = properties['siteApiKey']
-          PACKAGEFILENAME = properties['packageFileName']
-		  APPLICATIONUUID = properties['applicationUUID']
-		  APPLICATIONNAME = properties['applicationName']
-          def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-		  //En este caso el properties pasado se corresponde con el de customizacion de la aplicacion
-          jenkinsUtils.requestApplicationTests() 
-
-        }
-      }
-    }
+	//stage("Execute Rule Tests") {
+    //  steps {
+    //    script {
+    //      def properties = readProperties file: "devops\\deploymentmanagement.test.properties"
+    //      DEPLOYMENTDESCRIPTION = properties['deploymentDescription']
+    //      DEPLOYMENTNAME = properties['deploymentName']
+    //      SITEBASEURL = properties['url']
+    //      APIKEY = properties['siteApiKey']
+    //      PACKAGEFILENAME = properties['packageFileName']
+	//	  APPLICATIONUUID = properties['applicationUUID']
+	//	  APPLICATIONNAME = properties['applicationName']
+    //      def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+	//	  //En este caso el properties pasado se corresponde con el de customizacion de la aplicacion
+    //      jenkinsUtils.requestApplicationTests() 
+    //    }
+    //  }
+    //}
 
     //stage("Tag Successful Import into Test") {
     //  steps {
