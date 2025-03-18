@@ -61,7 +61,7 @@ void inspectPackage(customProperties) {
   } else{
   	response=bat( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/$PACKAGEFILENAME\"\" --form \"json={\"packageFileName\":\"$PACKAGEFILENAME\"}\"", returnStdout: true).trim()
   }
-  println response
+  println "respuesta " + response
   //.readLines().drop(1).join(" ")
   initiateInspectionJson = new groovy.json.JsonSlurperClassic().parseText(response)
   println "Inspection Started"
