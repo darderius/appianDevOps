@@ -53,7 +53,8 @@ DEPLOYMENTDESCRIPTION = null
           DEPLOYMENTNAME = properties['deploymentName']
           SITEBASEURL = properties['url']
           APIKEY = properties['siteApiKey']
-          PACKAGEFILENAME = properties['packageFileName']
+    //      PACKAGEFILENAME = properties['packageFileName']
+			PACKAGEFILENAME = ${APPLICATIONNAME}.zip
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
           jenkinsUtils.inspectPackage("${APPLICATIONNAME}.test.properties")
         }
@@ -88,7 +89,8 @@ DEPLOYMENTDESCRIPTION = null
           DEPLOYMENTNAME = properties['deploymentName']
           SITEBASEURL = properties['url']
           APIKEY = properties['siteApiKey']
-          PACKAGEFILENAME = properties['packageFileName']
+          //PACKAGEFILENAME = properties['packageFileName']
+		  PACKAGEFILENAME = ${APPLICATIONNAME}.zip
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
           jenkinsUtils.createDeployment("${APPLICATIONNAME}.test.properties")
           
@@ -105,7 +107,8 @@ DEPLOYMENTDESCRIPTION = null
           DEPLOYMENTNAME = properties['deploymentName']
           SITEBASEURL = properties['url']
           APIKEY = properties['siteApiKey']
-          PACKAGEFILENAME = properties['packageFileName']
+          //PACKAGEFILENAME = properties['packageFileName']
+		  PACKAGEFILENAME = ${APPLICATIONNAME}.zip
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
           jenkinsUtils.checkDeploymentStatus()
         }
