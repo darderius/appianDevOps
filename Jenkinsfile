@@ -16,32 +16,26 @@ DEPLOYMENTDESCRIPTION = null
   stages {
     
     
-   stage("Install AVM and FitNesse for Appian") {
+   stage("Install FitNesse for Appian") {
 	  steps {
 		script {
 		  def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
 
-		  // Limpia solo los directorios de trabajo del pipeline
-		  //sh "rm -rf adm f4a"
-
-		  // === ADM desde ZIP local ===
-		  // adm.zip está en appian-devops/adm.zip
-		  //sh "unzip appian-devops/adm.zip -d adm"
-		  //sh "unzip adm/appian-adm-versioning-client-2.5.30.zip -d adm/appian-version-client"
-		  //jenkinsUtils.setProperty(
-		  //	"adm/appian-version-client/metrics.properties",
-		  //	"pipelineUsage",
-		  //	"true"
-		  //)
+		  // Limpia solo el directorio de trabajo de F4A (opcional pero recomendable)
+		  sh "rm -rf f4a"
 
 		  // === F4A desde ZIP local ===
 		  // f4a.zip está en appian-devops/f4a.zip
-		  sh "unzip appian-devops/f4a.zip -d f4a"
+		  sh "unzip -o appian-devops/f4a.zip -d f4a"
+
+		  // Ajusta el metrics.properties de F4A (OJO: ruta correcta de F4A, no ADM)
 		  jenkinsUtils.setProperty(
-			"adm/appian-version-client/metrics.properties",
+			"f4a/FitNesseForAppian/configs/metrics.properties",
 			"pipeline.usage",
 			"true"
 		  )
+
+		  // Copia suites y users.properties desde el ZIP local
 		  sh "cp -a appian-devops/f4a/test_suites/. f4a/FitNesseForAppian/FitNesseRoot/FitNesseForAppian/Examples/"
 		  sh "cp appian-devops/f4a/users.properties f4a/FitNesseForAppian/configs/users.properties"
 		}
