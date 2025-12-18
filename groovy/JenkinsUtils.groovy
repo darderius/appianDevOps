@@ -124,21 +124,41 @@ void requestPatchAnalysis() {
   """
 
   println "Ejecutando curl:\n${cmd}"
-  response = sh(script: cmd, returnStdout: true).trim()
+  response = sh(script: cmd, returnStdout: true)
 
   println "Respuesta recibida cruda:"
   println "'${response}'"
+  println "Longitud response: ${response?.length()}"
 
   if (!response) {
     error("La respuesta del Web API está vacía; no se puede parsear JSON")
   }
 
-  def analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(response)
+  // Nos quedamos solo con el bloque JSON
+  def jsonStart = response.indexOf('{')
+  def jsonEnd   = response.lastIndexOf('}')
+  if (jsonStart < 0 || jsonEnd < 0) {
+    error "La respuesta no contiene JSON válido: '${response}'"
+  }
+  def jsonOnly = response.substring(jsonStart, jsonEnd + 1)
+
+  println "JSON a parsear:"
+  println jsonOnly
+
+  def analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(jsonOnly)
+  println "Map parseado: ${analysisStatusJson} (tipo: ${analysisStatusJson.getClass()})"
+
   def patchId = analysisStatusJson.patchId
+  println "patchId obtenido: ${patchId}"
+
+  if (!patchId) {
+    error "No se ha podido obtener patchId de la respuesta: ${analysisStatusJson}"
+  }
 
   checkAnalyzePatchStatus(patchId)
   println "Source Code analysis finished"
 }
+
 
 void checkAnalyzePatchStatus(patchId) {
   sleep 15
