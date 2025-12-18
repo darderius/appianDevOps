@@ -38,7 +38,7 @@ DEPLOYMENTDESCRIPTION = null
 		  // f4a.zip está en appian-devops/f4a.zip
 		  sh "unzip appian-devops/f4a.zip -d f4a"
 		  jenkinsUtils.setProperty(
-			"f4a/FitNesseForAppian/configs/metrics.properties",
+			"adm/appian-version-client/metrics.properties",
 			"pipeline.usage",
 			"true"
 		  )
