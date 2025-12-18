@@ -115,7 +115,7 @@ void requestPatchAnalysis() {
   aquamanUrl = "${SITEBASEURL}/webapi/analysePatch?applicationUuid=${APPLICATIONUUID}"
 
   def cmd = """
-    curl --silent --show-error --location \
+    curl --show-error --location \
       --request POST "${aquamanUrl}" \
       --header "Appian-Document-Name: ${PACKAGEFILENAME}" \
       --header "Appian-API-Key: ${APIKEY}" \
