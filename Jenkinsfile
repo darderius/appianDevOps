@@ -16,34 +16,34 @@ DEPLOYMENTDESCRIPTION = null
   stages {
     
     
-   stage("Install FitNesse for Appian") {
-	  steps {
-		script {
-		  def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+   //stage("Install FitNesse for Appian") {
+	//  steps {
+	//	script {
+	//	  def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
+	//
+	//	  // Limpia el directorio de trabajo de F4A
+	//	  sh "rm -rf f4a"
+    //
+	//	  // 1) Extrae el paquete general f4a
+	//	  sh "unzip -o appian-devops/f4a.zip -d f4a"
 
-		  // Limpia el directorio de trabajo de F4A
-		  sh "rm -rf f4a"
+	//	  // 2) Dentro de f4a, extrae el ZIP de FitNesse for Appian
+	//	  //    (ajusta el nombre si es distinto, pero por el log es fitnesse-for-appian-25.2.zip)
+	//	  sh "unzip -o 'f4a/fitnesse-for-appian-25.2.zip' -d f4a"
 
-		  // 1) Extrae el paquete general f4a
-		  sh "unzip -o appian-devops/f4a.zip -d f4a"
+	//	  // Ahora sí existe f4a/FitNesseForAppian/configs/metrics.properties
+	//	  jenkinsUtils.setProperty(
+	//		"f4a/FitNesseForAppian/configs/metrics.properties",
+	//		"pipeline.usage",
+	//		"true"
+	//	  )
 
-		  // 2) Dentro de f4a, extrae el ZIP de FitNesse for Appian
-		  //    (ajusta el nombre si es distinto, pero por el log es fitnesse-for-appian-25.2.zip)
-		  sh "unzip -o 'f4a/fitnesse-for-appian-25.2.zip' -d f4a"
-
-		  // Ahora sí existe f4a/FitNesseForAppian/configs/metrics.properties
-		  jenkinsUtils.setProperty(
-			"f4a/FitNesseForAppian/configs/metrics.properties",
-			"pipeline.usage",
-			"true"
-		  )
-
-		  // Copia suites y users.properties desde tu ZIP appian-devops/f4a.zip
-		  sh "cp -a appian-devops/f4a/test_suites/. f4a/FitNesseForAppian/FitNesseRoot/FitNesseForAppian/Examples/"
-		  sh "cp appian-devops/f4a/users.properties f4a/FitNesseForAppian/configs/users.properties"
-		}
-	  }
-	}
+	//	  // Copia suites y users.properties desde tu ZIP appian-devops/f4a.zip
+	//	  sh "cp -a appian-devops/f4a/test_suites/. f4a/FitNesseForAppian/FitNesseRoot/FitNesseForAppian/Examples/"
+	//	  sh "cp appian-devops/f4a/users.properties f4a/FitNesseForAppian/configs/users.properties"
+	//	}
+	//  }
+	//}
 
 		 
 	//stage("Build Package") {

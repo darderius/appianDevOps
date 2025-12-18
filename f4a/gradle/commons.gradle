@@ -1,0 +1,36 @@
+import java.util.regex.Pattern
+
+static def getNextVersion(currentVersion) {
+    def current = currentVersion.substring(0, 4).toDouble()
+    def nextRelease = current + 0.1
+    if (nextRelease % 1 >= 0.5) {
+        nextRelease = (nextRelease + 1) - nextRelease % 1 + 0.1
+    }
+    return String.format("%2.1f", nextRelease);
+}
+
+static def validateReleaseNumbers(project) {
+    def file = new File("${project.repo_root}/shared/gradle/common_gradle.properties")
+    def pattern = Pattern.compile("version=(.*)")
+    def matcher = pattern.matcher(file.text)
+    matcher.find()
+
+    def version = matcher.group(1)
+    // Set the version for other tasks to use
+    project["version"] = version
+    if (!(validVersionNumber(version, false))) {
+        throw new GradleException("Must provide valid release number for version number in common_gradle.properties");
+    }
+}
+
+static def validVersionNumber(versionNumber, majorVersionOnly) {
+    String versionNumberRegex = majorVersionOnly ? /^(\d+\.)?((1|2|3|4))$/ : /^(\d+\.)?((1|2|3|4)\.)?(\d+)/;
+    return versionNumber ==~ versionNumberRegex;
+}
+
+ext {
+    validateReleaseNumbers = this.&validateReleaseNumbers
+    addFileToGitIndex = this.&addFileToGitIndex
+    validVersionNumber = this.&validVersionNumber
+    getNextVersion = this.&getNextVersion
+}
