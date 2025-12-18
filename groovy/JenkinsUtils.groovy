@@ -110,20 +110,33 @@ void createDeployment(customProperties) {
 }
 
 void requestPatchAnalysis() {
-	println "requestPatchAnalysis"
-	
-	//URL de Aquaman, donde solicitaremos el analisis del parche que subimos
-   aquamanUrl = SITEBASEURL + "/webapi/analysePatch?applicationUuid=$APPLICATIONUUID" 
-   response=sh( script:"curl --location  --request POST \"$aquamanUrl\" --header \"Appian-Document-Name:$PACKAGEFILENAME\" --header \"Appian-API-Key: $APIKEY\" --data-binary @\"appian/applications/zipFiles/$PACKAGEFILENAME\"", returnStdout: true).trim()
-   println "Respuesta recibida"
-    println response
-   //.readLines().drop(1).join(" ")
-   analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(response)
-   patchId = analysisStatusJson.patchId
-   
-   checkAnalyzePatchStatus(patchId)
-  
-  
+  println "requestPatchAnalysis"
+
+  aquamanUrl = "${SITEBASEURL}/webapi/analysePatch?applicationUuid=${APPLICATIONUUID}"
+
+  def cmd = """
+    curl --silent --show-error --location \
+      --request POST "${aquamanUrl}" \
+      --header "Appian-Document-Name: ${PACKAGEFILENAME}" \
+      --header "Appian-API-Key: ${APIKEY}" \
+      --header "Content-Type: application/zip" \
+      --data-binary @appian/applications/zipFiles/${PACKAGEFILENAME}
+  """
+
+  println "Ejecutando curl:\n${cmd}"
+  response = sh(script: cmd, returnStdout: true).trim()
+
+  println "Respuesta recibida cruda:"
+  println "'${response}'"
+
+  if (!response) {
+    error("La respuesta del Web API está vacía; no se puede parsear JSON")
+  }
+
+  def analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(response)
+  def patchId = analysisStatusJson.patchId
+
+  checkAnalyzePatchStatus(patchId)
   println "Source Code analysis finished"
 }
 
