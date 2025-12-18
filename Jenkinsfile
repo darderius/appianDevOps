@@ -174,33 +174,25 @@ DEPLOYMENTDESCRIPTION = null
 	
 	stage("Run Integration Tests") {
 	  steps {
-		// Lanza FitNesse local en la ruta indicada
 		bat '''
 		  cd /d C:\\Datos\\Software\\Fitnesse\\fitnesse-for-appian-24.3.0
-		  rem Ajusta el comando según cómo lo arrancas hoy
+
 		  start /MIN "" start.bat
-		  rem Espera unos segundos a que arranque el servidor (ajusta si hace falta)
 		  timeout /t 10 /nobreak >NUL
 
-		  rem Ejecuta la suite que quieras, por ejemplo mediante curl o un script que ya tengas
-		  rem Ejemplo con curl llamando a una suite:
-		  rem curl -s "http://localhost:8080/FitNesse.For.Appian.YourSuiteName?format=xml&includehtml=true" -o fitnesse-results.xml
-
-		  rem Si ya tienes un script propio para lanzar tests y generar fitnesse-results.xml, llámalo aquí
-		  rem runTests.bat
+		  curl -s "http://localhost:8980/FitNesseForAppian.JenkinsSuite?format=xml&includehtml=true" ^
+			-o fitnesse-results.xml
 		'''
 	  }
 	  post {
 		always {
-		  // Publica los resultados JUnit si generas fitnesse-results.xml en esa carpeta
 		  dir('C:\\Datos\\Software\\Fitnesse\\fitnesse-for-appian-24.3.0') {
 			junit 'fitnesse-results.xml'
 		  }
 		}
 	  }
 	}
-   
-   
+	   
    
   }
 }
