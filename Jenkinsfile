@@ -172,35 +172,31 @@ DEPLOYMENTDESCRIPTION = null
     //  }
     //}
 	
-	stage("Run Integration Tests") {
+	stage('Run Integration Tests') {
 	  steps {
-		bat '''
-		  cd /d C:\\Datos\\Software\\Fitnesse\\fitnesse-for-appian-24.3.0
-
-		  rem Arrancar FitNesse en background (si no está ya como servicio)
-		  start /MIN "" start.bat
-
-		  rem Pequeña espera para que arranque (usando ping en vez de timeout)
-		  ping 127.0.0.1 -n 10 >NUL
-
-		  rem Ejecutar la JenkinsSuite y guardar resultados en HTML
-		  curl -s "http://localhost:8980/FitNesseForAppian.JenkinsSuite?suite" ^
-			-o fitnesse-results.html
-		'''
+		step([
+		  $class: 'FitnesseBuilder',
+		  options: [
+			fitnessePathToJar: 'C:/Datos/Software/Fitnesse/fitnesse-for-appian-24.3.0/fitnesse-standalone.jar',
+			fitnessePathToRoot: 'C:/Datos/Software/Fitnesse/fitnesse-for-appian-24.3.0/FitNesseRoot',
+			fitnesseTargetPage: 'FitNesseForAppian.JenkinsSuite',
+			fitnessePortLocal: '8980',
+			fitnesseStart: 'true',                       // Arranca FitNesse
+			fitnesseHttpTimeout: '600000',               // 10 min (ajusta si quieres)
+			fitnesseTestTimeout: '600000',
+			fitnessePathToXmlResultsOut: 'fitnesse-results.xml',
+			fitnessePathToJunitResultsOut: 'fitnesse-junit-results.xml'
+		  ]
+		])
 	  }
 	  post {
 		always {
-		  dir('C:\\Datos\\Software\\Fitnesse\\fitnesse-for-appian-24.3.0') {
-			// Archivar el fichero para descargarlo/verlo
-			archiveArtifacts artifacts: 'fitnesse-results.html', fingerprint: true
+		  // Publicar resultados como tests nativos de Jenkins
+		  junit 'fitnesse-junit-results.xml'
 
-			// Publicar el HTML como informe en Jenkins (requiere plugin HTML Publisher)
-			publishHTML(target: [
-			  reportDir: '.',
-			  reportFiles: 'fitnesse-results.html',
-			  reportName: 'FitNesse Report'
-			])
-		  }
+		  // Opcional: archivar también el XML de FitNesse
+		  archiveArtifacts artifacts: 'fitnesse-results.xml, fitnesse-junit-results.xml',
+						   fingerprint: true
 		}
 	  }
 	}
