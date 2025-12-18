@@ -36,7 +36,7 @@ DEPLOYMENTDESCRIPTION = null
 		  )
 
 		  // Copia suites y users.properties desde el ZIP local
-		  sh "cp -a appian-devops/f4a/test_suites/. f4a/FitNesseForAppian/FitNesseRoot/FitNesseForAppian/Examples/"
+		  //sh "cp -a appian-devops/f4a/test_suites/. f4a/FitNesseForAppian/FitNesseRoot/FitNesseForAppian/Examples/"
 		  sh "cp appian-devops/f4a/users.properties f4a/FitNesseForAppian/configs/users.properties"
 		}
 	  }
