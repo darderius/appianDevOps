@@ -30,14 +30,14 @@ DEPLOYMENTDESCRIPTION = null
 
 		  // Ajusta el metrics.properties de F4A (OJO: ruta correcta de F4A, no ADM)
 		  jenkinsUtils.setProperty(
-			"adm/appian-version-client/metrics.properties",
+			"f4a/FitNesseForAppian/configs/metrics.properties",
 			"pipeline.usage",
 			"true"
 		  )
 
 		  // Copia suites y users.properties desde el ZIP local
 		  //sh "cp -a appian-devops/f4a/test_suites/. f4a/FitNesseForAppian/FitNesseRoot/FitNesseForAppian/Examples/"
-		  sh "cp appian-devops/f4a/users.properties f4a/FitNesseForAppian/configs/users.properties"
+		  //sh "cp appian-devops/f4a/users.properties f4a/FitNesseForAppian/configs/users.properties"
 		}
 	  }
 	}
