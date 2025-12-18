@@ -32,7 +32,7 @@ DEPLOYMENTDESCRIPTION = null
 		  //	"adm/appian-version-client/metrics.properties",
 		  //	"pipelineUsage",
 		  //	"true"
-		  )
+		  //)
 
 		  // === F4A desde ZIP local ===
 		  // f4a.zip está en appian-devops/f4a.zip
