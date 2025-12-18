@@ -30,7 +30,7 @@ DEPLOYMENTDESCRIPTION = null
 
 		  // Ajusta el metrics.properties de F4A (OJO: ruta correcta de F4A, no ADM)
 		  jenkinsUtils.setProperty(
-			"f4a/FitNesseForAppian/configs/metrics.properties",
+			"adm/appian-version-client/metrics.properties",
 			"pipeline.usage",
 			"true"
 		  )
