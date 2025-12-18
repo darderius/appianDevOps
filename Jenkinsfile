@@ -177,9 +177,13 @@ DEPLOYMENTDESCRIPTION = null
 		bat '''
 		  cd /d C:\\Datos\\Software\\Fitnesse\\fitnesse-for-appian-24.3.0
 
+		  rem Arrancar FitNesse en background (si no está ya como servicio)
 		  start /MIN "" start.bat
-		  timeout /t 10 /nobreak >NUL
 
+		  rem Pequeña espera para que arranque (usando ping en vez de timeout)
+		  ping 127.0.0.1 -n 10 >NUL
+
+		  rem Ejecutar la JenkinsSuite y guardar resultados en XML
 		  curl -s "http://localhost:8980/FitNesseForAppian.JenkinsSuite?format=xml&includehtml=true" ^
 			-o fitnesse-results.xml
 		'''
@@ -187,7 +191,11 @@ DEPLOYMENTDESCRIPTION = null
 	  post {
 		always {
 		  dir('C:\\Datos\\Software\\Fitnesse\\fitnesse-for-appian-24.3.0') {
+			// Publicar resultados como tests en Jenkins
 			junit 'fitnesse-results.xml'
+
+			// Opcional: archivar el fichero para descargarlo/verlo
+			archiveArtifacts artifacts: 'fitnesse-results.xml', fingerprint: true
 		  }
 		}
 	  }
