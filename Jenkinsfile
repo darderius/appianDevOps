@@ -21,28 +21,31 @@ DEPLOYMENTDESCRIPTION = null
 		script {
 		  def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
 
-		  // Limpia solo el directorio de trabajo de F4A (opcional pero recomendable)
+		  // Limpia el directorio de trabajo de F4A
 		  sh "rm -rf f4a"
 
-		  // === F4A desde ZIP local ===
-		  // f4a.zip está en appian-devops/f4a.zip
+		  // 1) Extrae el paquete general f4a
 		  sh "unzip -o appian-devops/f4a.zip -d f4a"
 
-		  // Ajusta el metrics.properties de F4A (OJO: ruta correcta de F4A, no ADM)
+		  // 2) Dentro de f4a, extrae el ZIP de FitNesse for Appian
+		  //    (ajusta el nombre si es distinto, pero por el log es fitnesse-for-appian-25.2.zip)
+		  sh "unzip -o 'f4a/fitnesse-for-appian-25.2.zip' -d f4a"
+
+		  // Ahora sí existe f4a/FitNesseForAppian/configs/metrics.properties
 		  jenkinsUtils.setProperty(
 			"f4a/FitNesseForAppian/configs/metrics.properties",
 			"pipeline.usage",
 			"true"
 		  )
 
-		  // Copia suites y users.properties desde el ZIP local
-		  //sh "cp -a appian-devops/f4a/test_suites/. f4a/FitNesseForAppian/FitNesseRoot/FitNesseForAppian/Examples/"
-		  //sh "cp appian-devops/f4a/users.properties f4a/FitNesseForAppian/configs/users.properties"
+		  // Copia suites y users.properties desde tu ZIP appian-devops/f4a.zip
+		  sh "cp -a appian-devops/f4a/test_suites/. f4a/FitNesseForAppian/FitNesseRoot/FitNesseForAppian/Examples/"
+		  sh "cp appian-devops/f4a/users.properties f4a/FitNesseForAppian/configs/users.properties"
 		}
 	  }
 	}
 
-     
+		 
 	//stage("Build Package") {
     //  steps {
     //    script {
