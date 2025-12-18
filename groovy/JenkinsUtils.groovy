@@ -162,42 +162,49 @@ void requestPatchAnalysis() {
 
 void checkAnalyzePatchStatus(patchId) {
   sleep 15
-  String newUrl = SITEBASEURL + "/webapi/getPatchAnalysisSummary?id=" + "/" + patchId +"/"
-  String analysisStatus = sh(script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
-  analysisStatus = analysisStatus
-  //.readLines().drop(1).join(" ")
-  analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
-  statusVar = analysisStatusJson.status
-  println statusVar
+  String newUrl = SITEBASEURL + "/webapi/getPatchAnalysisSummary?id=/" + patchId + "/"
 
-  while (!statusVar.equals("Completed")) {
+  String analysisStatus = sh(
+    script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"",
+    returnStdout: true
+  ).trim()
+
+  def analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
+  println "Respuesta parseada inicial: ${analysisStatusJson}"
+
+  // Accedemos al primer (y único) elemento de la lista
+  def current = analysisStatusJson[0]
+  def statusVar = current.status
+  println "statusVar inicial: ${statusVar}"
+
+  while (!"Completed".equals(statusVar)) {
     sleep 30
-	println "statusVar:" + statusVar
-	println statusVar.equals("Completed")
-    analysisStatus = sh(script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"" , returnStdout: true).trim()
-	analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
-    println analysisStatusJson
-	statusVar = analysisStatusJson.status
-	
+    println "statusVar: ${statusVar}"
+
+    analysisStatus = sh(
+      script: "curl --silent --location --request GET \"$newUrl\" --header \"Appian-API-Key: $APIKEY\"",
+      returnStdout: true
+    ).trim()
+
+    analysisStatusJson = new groovy.json.JsonSlurperClassic().parseText(analysisStatus)
+    println "Respuesta parseada en bucle: ${analysisStatusJson}"
+
+    current = analysisStatusJson[0]
+    statusVar = current.status
   }
-  
-  summaryVar = analysisStatusJson.summary
-  
-  if(summaryVar.equals("Fail")){
-	
-	//Devolvemos codigo de error dado que ha fallado el analisis en Aquaman para abortar el resto de la ejecucion
-	error("Code analysis failed")
+
+  def summaryVar = current.summary
+
+  if ("Fail".equals(summaryVar)) {
+    error("Code analysis failed")
   }
-  //Mostramos los resultados del analisis
-	//getAnalysisDetails(patchId)
-	//En vez de esto, mostramos un link a un reporte con la informacion para el usuario
-	println '************************************************************************************************************'
-	println 'Haga click a continuacion para ver los resultados del analisis'
-	println 'https://everisspaindemo.appianportals.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?patchId=' + patchId
-	println '************************************************************************************************************'
-	
-	println "Aquaman analysis finished: " + summaryVar
- 
+
+  println '************************************************************************************************************'
+  println 'Haga click a continuacion para ver los resultados del analisis'
+  println 'https://everisspaindemo.appianportals.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?patchId=' + patchId
+  println '************************************************************************************************************'
+
+  println "Aquaman analysis finished: " + summaryVar
 }
 
 
