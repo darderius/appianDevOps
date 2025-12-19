@@ -201,7 +201,7 @@ void checkAnalyzePatchStatus(patchId) {
 
   println '************************************************************************************************************'
   println 'Haga click a continuacion para ver los resultados del analisis'
-  println 'https://everisspaindemo.appianportals.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?patchId=' + patchId
+  println 'https://indra-spain.appiancloud.com/dc6d9daf-ab46-4a19-8db3-4769d03bc59a-portalAQ?patchId=' + patchId
   println '************************************************************************************************************'
 
   println "Aquaman analysis finished: " + summaryVar
